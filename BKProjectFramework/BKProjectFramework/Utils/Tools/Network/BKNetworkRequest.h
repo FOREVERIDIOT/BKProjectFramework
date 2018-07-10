@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
+#import "BKNetworkRequestFailureView.h"
 #import "BKNetworkUploadModel.h"
 
 @interface BKNetworkRequest : AFHTTPSessionManager
@@ -23,12 +24,13 @@
 /**
  POST请求
 
- @param url     链接
- @param params  参数
- @param success 成功
- @param failure 失败
+ @param url          链接
+ @param params       参数
+ @param requestView  请求界面(如果请求失败会加载请求失败界面 传nil代表请求失败不加载请求失败界面)
+ @param success      成功
+ @param failure      失败
  */
-- (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
+-(void)postWithURL:(NSString *)url params:(NSDictionary *)params requestView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
 
 /**
  POST带上传数据流请求
@@ -52,15 +54,20 @@
  */
 - (void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
 
-/**
- 开启网络监测 0、无网  1、WIFI网络  2、4G网络 (调用一次后,可以直接调用netStatus属性)
- */
-- (void)startNetworkReachability:(void (^)(NSInteger status))networkStatus;
+#pragma mark - 取消网络请求
 
 /**
  取消所有请求
  */
 - (void)cancelAllRequestOperations;
+
+#pragma mark - 开启网络监测
+
+/**
+ 开启网络监测 0、无网  1、WIFI网络  2、4G网络 (调用一次后,可以直接调用netStatus属性)
+ */
+- (void)startNetworkReachability:(void (^)(NSInteger status))networkStatus;
+
 
 
 @end

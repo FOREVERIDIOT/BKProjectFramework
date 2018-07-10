@@ -17,6 +17,8 @@
 		1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFD20EF152100BBEAD1 /* BKNetworkRequest.m */; };
 		1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */; };
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
+		1D7E145820F3425100E6546D /* BKaaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145720F3425100E6546D /* BKaaViewController.m */; };
+		1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */; };
 		1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1786E20EDAD9000BA7652 /* AppDelegate.m */; };
 		1DB1787720EDAD9100BA7652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DB1787620EDAD9100BA7652 /* Assets.xcassets */; };
 		1DB1787D20EDAD9100BA7652 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1787C20EDAD9100BA7652 /* main.m */; };
@@ -50,6 +52,10 @@
 		1D6B900020EF152100BBEAD1 /* BKNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequest.h; sourceTree = "<group>"; };
 		1D6B900320EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequestFailureView.h; sourceTree = "<group>"; };
 		1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNetworkRequestFailureView.m; sourceTree = "<group>"; };
+		1D7E145620F3425100E6546D /* BKaaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKaaViewController.h; sourceTree = "<group>"; };
+		1D7E145720F3425100E6546D /* BKaaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKaaViewController.m; sourceTree = "<group>"; };
+		1D7E145920F360EB00E6546D /* NSObject+BKNetworkExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BKNetworkExtension.h"; sourceTree = "<group>"; };
+		1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKNetworkExtension.m"; sourceTree = "<group>"; };
 		1DB1786A20EDAD9000BA7652 /* BKProjectFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKProjectFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DB1786D20EDAD9000BA7652 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1DB1786E20EDAD9000BA7652 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -123,6 +129,8 @@
 				1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */,
 				1D6B900320EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.h */,
 				1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */,
+				1D7E145920F360EB00E6546D /* NSObject+BKNetworkExtension.h */,
+				1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -154,6 +162,8 @@
 				1DB1788D20EDB55900BA7652 /* UI */,
 				1DB1786D20EDAD9000BA7652 /* AppDelegate.h */,
 				1DB1786E20EDAD9000BA7652 /* AppDelegate.m */,
+				1D7E145620F3425100E6546D /* BKaaViewController.h */,
+				1D7E145720F3425100E6546D /* BKaaViewController.m */,
 				1DB1788320EDB44A00BA7652 /* Supporting Files */,
 			);
 			path = BKProjectFramework;
@@ -368,6 +378,7 @@
 				1D6B8FEE20EF09EE00BBEAD1 /* BKCycleScrollImageView.m in Sources */,
 				1DB1788B20EDB52F00BA7652 /* BKShareManager.m in Sources */,
 				1D6B8FFB20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m in Sources */,
+				1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */,
 				1DB1787D20EDAD9100BA7652 /* main.m in Sources */,
 				1D6B8FEF20EF09EE00BBEAD1 /* BKCycleScrollPageControl.m in Sources */,
 				1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */,
@@ -382,6 +393,7 @@
 				1DB1789320EDCA7100BA7652 /* NSDate+BKExtension.m in Sources */,
 				1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
+				1D7E145820F3425100E6546D /* BKaaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

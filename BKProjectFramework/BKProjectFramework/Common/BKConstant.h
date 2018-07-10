@@ -7,3 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#pragma mark - URL
+
+UIKIT_EXTERN NSString * const kBaseUrl;

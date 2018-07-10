@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "BKaaViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic,strong) UIViewController * firstVC;
 
 @end
 
@@ -18,9 +21,31 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    
+    _firstVC = [[UIViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:_firstVC];
+    self.window.rootViewController = nav;
+    
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(100, 100, 100, 100);
+    [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundColor:[UIColor brownColor]];
+    [_firstVC.view addSubview:button];
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
+-(void)buttonClick
+{
+    BKaaViewController * vc1 = [[BKaaViewController alloc] init];
+    vc1.view.backgroundColor = [UIColor blueColor];
+    [_firstVC.navigationController pushViewController:vc1 animated:YES];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

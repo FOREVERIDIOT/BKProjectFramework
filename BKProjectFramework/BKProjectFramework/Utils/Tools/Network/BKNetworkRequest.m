@@ -7,8 +7,9 @@
 //
 
 #import "BKNetworkRequest.h"
-#import "BKNetworkRequestFailureView.h"
 #import "sys/utsname.h"
+//#import <objc/message.h>
+#import "NSObject+BKNetworkExtension.h"
 
 @interface BKNetworkRequest()
 
@@ -41,24 +42,34 @@ static BKNetworkRequest * client = nil;
 
 #pragma mark - post
 
--(void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure
+-(void)postWithURL:(NSString *)url params:(NSDictionary *)params requestView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure
 {
     [self setRequestHeader];
     
     [client POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-//        NSLog(@"%@",task.currentRequest.allHTTPHeaderFields);
-        
         if (success) {
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self requestFailureMessage:error.description requestUrl:url params:params failureType:BKRequestFailureTypeNetworkFailure appendInView:requestView successComplete:^(id json) {
+            if (success) {
+                success(json);
+            }
+        } failureComplete:^(NSError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
+        //第一次请求回调
         if (failure) {
             failure(error);
         }
     }];
 }
 
+/**
+ 带数据流post
+ */
 -(void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray requestProgress:(void (^)(NSProgress*progress))requestProgress success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     [self setRequestHeader];
@@ -90,22 +101,146 @@ static BKNetworkRequest * client = nil;
     }];
 }
 
--(void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure
+#pragma mark - get
+
+/**
+ GET请求
+ */
+-(void)getWithURL:(NSString *)url params:(NSDictionary *)params requestView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure
 {
+    [self setRequestHeader];
+    
     [client GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
         if (success) {
             success(responseObject);
         }
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [self requestFailureMessage:error.description requestUrl:url params:params failureType:BKRequestFailureTypeNetworkFailure appendInView:requestView successComplete:^(id json) {
+            if (success) {
+                success(json);
+            }
+        } failureComplete:^(NSError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
+        //第一次请求回调
         if (failure) {
             failure(error);
         }
-        
     }];
 }
+
+#pragma mark - POST/GET请求失败结果处理
+
+/**
+ 请求失败结果处理
+
+ @param failureMessage 失败原因
+ @param requestUrl 请求url
+ @param params 参数
+ @param failureType 失败类型
+ @param requestView 请求界面
+ @param successComplete 再次请求成功回调
+ @param failureComplete 再次请求失败回调
+ */
+-(void)requestFailureMessage:(NSString*)failureMessage requestUrl:(NSString*)requestUrl params:(NSDictionary*)params failureType:(BKRequestFailureType)failureType appendInView:(UIView*)requestView successComplete:(void (^)(id json))successComplete failureComplete:(void (^)(NSError * error))failureComplete
+{
+    if (requestView) {
+        __weak UIView * weak_requestView = requestView;
+        [self displayFailureViewWithErrorMessage:failureMessage requestUrl:requestUrl params:params failureType:failureType appendInView:requestView success:^(id json) {
+            [self requestView:weak_requestView deleteFailureViewWithUrl:requestUrl];
+            if (successComplete) {
+                successComplete(json);
+            }
+        } failure:^(NSError *error) {
+            if (failureComplete) {
+                failureComplete(error);
+            }
+        }];
+    }
+}
+
+#pragma mark - 请求失败加载界面
+
+/**
+ 显示加载失败界面
+ 
+ @param errorMessage 失败原因
+ @param requestUrl 请求url
+ @param params 参数
+ @param failureType 失败类型
+ @param requestView 请求界面
+ @param success 再次请求成功回调
+ @param failure 再次请求失败回调
+ */
+-(void)displayFailureViewWithErrorMessage:(NSString*)errorMessage requestUrl:(NSString*)requestUrl params:(NSDictionary*)params failureType:(BKRequestFailureType)failureType appendInView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure
+{
+    BKNetworkRequestFailureView * failureView = nil;
+    for (BKNetworkRequestFailureView * aFailureView in requestView.bk_netFailureViews) {
+        if ([aFailureView.requestUrl isEqualToString:requestUrl]) {
+            failureView = aFailureView;
+            break;
+        }
+    }
+    
+    if (!failureView) {
+        failureView = [[BKNetworkRequestFailureView alloc] init];
+        __weak UIView * weak_requestView = requestView;
+        [failureView refreshRequestMethod:^(NSString *requestUrl, NSDictionary *params) {
+            [self postWithURL:requestUrl params:params requestView:weak_requestView success:^(id json) {
+                if (success) {
+                    success(json);
+                }
+            } failure:^(NSError *error) {
+                if (failure) {
+                    failure(error);
+                }
+            }];
+        }];
+        [requestView addSubview:failureView];
+        
+        if ([requestView.bk_netFailureViews count] > 0) {
+            NSMutableArray * failureViews = [requestView.bk_netFailureViews mutableCopy];
+            [failureViews addObject:failureView];
+            requestView.bk_netFailureViews = [failureViews copy];
+        }else{
+            requestView.bk_netFailureViews = @[failureView];
+        }
+    }
+    
+    [failureView setupFailureMessage:errorMessage failureType:failureType requestUrl:requestUrl params:params];
+}
+
+/**
+ 在请求界面上删除当时错误的请求失败界面
+ 
+ @param requestView 请求界面
+ @param requestUrl 请求url
+ */
+-(void)requestView:(UIView*)requestView deleteFailureViewWithUrl:(NSString*)requestUrl
+{
+    for (BKNetworkRequestFailureView * failureView in requestView.bk_netFailureViews) {
+        if ([failureView.requestUrl isEqualToString:requestUrl]) {
+            
+            [failureView removeFromSuperview];
+            
+            NSMutableArray * failureViews = [requestView.bk_netFailureViews mutableCopy];
+            [failureViews removeObject:failureView];
+            requestView.bk_netFailureViews = [failureViews copy];
+            break;
+        }
+    }
+}
+
+#pragma mark - 取消网络请求
+
+- (void)cancelAllRequestOperations
+{
+    [client.operationQueue cancelAllOperations];
+}
+
+#pragma mark - 开启网络监测
 
 - (void)startNetworkReachability:(void (^)(NSInteger status))networkStatus
 {
@@ -141,11 +276,6 @@ static BKNetworkRequest * client = nil;
             networkStatus(self.netStatus);
         }
     }];
-}
-
-- (void)cancelAllRequestOperations
-{
-    [client.operationQueue cancelAllOperations];
 }
 
 #pragma mark - 获取设备型号

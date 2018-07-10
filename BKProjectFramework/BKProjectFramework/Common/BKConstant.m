@@ -7,3 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#pragma mark - URL
+
+NSString * const kBaseUrl = @"";
