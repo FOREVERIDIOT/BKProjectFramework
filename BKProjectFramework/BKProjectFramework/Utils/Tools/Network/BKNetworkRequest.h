@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
-#import "BKNetworkRequestFailureView.h"
 #import "BKNetworkUploadModel.h"
 
 @interface BKNetworkRequest : AFHTTPSessionManager
@@ -52,7 +51,7 @@
  @param success 成功
  @param failure 失败
  */
-- (void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
+-(void)getWithURL:(NSString *)url params:(NSDictionary *)params requestView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
 
 #pragma mark - 取消网络请求
 

@@ -8,7 +8,7 @@
 
 #import "BKNetworkRequest.h"
 #import "sys/utsname.h"
-//#import <objc/message.h>
+#import "BKNetworkRequestFailureView.h"
 #import "NSObject+BKNetworkExtension.h"
 
 @interface BKNetworkRequest()
