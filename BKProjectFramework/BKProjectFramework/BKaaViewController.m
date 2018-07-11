@@ -22,7 +22,6 @@
     // Do any additional setup after loading the view.
     
     [self requestUrl:kBaseUrl params:nil];
-
 }
 
 -(void)dealloc
