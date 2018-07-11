@@ -26,8 +26,9 @@ UIKIT_EXTERN const CGFloat kRepeatsTime;//永远执行时间
  @param timeInterval 时间间隔 (最多6位小数 即0.000001)
  @param totalTime 执行总时间 当 totalTime==kRepeatsTime 时无限执行
  @param handler 回调
+ @return 定时器
  */
--(void)bk_setupTimerWithTimeInterval:(CGFloat)timeInterval totalTime:(CGFloat)totalTime handler:(void (^)(BKTimerModel * timerModel))handler;
+-(dispatch_source_t)bk_setupTimerWithTimeInterval:(CGFloat)timeInterval totalTime:(CGFloat)totalTime handler:(void (^)(BKTimerModel * timerModel))handler;
 
 #pragma mark - 销毁定时器方法
 

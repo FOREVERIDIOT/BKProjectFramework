@@ -9,6 +9,8 @@
 #ifndef BKMacro_h
 #define BKMacro_h
 
+#define DEFAULT_USER_HEADER [UIImage imageNamed:@""]
+
 #define SCREENW [UIScreen mainScreen].bounds.size.width
 #define SCREENH [UIScreen mainScreen].bounds.size.height
 

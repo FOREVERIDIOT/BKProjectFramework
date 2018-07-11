@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D02949420F5D85700D75606 /* UIView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02949320F5D85700D75606 /* UIView+BKExtension.m */; };
+		1D02949820F5DA8100D75606 /* BKRoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02949720F5DA8100D75606 /* BKRoundedRectView.m */; };
+		1D02949B20F5DE9200D75606 /* NSString+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02949A20F5DE9200D75606 /* NSString+BKExtension.m */; };
+		1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294A420F5E3F100D75606 /* GTMBase64.m */; };
+		1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */; };
+		1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */; };
 		1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */; };
 		1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */; };
 		1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE520EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m */; };
@@ -31,6 +37,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D02949220F5D85700D75606 /* UIView+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+BKExtension.h"; sourceTree = "<group>"; };
+		1D02949320F5D85700D75606 /* UIView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+BKExtension.m"; sourceTree = "<group>"; };
+		1D02949620F5DA8100D75606 /* BKRoundedRectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKRoundedRectView.h; sourceTree = "<group>"; };
+		1D02949720F5DA8100D75606 /* BKRoundedRectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKRoundedRectView.m; sourceTree = "<group>"; };
+		1D02949920F5DE9200D75606 /* NSString+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+BKExtension.h"; sourceTree = "<group>"; };
+		1D02949A20F5DE9200D75606 /* NSString+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+BKExtension.m"; sourceTree = "<group>"; };
+		1D0294A220F5E3F100D75606 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		1D0294A320F5E3F100D75606 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1D0294A420F5E3F100D75606 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		1D0294A620F5E74900D75606 /* UIImageView+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+BKExtension.h"; sourceTree = "<group>"; };
+		1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+BKExtension.m"; sourceTree = "<group>"; };
+		1D0294A920F5ED2B00D75606 /* UIImage+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+BKExtension.h"; sourceTree = "<group>"; };
+		1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BKExtension.m"; sourceTree = "<group>"; };
 		1D6B8FE120EF09EE00BBEAD1 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
 		1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
 		1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollCollectionViewCell.m; sourceTree = "<group>"; };
@@ -90,6 +109,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D02949520F5DA2900D75606 /* BKRoundedRectView */ = {
+			isa = PBXGroup;
+			children = (
+				1D02949620F5DA8100D75606 /* BKRoundedRectView.h */,
+				1D02949720F5DA8100D75606 /* BKRoundedRectView.m */,
+			);
+			path = BKRoundedRectView;
+			sourceTree = "<group>";
+		};
+		1D0294A120F5E3F100D75606 /* GTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				1D0294A220F5E3F100D75606 /* GTMBase64.h */,
+				1D0294A420F5E3F100D75606 /* GTMBase64.m */,
+				1D0294A320F5E3F100D75606 /* GTMDefines.h */,
+			);
+			path = GTMBase64;
+			sourceTree = "<group>";
+		};
 		1D6B8FE020EF09EE00BBEAD1 /* BKCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +230,7 @@
 		1DB1788520EDB4AA00BA7652 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1D02949520F5DA2900D75606 /* BKRoundedRectView */,
 				1D6B8FFC20EF150800BBEAD1 /* Network */,
 				1D6B8FE020EF09EE00BBEAD1 /* BKCycleScrollView */,
 				1DB1789420EDEB7100BA7652 /* BKTimer */,
@@ -202,6 +241,7 @@
 		1DB1788620EDB4B200BA7652 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D0294A120F5E3F100D75606 /* GTMBase64 */,
 			);
 			path = Third;
 			sourceTree = "<group>";
@@ -215,6 +255,14 @@
 				1DB1789220EDCA7100BA7652 /* NSDate+BKExtension.m */,
 				1D6B8FF920EF10E900BBEAD1 /* NSUserDefaults+BKExtension.h */,
 				1D6B8FFA20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m */,
+				1D02949220F5D85700D75606 /* UIView+BKExtension.h */,
+				1D02949320F5D85700D75606 /* UIView+BKExtension.m */,
+				1D02949920F5DE9200D75606 /* NSString+BKExtension.h */,
+				1D02949A20F5DE9200D75606 /* NSString+BKExtension.m */,
+				1D0294A620F5E74900D75606 /* UIImageView+BKExtension.h */,
+				1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */,
+				1D0294A920F5ED2B00D75606 /* UIImage+BKExtension.h */,
+				1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -384,7 +432,11 @@
 				1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */,
 				1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */,
 				1D6B8FF720EF0C1200BBEAD1 /* BKConstant.m in Sources */,
+				1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */,
 				1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */,
+				1D02949B20F5DE9200D75606 /* NSString+BKExtension.m in Sources */,
+				1D02949820F5DA8100D75606 /* BKRoundedRectView.m in Sources */,
+				1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */,
 				1DB1789020EDB81A00BA7652 /* NSObject+BKExtension.m in Sources */,
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
 				1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */,
@@ -392,6 +444,8 @@
 				1DB1789720EDEB8400BA7652 /* BKTimer.m in Sources */,
 				1DB1789320EDCA7100BA7652 /* NSDate+BKExtension.m in Sources */,
 				1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */,
+				1D02949420F5D85700D75606 /* UIView+BKExtension.m in Sources */,
+				1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
 				1D7E145820F3425100E6546D /* BKaaViewController.m in Sources */,
 			);

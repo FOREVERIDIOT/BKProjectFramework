@@ -8,6 +8,12 @@
 
 #import "BKShareManager.h"
 
+@interface BKShareManager()
+
+@property (nonatomic,strong) dispatch_source_t networkTimer;
+
+@end
+
 @implementation BKShareManager
 
 #pragma mark - 单例方法
@@ -29,7 +35,12 @@ static BKShareManager * shareManager;
  */
 -(void)getCurrentTime
 {
-    
+    [[BKNetworkRequest shareClient] getWithURL:@"" params:nil requestView:nil success:^(id json) {
+        self.currentTimestamp = [[NSDate date] timeIntervalSince1970];
+        [self startGetNetworkTimeTimer];
+    } failure:^(NSError *error) {
+        [self startGetNetworkTimeTimer];
+    }];
 }
 
 /**
@@ -37,7 +48,17 @@ static BKShareManager * shareManager;
  */
 -(void)startGetNetworkTimeTimer
 {
+    if (self.currentTimestamp == 0) {
+        self.currentTimestamp = [[NSDate date] timeIntervalSince1970];
+    }
     
+    if (self.networkTimer) {
+        [self stopGetNetworkTimeTimer];
+    }
+    
+    self.networkTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:0.1 totalTime:kRepeatsTime handler:^(BKTimerModel *timerModel) {
+        self.currentTimestamp = self.currentTimestamp + 0.1;
+    }];
 }
 
 /**
@@ -45,7 +66,7 @@ static BKShareManager * shareManager;
  */
 -(void)stopGetNetworkTimeTimer
 {
-    
+    [[BKTimer sharedManager] bk_removeTimer:self.networkTimer];
 }
 
 @end

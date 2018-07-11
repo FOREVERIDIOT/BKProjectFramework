@@ -12,7 +12,7 @@ typedef NS_ENUM(NSUInteger, BKDateFormat) {
     BKDateFormatYYYY_MM_dd_HH_mm = 0,    //YYYY-MM-dd HH:mm
     BKDateFormatYYYY_MM_dd,              //YYYY-MM-dd
     BKDateFormatYYYY_MM_HH_mm,           //YYYY-MM HH:mm
-    BKDateFormatHH_mm,                   //YYYY-MM HH:mm
+    BKDateFormatHH_mm,                   //HH:mm
 };
 
 @interface NSDate (BKExtension)
@@ -25,18 +25,18 @@ typedef NS_ENUM(NSUInteger, BKDateFormat) {
 #pragma mark - 获取当前时间
 
 /**
- 获取当前时间戳
+ 获取当前网络时间戳
 
- @return 当前时间戳
+ @return 当前网络时间戳
  */
-+(NSTimeInterval)getCurrentTimestamp;
+-(NSTimeInterval)getCurrentTimestamp;
 
 /**
- 获取当前时间
+ 获取当前网络时间
 
- @return 当前时间
+ @return 当前网络时间
  */
-+(NSDate*)getCurrentDate;
+-(NSDate*)getCurrentDate;
 
 #pragma mark - 时间转换 Format形式
 
@@ -74,6 +74,6 @@ typedef NS_ENUM(NSUInteger, BKDateFormat) {
  @param date 相比时间
  @return 时间相差几天
  */
--(NSInteger)compareToDateOfDay:(NSDate*)date;
+-(NSInteger)compareToDateForSpaceDay:(NSDate*)date;
 
 @end

@@ -12,7 +12,6 @@
 @interface BKaaViewController ()
 
 @property (nonatomic,assign) NSInteger nums;
-@property (nonatomic,strong) BKNetworkRequestFailureView * failureView;
 
 @end
 
@@ -23,6 +22,7 @@
     // Do any additional setup after loading the view.
     
     [self requestUrl:kBaseUrl params:nil];
+
 }
 
 -(void)dealloc
@@ -38,30 +38,15 @@
         
     }];
     
-//    [[BKNetworkRequest shareClient] postWithURL:url params:params requestView:self.view success:^(id json) {
-//
-//    } failure:^(NSError *error, BKNetworkRequestFailureView *failureView) {
-//        NSMutableString * string = error.description.mutableCopy;
-//        for (int i = 0; i < self.nums; i++) {
-//            [string appendString:[NSString stringWithFormat:@"\n%@",error.description]];
-//        }
-//        [self requestFailureWithErrorMessage:string params:params failureType:BKRequestFailureTypeNetworkNotSuccess];
-//
-//        self.nums++;
-//    }];
+    UIView * aView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 200)/2, 200, 200, 200)];
+    
+    
+    [[BKNetworkRequest shareClient] postWithURL:kBaseUrl params:nil requestView:aView success:^(id json) {
+        
+    } failure:^(NSError *error) {
+        [self.view addSubview:aView];
+    }];
 }
-
-//-(void)requestFailureWithErrorMessage:(NSString*)errorMessage params:(NSDictionary*)params failureType:(BKRequestFailureType)failureType
-//{
-//    if (!_failureView) {
-//        _failureView = [[BKNetworkRequestFailureView alloc] init];
-//        [self.view addSubview:_failureView];
-//    }
-//    WEAK_SELF(self);
-//    [_failureView setupFailureMessage:errorMessage failureType:failureType failureUrl:kBaseUrl params:params refreshMethod:^(BKRequestFailureType failureType, NSString *failureUrl, NSDictionary *params) {
-//        [weakSelf requestUrl:failureUrl params:params];
-//    }];
-//}
 
 
 @end

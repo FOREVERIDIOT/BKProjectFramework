@@ -14,5 +14,6 @@ pod 'MJExtension'
 pod 'FLAnimatedImage'
 pod 'IQKeyboardManager'
 pod 'SAMKeychain'
+pod 'MBProgressHUD'
 
 end

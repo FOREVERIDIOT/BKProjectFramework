@@ -36,7 +36,7 @@ CGFloat const kMinTimeInterval = 0.000001;
 
 #pragma mark - 创建定时器方法
 
--(void)bk_setupTimerWithTimeInterval:(CGFloat)timeInterval totalTime:(CGFloat)totalTime handler:(void (^)(BKTimerModel * timerModel))handler
+-(dispatch_source_t)bk_setupTimerWithTimeInterval:(CGFloat)timeInterval totalTime:(CGFloat)totalTime handler:(void (^)(BKTimerModel * timerModel))handler
 {
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(0, 0));
     
@@ -85,6 +85,8 @@ CGFloat const kMinTimeInterval = 0.000001;
         }
     });
     dispatch_resume(timer);
+    
+    return timer;
 }
 
 #pragma mark - 销毁定时器方法
