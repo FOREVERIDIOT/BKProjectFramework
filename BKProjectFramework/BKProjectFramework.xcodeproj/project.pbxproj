@@ -13,6 +13,20 @@
 		1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294A420F5E3F100D75606 /* GTMBase64.m */; };
 		1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */; };
 		1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */; };
+		1D0294AF20F5FCEA00D75606 /* BKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294AE20F5FCEA00D75606 /* BKScrollView.m */; };
+		1D0294B220F5FD9500D75606 /* BKTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294B120F5FD9500D75606 /* BKTableView.m */; };
+		1D0294B520F5FDC700D75606 /* BKCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294B420F5FDC700D75606 /* BKCollectionView.m */; };
+		1D0294B820F5FFB200D75606 /* BKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294B720F5FFB200D75606 /* BKImageView.m */; };
+		1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BB20F6003300D75606 /* BKTabBarController.m */; };
+		1D0294BF20F6004B00D75606 /* BKTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BE20F6004B00D75606 /* BKTabBar.m */; };
+		1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294C120F6058700D75606 /* BKTabBarBtn.m */; };
+		1D0294C520F605DD00D75606 /* BKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294C420F605DD00D75606 /* BKDemoViewController.m */; };
+		1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */; };
+		1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77420F740FA0010FBB5 /* UINavigationController+BKNavExtension.m */; };
+		1D3AA77C20F740FA0010FBB5 /* BKNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77620F740FA0010FBB5 /* BKNavViewController.m */; };
+		1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */; };
+		1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */; };
+		1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA78020F7412F0010FBB5 /* BKNavButton.m */; };
 		1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */; };
 		1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */; };
 		1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE520EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m */; };
@@ -23,7 +37,6 @@
 		1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFD20EF152100BBEAD1 /* BKNetworkRequest.m */; };
 		1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */; };
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
-		1D7E145820F3425100E6546D /* BKaaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145720F3425100E6546D /* BKaaViewController.m */; };
 		1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */; };
 		1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1786E20EDAD9000BA7652 /* AppDelegate.m */; };
 		1DB1787720EDAD9100BA7652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DB1787620EDAD9100BA7652 /* Assets.xcassets */; };
@@ -50,6 +63,34 @@
 		1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+BKExtension.m"; sourceTree = "<group>"; };
 		1D0294A920F5ED2B00D75606 /* UIImage+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+BKExtension.h"; sourceTree = "<group>"; };
 		1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BKExtension.m"; sourceTree = "<group>"; };
+		1D0294AD20F5FCEA00D75606 /* BKScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKScrollView.h; sourceTree = "<group>"; };
+		1D0294AE20F5FCEA00D75606 /* BKScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKScrollView.m; sourceTree = "<group>"; };
+		1D0294B020F5FD9500D75606 /* BKTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTableView.h; sourceTree = "<group>"; };
+		1D0294B120F5FD9500D75606 /* BKTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTableView.m; sourceTree = "<group>"; };
+		1D0294B320F5FDC700D75606 /* BKCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCollectionView.h; sourceTree = "<group>"; };
+		1D0294B420F5FDC700D75606 /* BKCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCollectionView.m; sourceTree = "<group>"; };
+		1D0294B620F5FFB200D75606 /* BKImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImageView.h; sourceTree = "<group>"; };
+		1D0294B720F5FFB200D75606 /* BKImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImageView.m; sourceTree = "<group>"; };
+		1D0294BA20F6003300D75606 /* BKTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBarController.h; sourceTree = "<group>"; };
+		1D0294BB20F6003300D75606 /* BKTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBarController.m; sourceTree = "<group>"; };
+		1D0294BD20F6004B00D75606 /* BKTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBar.h; sourceTree = "<group>"; };
+		1D0294BE20F6004B00D75606 /* BKTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBar.m; sourceTree = "<group>"; };
+		1D0294C020F6058700D75606 /* BKTabBarBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBarBtn.h; sourceTree = "<group>"; };
+		1D0294C120F6058700D75606 /* BKTabBarBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBarBtn.m; sourceTree = "<group>"; };
+		1D0294C320F605DD00D75606 /* BKDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKDemoViewController.h; sourceTree = "<group>"; };
+		1D0294C420F605DD00D75606 /* BKDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKDemoViewController.m; sourceTree = "<group>"; };
+		1D3AA76320F6F5650010FBB5 /* BKBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBaseViewController.h; sourceTree = "<group>"; };
+		1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBaseViewController.m; sourceTree = "<group>"; };
+		1D3AA77320F740FA0010FBB5 /* BKTransitionAnimater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKTransitionAnimater.h; sourceTree = "<group>"; };
+		1D3AA77420F740FA0010FBB5 /* UINavigationController+BKNavExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+BKNavExtension.m"; sourceTree = "<group>"; };
+		1D3AA77520F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		1D3AA77620F740FA0010FBB5 /* BKNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKNavViewController.m; sourceTree = "<group>"; };
+		1D3AA77720F740FA0010FBB5 /* UINavigationController+BKNavExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+BKNavExtension.h"; sourceTree = "<group>"; };
+		1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKTransitionAnimater.m; sourceTree = "<group>"; };
+		1D3AA77920F740FA0010FBB5 /* BKNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKNavViewController.h; sourceTree = "<group>"; };
+		1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		1D3AA77F20F7412F0010FBB5 /* BKNavButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNavButton.h; sourceTree = "<group>"; };
+		1D3AA78020F7412F0010FBB5 /* BKNavButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNavButton.m; sourceTree = "<group>"; };
 		1D6B8FE120EF09EE00BBEAD1 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
 		1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
 		1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollCollectionViewCell.m; sourceTree = "<group>"; };
@@ -71,8 +112,6 @@
 		1D6B900020EF152100BBEAD1 /* BKNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequest.h; sourceTree = "<group>"; };
 		1D6B900320EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequestFailureView.h; sourceTree = "<group>"; };
 		1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNetworkRequestFailureView.m; sourceTree = "<group>"; };
-		1D7E145620F3425100E6546D /* BKaaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKaaViewController.h; sourceTree = "<group>"; };
-		1D7E145720F3425100E6546D /* BKaaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKaaViewController.m; sourceTree = "<group>"; };
 		1D7E145920F360EB00E6546D /* NSObject+BKNetworkExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BKNetworkExtension.h"; sourceTree = "<group>"; };
 		1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKNetworkExtension.m"; sourceTree = "<group>"; };
 		1DB1786A20EDAD9000BA7652 /* BKProjectFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKProjectFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +165,60 @@
 				1D0294A320F5E3F100D75606 /* GTMDefines.h */,
 			);
 			path = GTMBase64;
+			sourceTree = "<group>";
+		};
+		1D0294AC20F5FCC900D75606 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1D0294AD20F5FCEA00D75606 /* BKScrollView.h */,
+				1D0294AE20F5FCEA00D75606 /* BKScrollView.m */,
+				1D0294B020F5FD9500D75606 /* BKTableView.h */,
+				1D0294B120F5FD9500D75606 /* BKTableView.m */,
+				1D0294B320F5FDC700D75606 /* BKCollectionView.h */,
+				1D0294B420F5FDC700D75606 /* BKCollectionView.m */,
+				1D0294B620F5FFB200D75606 /* BKImageView.h */,
+				1D0294B720F5FFB200D75606 /* BKImageView.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		1D0294B920F6000300D75606 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1D0294BA20F6003300D75606 /* BKTabBarController.h */,
+				1D0294BB20F6003300D75606 /* BKTabBarController.m */,
+				1D0294BD20F6004B00D75606 /* BKTabBar.h */,
+				1D0294BE20F6004B00D75606 /* BKTabBar.m */,
+				1D0294C020F6058700D75606 /* BKTabBarBtn.h */,
+				1D0294C120F6058700D75606 /* BKTabBarBtn.m */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		1D3AA76220F6F53A0010FBB5 /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1D3AA76320F6F5650010FBB5 /* BKBaseViewController.h */,
+				1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */,
+				1D3AA77F20F7412F0010FBB5 /* BKNavButton.h */,
+				1D3AA78020F7412F0010FBB5 /* BKNavButton.m */,
+			);
+			path = BaseViewController;
+			sourceTree = "<group>";
+		};
+		1D3AA77220F740FA0010FBB5 /* NavViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1D3AA77920F740FA0010FBB5 /* BKNavViewController.h */,
+				1D3AA77620F740FA0010FBB5 /* BKNavViewController.m */,
+				1D3AA77720F740FA0010FBB5 /* UINavigationController+BKNavExtension.h */,
+				1D3AA77420F740FA0010FBB5 /* UINavigationController+BKNavExtension.m */,
+				1D3AA77520F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.h */,
+				1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */,
+				1D3AA77320F740FA0010FBB5 /* BKTransitionAnimater.h */,
+				1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */,
+			);
+			path = NavViewController;
 			sourceTree = "<group>";
 		};
 		1D6B8FE020EF09EE00BBEAD1 /* BKCycleScrollView */ = {
@@ -200,8 +293,8 @@
 				1DB1788D20EDB55900BA7652 /* UI */,
 				1DB1786D20EDAD9000BA7652 /* AppDelegate.h */,
 				1DB1786E20EDAD9000BA7652 /* AppDelegate.m */,
-				1D7E145620F3425100E6546D /* BKaaViewController.h */,
-				1D7E145720F3425100E6546D /* BKaaViewController.m */,
+				1D0294C320F605DD00D75606 /* BKDemoViewController.h */,
+				1D0294C420F605DD00D75606 /* BKDemoViewController.m */,
 				1DB1788320EDB44A00BA7652 /* Supporting Files */,
 			);
 			path = BKProjectFramework;
@@ -270,6 +363,10 @@
 		1DB1788C20EDB53C00BA7652 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				1D3AA77220F740FA0010FBB5 /* NavViewController */,
+				1D3AA76220F6F53A0010FBB5 /* BaseViewController */,
+				1D0294B920F6000300D75606 /* TabBar */,
+				1D0294AC20F5FCC900D75606 /* Common */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -423,8 +520,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D3AA77C20F740FA0010FBB5 /* BKNavViewController.m in Sources */,
 				1D6B8FEE20EF09EE00BBEAD1 /* BKCycleScrollImageView.m in Sources */,
+				1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */,
 				1DB1788B20EDB52F00BA7652 /* BKShareManager.m in Sources */,
+				1D0294C520F605DD00D75606 /* BKDemoViewController.m in Sources */,
+				1D0294B220F5FD9500D75606 /* BKTableView.m in Sources */,
+				1D0294B520F5FDC700D75606 /* BKCollectionView.m in Sources */,
+				1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */,
+				1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */,
+				1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */,
+				1D0294AF20F5FCEA00D75606 /* BKScrollView.m in Sources */,
 				1D6B8FFB20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m in Sources */,
 				1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */,
 				1DB1787D20EDAD9100BA7652 /* main.m in Sources */,
@@ -432,11 +538,15 @@
 				1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */,
 				1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */,
 				1D6B8FF720EF0C1200BBEAD1 /* BKConstant.m in Sources */,
+				1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */,
 				1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */,
 				1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */,
+				1D0294BF20F6004B00D75606 /* BKTabBar.m in Sources */,
 				1D02949B20F5DE9200D75606 /* NSString+BKExtension.m in Sources */,
+				1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */,
 				1D02949820F5DA8100D75606 /* BKRoundedRectView.m in Sources */,
 				1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */,
+				1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */,
 				1DB1789020EDB81A00BA7652 /* NSObject+BKExtension.m in Sources */,
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
 				1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */,
@@ -447,7 +557,7 @@
 				1D02949420F5D85700D75606 /* UIView+BKExtension.m in Sources */,
 				1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
-				1D7E145820F3425100E6546D /* BKaaViewController.m in Sources */,
+				1D0294B820F5FFB200D75606 /* BKImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +682,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BKProjectFramework/Common/PrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/BKProjectFramework/Supporting Files/Info.plist";
@@ -595,6 +706,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BKProjectFramework/Common/PrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/BKProjectFramework/Supporting Files/Info.plist";

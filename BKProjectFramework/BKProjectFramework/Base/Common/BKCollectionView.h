@@ -1,13 +1,13 @@
 //
-//  BKaaViewController.h
+//  BKCollectionView.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/9.
+//  Created by zhaolin on 2018/7/11.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface BKaaViewController : UIViewController
+@interface BKCollectionView : UICollectionView
 
 @end

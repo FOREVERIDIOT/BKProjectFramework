@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BKDemoViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic,strong) BKDemoViewController * demoVC;
 
 @end
 

@@ -15,6 +15,13 @@
 #import "BKConstant.h"
 #import "BKShareManager.h"
 
+#import "BKImageView.h"
+#import "BKScrollView.h"
+#import "BKTableView.h"
+#import "BKCollectionView.h"
+#import "BKBaseViewController.h"
+#import "BKNavViewController.h"
+
 #import "BKTimer.h"
 #import "BKCycleScrollView.h"
 #import "BKNetworkRequest.h"

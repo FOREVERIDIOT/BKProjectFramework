@@ -276,7 +276,7 @@
     UIImage * placeholderImage = [UIImage imageNamed:@""];
     
     UIGraphicsBeginImageContextWithOptions(size,0, [UIScreen mainScreen].scale);
-    [HEX_RGB(0xeeeeee) set];
+    [kColor_EEEEEE set];
     UIRectFill(CGRectMake(0,0, size.width, size.height));
     
     CGFloat width = 0.0;

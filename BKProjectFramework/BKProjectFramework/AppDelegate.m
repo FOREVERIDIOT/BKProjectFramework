@@ -7,11 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "BKaaViewController.h"
 
 @interface AppDelegate ()
-
-@property (nonatomic,strong) UIViewController * firstVC;
 
 @end
 
@@ -24,27 +21,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    
-    _firstVC = [[UIViewController alloc] init];
-    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:_firstVC];
+    self.demoVC = [[BKDemoViewController alloc] init];
+    BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:self.demoVC];
     self.window.rootViewController = nav;
-    
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(100, 100, 100, 100);
-    [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
-    [button setBackgroundColor:[UIColor brownColor]];
-    [_firstVC.view addSubview:button];
     
     [self.window makeKeyAndVisible];
     
     return YES;
-}
-
--(void)buttonClick
-{
-    BKaaViewController * vc1 = [[BKaaViewController alloc] init];
-    vc1.view.backgroundColor = [UIColor blueColor];
-    [_firstVC.navigationController pushViewController:vc1 animated:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
