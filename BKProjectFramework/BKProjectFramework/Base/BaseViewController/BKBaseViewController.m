@@ -10,6 +10,9 @@
 
 @interface BKBaseViewController ()
 
+@property (nonatomic,assign) CGFloat leftNavSpace;
+@property (nonatomic,assign) CGFloat rightNavSpace;
+
 @end
 
 @implementation BKBaseViewController
@@ -59,7 +62,7 @@
         
         _topNavView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENW, _topNavViewHeight)];
         
-        _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(64, SYSTEM_STATUSBAR_HEIGHT, SCREENW-64*2, SYSTEM_NAV_UI_HEIGHT)];
+        _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, _topNavView.width, SYSTEM_NAV_UI_HEIGHT)];
         _titleLab.textColor = kColor_333333;
         _titleLab.font = [UIFont systemFontOfSize:18];
         _titleLab.textAlignment = NSTextAlignmentCenter;
@@ -100,9 +103,18 @@
     
     BKNavButton * lastBtn;
     for (BKNavButton * currentBtn in _leftNavBtns) {
-        currentBtn.x = lastBtn ? CGRectGetMaxX(lastBtn.frame) : 6;
+        currentBtn.x = CGRectGetMaxX(lastBtn.frame);
         [_topNavView addSubview:currentBtn];
         lastBtn = currentBtn;
+    }
+    
+    _leftNavSpace = CGRectGetMaxX(lastBtn.frame);
+    if (_rightNavSpace < _leftNavSpace) {
+        _titleLab.width = _topNavView.width - _leftNavSpace*2;
+        _titleLab.x = _leftNavSpace;
+    }else{
+        _titleLab.width = _topNavView.width - _rightNavSpace*2;
+        _titleLab.x = _rightNavSpace;
     }
 }
 
@@ -112,9 +124,18 @@
     
     BKNavButton * lastBtn;
     for (BKNavButton * currentBtn in _rightNavBtns) {
-        currentBtn.x = lastBtn ? CGRectGetMinX(lastBtn.frame) - currentBtn.width : _topNavView.width - 6 - currentBtn.width;
+        currentBtn.x = lastBtn ? CGRectGetMinX(lastBtn.frame) - currentBtn.width : _topNavView.width - currentBtn.width;
         [_topNavView addSubview:currentBtn];
         lastBtn = currentBtn;
+    }
+    
+    _rightNavSpace = CGRectGetMinX(lastBtn.frame);
+    if (_rightNavSpace < _leftNavSpace) {
+        _titleLab.width = _topNavView.width - _leftNavSpace*2;
+        _titleLab.x = _leftNavSpace;
+    }else{
+        _titleLab.width = _topNavView.width - _rightNavSpace*2;
+        _titleLab.x = _rightNavSpace;
     }
 }
 

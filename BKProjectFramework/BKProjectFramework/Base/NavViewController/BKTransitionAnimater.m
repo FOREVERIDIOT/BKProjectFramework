@@ -32,16 +32,18 @@
 
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext
 {
-    if ([[UIDevice currentDevice].systemVersion floatValue] < 11) {
-        return 0.25;
-    }else{
+    if (@available(iOS 11.0, *)) {
         if (_interation) {
             return 0.5;
         }else{
             return 0.25;
         }
+    } else {
+        return 0.25;
     }
 }
+
+#pragma mark - 转场动画
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
@@ -80,21 +82,50 @@
     if (tabBarVC) {
         [fromVC.view addSubview:tabBarVC.tabBar];
     }
+    
+    if (!_fromShadowView) {
+        _fromShadowView = [[UIView alloc]initWithFrame:fromVC.view.frame];
+        _fromShadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.15];
+        _fromShadowView.alpha = 0;
+        [containerView addSubview:_fromShadowView];
+    }
+    
+    if (!_toShadowView) {
+        _toShadowView = [[UIView alloc]initWithFrame:toVC.view.frame];
+        _toShadowView.backgroundColor = [UIColor whiteColor];
+        _toShadowView.layer.shadowColor = [UIColor blackColor].CGColor;
+        _toShadowView.layer.shadowOpacity = 0.45;
+        _toShadowView.layer.shadowOffset = CGSizeMake(0, 0);
+        _toShadowView.layer.shadowRadius = 7;
+        _toShadowView.alpha = 0;
+        [containerView addSubview:_toShadowView];
+    }
+    
     [containerView addSubview:toVC.view];
     
     WEAK_SELF(self);
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        STRONG_SELF(self);
+        STRONG_SELF(weakSelf);
         
         if (strongSelf.direction == BKTransitionAnimaterDirectionRight) {
             fromVC.view.x = -SCREENW/2;
+            strongSelf.fromShadowView.x = -SCREENW/2;
         }else {
             fromVC.view.x = SCREENW/2;
+            strongSelf.fromShadowView.x = SCREENW/2;
         }
-        
+        strongSelf.fromShadowView.alpha = 1;
         toVC.view.x = 0;
+        strongSelf.toShadowView.x = 0;
+        strongSelf.toShadowView.alpha = 1;
         
     } completion:^(BOOL finished) {
+        STRONG_SELF(weakSelf);
+        
+        [strongSelf.fromShadowView removeFromSuperview];
+        strongSelf.fromShadowView = nil;
+        [strongSelf.toShadowView removeFromSuperview];
+        strongSelf.toShadowView = nil;
         
         [fromVC.view removeFromSuperview];
         
@@ -170,7 +201,7 @@
     
     WEAK_SELF(self);
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        STRONG_SELF(self);
+        STRONG_SELF(weakSelf);
         
         if (strongSelf.direction == BKTransitionAnimaterDirectionRight) {
             fromVC.view.x = SCREENW;
@@ -185,7 +216,7 @@
         strongSelf.toShadowView.alpha = 0;
         
     } completion:^(BOOL finished) {
-        STRONG_SELF(self);
+        STRONG_SELF(weakSelf);
         
         [strongSelf.fromShadowView removeFromSuperview];
         strongSelf.fromShadowView = nil;
