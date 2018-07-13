@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BKDemoViewController.h"
+#import "BKTabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic,strong) BKDemoViewController * demoVC;
+@property (nonatomic,strong) BKTabBarController * tabBar;
 
 @end
 

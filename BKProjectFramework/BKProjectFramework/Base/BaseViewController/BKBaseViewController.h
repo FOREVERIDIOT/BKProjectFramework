@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BKNavButton.h"
 
 @interface BKBaseViewController : UIViewController
 
@@ -14,24 +15,10 @@
 
 @property (nonatomic,strong) UIView * topNavView;//高度为 SYSTEM_NAV_HEIGHT
 @property (nonatomic,strong) UILabel * titleLab;
-@property (nonatomic,strong) NSArray<UIButton*> * leftBtns;
-@property (nonatomic,strong) NSArray<UIButton*> * rightBtns;
+@property (nonatomic,strong) NSArray<BKNavButton*> * leftNavBtns;
+@property (nonatomic,strong) NSArray<BKNavButton*> * rightNavBtns;
 @property (nonatomic,strong) BKImageView * topLine;
 @property (nonatomic,assign) CGFloat topNavViewHeight;//topNavView的高度 默认高度为 SYSTEM_NAV_HEIGHT
-
-/**
- 导航左边按钮事件
- 
- @param button 按钮
- */
--(void)leftNavBtnAction:(UIButton*)button;
-
-/**
- 导航右边按钮事件
- 
- @param button 按钮
- */
--(void)rightNavBtnAction:(UIButton*)button;
 
 #pragma mark - 底部导航
 

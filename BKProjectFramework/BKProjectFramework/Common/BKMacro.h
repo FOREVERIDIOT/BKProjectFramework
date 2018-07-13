@@ -29,7 +29,7 @@
 #define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 #define SYSTEM_STATUSBAR_HEIGHT (iPhoneX ? 44.f : 20.f)
 #define SYSTEM_NAV_HEIGHT (iPhoneX ? (44.f+44.f) : 64.f)
-#define SYSTEM_NAV_UI_HEIGHT SYSTEM_NAV_HEIGHT - SYSTEM_STATUSBAR_HEIGHT
+#define SYSTEM_NAV_UI_HEIGHT (SYSTEM_NAV_HEIGHT - SYSTEM_STATUSBAR_HEIGHT)
 #define SYSTEM_TABBAR_HEIGHT (iPhoneX ? 83.f : 49.f)
 #define SYSTEM_TABBAR_UI_HEIGHT 49.f
 

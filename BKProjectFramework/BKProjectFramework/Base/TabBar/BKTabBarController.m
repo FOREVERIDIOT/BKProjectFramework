@@ -26,7 +26,7 @@
 -(NSArray*)normalImageArr
 {
     if (!_normalImageArr) {
-        _normalImageArr = @[@"demo_n"];
+        _normalImageArr = @[@"demo_n", @"demo_n"];
     }
     return _normalImageArr;
 }
@@ -34,7 +34,7 @@
 -(NSArray*)selectImageArr
 {
     if (!_selectImageArr) {
-        _selectImageArr = @[@"demo_s"];
+        _selectImageArr = @[@"demo_s", @"demo_s"];
     }
     return _selectImageArr;
 }
@@ -42,7 +42,7 @@
 -(NSArray*)titleArr
 {
     if (!_titleArr) {
-        _titleArr = @[@"demo"];
+        _titleArr = @[@"demo", @"demo"];
     }
     return _titleArr;
 }
@@ -88,7 +88,10 @@
     BKDemoViewController * demoVC = [[BKDemoViewController alloc] init];
     BKNavViewController * demoNav = [[BKNavViewController alloc] initWithRootViewController:demoVC];
     
-    self.viewControllers=@[demoNav];
+    BKDemoViewController * demoVC1 = [[BKDemoViewController alloc] init];
+    BKNavViewController * demoNav1 = [[BKNavViewController alloc] initWithRootViewController:demoVC1];
+    
+    self.viewControllers = @[demoNav, demoNav1];
 }
 
 #pragma mark - myTabBar

@@ -21,9 +21,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    self.demoVC = [[BKDemoViewController alloc] init];
-    BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:self.demoVC];
-    self.window.rootViewController = nav;
+    self.tabBar = [[BKTabBarController alloc] init];
+    self.window.rootViewController = self.tabBar;
     
     [self.window makeKeyAndVisible];
     
