@@ -2,7 +2,7 @@
 //  BKTabBar.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/11.
+//  Created by BIKE on 2018/7/11.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
