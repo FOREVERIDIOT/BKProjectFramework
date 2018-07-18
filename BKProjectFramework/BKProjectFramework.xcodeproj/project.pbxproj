@@ -27,7 +27,6 @@
 		1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */; };
 		1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */; };
 		1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA78020F7412F0010FBB5 /* BKNavButton.m */; };
-		1D45CA3F20FC4A9C003C7BA4 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D45CA3E20FC4A9C003C7BA4 /* IJKMediaFramework.framework */; };
 		1D45CAA520FC6892003C7BA4 /* BKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4420FC6892003C7BA4 /* BKTool.m */; };
 		1D45CAA620FC6892003C7BA4 /* NSObject+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4620FC6892003C7BA4 /* NSObject+BKImagePicker.m */; };
 		1D45CAA720FC6892003C7BA4 /* UIView+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4820FC6892003C7BA4 /* UIView+BKImagePicker.m */; };
@@ -77,6 +76,7 @@
 		1D45CAE720FC7DFC003C7BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D45CAE620FC7DFC003C7BA4 /* UIKit.framework */; };
 		1D45CAE920FC7E09003C7BA4 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */; };
 		1D45CB0420FC8328003C7BA4 /* BKImageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CB0320FC8328003C7BA4 /* BKImageBaseViewController.m */; };
+		1D50C9D120FF255000626230 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D50C9D020FF255000626230 /* IJKMediaFramework.framework */; };
 		1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */; };
 		1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */; };
 		1D6B8FED20EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE520EF09EE00BBEAD1 /* BKCycleCollectionViewFlowLayout.m */; };
@@ -141,7 +141,6 @@
 		1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		1D3AA77F20F7412F0010FBB5 /* BKNavButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNavButton.h; sourceTree = "<group>"; };
 		1D3AA78020F7412F0010FBB5 /* BKNavButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNavButton.m; sourceTree = "<group>"; };
-		1D45CA3E20FC4A9C003C7BA4 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1D45CA4120FC6892003C7BA4 /* BKImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImagePicker.h; sourceTree = "<group>"; };
 		1D45CA4420FC6892003C7BA4 /* BKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKTool.m; sourceTree = "<group>"; };
 		1D45CA4620FC6892003C7BA4 /* NSObject+BKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKImagePicker.m"; sourceTree = "<group>"; };
@@ -226,6 +225,7 @@
 		1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		1D45CB0220FC8328003C7BA4 /* BKImageBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImageBaseViewController.h; sourceTree = "<group>"; };
 		1D45CB0320FC8328003C7BA4 /* BKImageBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImageBaseViewController.m; sourceTree = "<group>"; };
+		1D50C9D020FF255000626230 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1D6B8FE120EF09EE00BBEAD1 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
 		1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
 		1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollCollectionViewCell.m; sourceTree = "<group>"; };
@@ -279,6 +279,7 @@
 				1D45CAE920FC7E09003C7BA4 /* VideoToolbox.framework in Frameworks */,
 				1D45CAE720FC7DFC003C7BA4 /* UIKit.framework in Frameworks */,
 				1D45CAE520FC7DF3003C7BA4 /* QuartzCore.framework in Frameworks */,
+				1D50C9D120FF255000626230 /* IJKMediaFramework.framework in Frameworks */,
 				1D45CAE320FC7DEC003C7BA4 /* OpenGLES.framework in Frameworks */,
 				1D45CAE120FC7DE4003C7BA4 /* MobileCoreServices.framework in Frameworks */,
 				1D45CADF20FC7DD9003C7BA4 /* MediaPlayer.framework in Frameworks */,
@@ -290,7 +291,6 @@
 				1D45CAD320FC7D7E003C7BA4 /* AVFoundation.framework in Frameworks */,
 				1D45CAD120FC7D79003C7BA4 /* AudioToolbox.framework in Frameworks */,
 				CE8A81A8C5447FF50546F4CB /* libPods-BKProjectFramework.a in Frameworks */,
-				1D45CA3F20FC4A9C003C7BA4 /* IJKMediaFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,14 +368,6 @@
 				1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */,
 			);
 			path = NavViewController;
-			sourceTree = "<group>";
-		};
-		1D45CA3D20FC4A9C003C7BA4 /* IJKMediaFramework */ = {
-			isa = PBXGroup;
-			children = (
-				1D45CA3E20FC4A9C003C7BA4 /* IJKMediaFramework.framework */,
-			);
-			path = IJKMediaFramework;
 			sourceTree = "<group>";
 		};
 		1D45CA4020FC6892003C7BA4 /* BKImagePicker */ = {
@@ -616,6 +608,14 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		1D50C9CF20FF255000626230 /* IJKMediaFramework */ = {
+			isa = PBXGroup;
+			children = (
+				1D50C9D020FF255000626230 /* IJKMediaFramework.framework */,
+			);
+			path = IJKMediaFramework;
+			sourceTree = "<group>";
+		};
 		1D6B8FE020EF09EE00BBEAD1 /* BKCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,7 +730,7 @@
 		1DB1788620EDB4B200BA7652 /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				1D45CA3D20FC4A9C003C7BA4 /* IJKMediaFramework */,
+				1D50C9CF20FF255000626230 /* IJKMediaFramework */,
 				1D0294A120F5E3F100D75606 /* GTMBase64 */,
 			);
 			path = Third;
