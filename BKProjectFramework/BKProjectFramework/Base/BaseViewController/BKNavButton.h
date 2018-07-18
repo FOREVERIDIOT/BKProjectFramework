@@ -42,6 +42,8 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
 #pragma mark - 标题init
 
 -(instancetype)initWithTitle:(NSString*)title;
+-(instancetype)initWithTitle:(NSString*)title font:(UIFont*)font;
+-(instancetype)initWithTitle:(NSString*)title titleColor:(UIColor*)titleColor;
 -(instancetype)initWithTitle:(NSString*)title font:(UIFont*)font titleColor:(UIColor*)titleColor;
 
 #pragma mark - 图片&标题init

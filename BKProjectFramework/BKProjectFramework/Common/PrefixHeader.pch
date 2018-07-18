@@ -26,6 +26,7 @@
 #import "BKCycleScrollView.h"
 #import "BKNetworkRequest.h"
 #import "BKRoundedRectView.h"
+#import "BKImagePicker.h"
 
 #import "NSObject+BKExtension.h"
 #import "NSDate+BKExtension.h"

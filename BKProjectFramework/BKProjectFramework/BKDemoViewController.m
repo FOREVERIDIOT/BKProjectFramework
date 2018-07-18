@@ -22,7 +22,7 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 -(NSArray*)dataArr
 {
     if (!_dataArr) {
-        _dataArr = @[@"拍小视频"];
+        _dataArr = @[@"拍照",@"照片选择",@"拍小视频"];
     }
     return _dataArr;
 }
@@ -76,7 +76,29 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    switch (indexPath.row) {
+        case 0:
+        {
+            [[BKImagePicker sharedManager] takePhotoWithComplete:^(UIImage *image, NSData *data) {
+                
+            }];
+        }
+            break;
+        case 1:
+        {
+            [[BKImagePicker sharedManager] showPhotoAlbumWithTypePhoto:BKPhotoTypeDefault maxSelect:6 isHaveOriginal:YES complete:^(UIImage *image, NSData *data, NSURL *url, BKSelectPhotoType selectPhotoType) {
+                NSLog(@"image:%@, dataLength:%ld, url:%@ selectPhotoType:%ld",image, [data length], url, selectPhotoType);
+            }];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

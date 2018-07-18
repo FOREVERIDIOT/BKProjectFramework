@@ -86,8 +86,13 @@
         const char * propertyName = ivar_getName(ivar);
         NSString * propertyString = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
         if ([propertyString isEqualToString:property]) {
-            [self setValue:value forKey:property];
-//            运行时赋值
+            //setValue:forKey: 若forKey传入的属性名前加下划线不会执行setter方法
+            if ([[property substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"_"]) {//为了能执行setter方法
+                [self setValue:value forKey:[property substringWithRange:NSMakeRange(1, [property length] - 1)]];
+            }else{
+                [self setValue:value forKey:property];
+            }
+//            运行时赋值 不执行setter方法
 //            object_setIvar(self, ivar, value);
             break;
         }

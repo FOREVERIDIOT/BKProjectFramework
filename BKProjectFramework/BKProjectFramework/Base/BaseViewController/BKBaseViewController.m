@@ -69,7 +69,7 @@
         _titleLab.text = self.title;
         [_topNavView addSubview:_titleLab];
         
-        if ([self.navigationController.viewControllers count] != 1) {
+        if ([self.navigationController.viewControllers count] != 1 && self != [self.navigationController.viewControllers firstObject]) {
             BKNavButton * backBtn = [[BKNavButton alloc] initWithImage:[UIImage imageNamed:@"back"]];
             [backBtn setClickMethod:^(BKNavButton *button) {
                 if (self.navigationController) {
@@ -99,6 +99,7 @@
 
 -(void)setLeftNavBtns:(NSArray<BKNavButton *> *)leftNavBtns
 {
+    [_leftNavBtns makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _leftNavBtns = leftNavBtns;
     
     BKNavButton * lastBtn;
@@ -120,6 +121,7 @@
 
 -(void)setRightNavBtns:(NSArray<BKNavButton *> *)rightNavBtns
 {
+    [_rightNavBtns makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _rightNavBtns = rightNavBtns;
     
     BKNavButton * lastBtn;
