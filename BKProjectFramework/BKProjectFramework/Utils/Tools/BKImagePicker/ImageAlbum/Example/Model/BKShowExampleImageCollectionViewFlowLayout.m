@@ -7,7 +7,8 @@
 //
 
 #import "BKShowExampleImageCollectionViewFlowLayout.h"
-#import "BKTool.h"
+#import "BKImagePickerMacro.h"
+#import "BKImagePickerConstant.h"
 
 @implementation BKShowExampleImageCollectionViewFlowLayout
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BKTool.h"
+#import "BKImageManageModel.h"
 
 @interface BKImageAlbumItemView : UIView
 

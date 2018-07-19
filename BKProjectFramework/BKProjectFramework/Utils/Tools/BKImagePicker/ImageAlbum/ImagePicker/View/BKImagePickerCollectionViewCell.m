@@ -8,7 +8,8 @@
 
 #import "BKImagePickerCollectionViewCell.h"
 #import "BKImageAlbumItemView.h"
-#import "BKTool.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerMacro.h"
 
 @interface BKImagePickerCollectionViewCell()
 

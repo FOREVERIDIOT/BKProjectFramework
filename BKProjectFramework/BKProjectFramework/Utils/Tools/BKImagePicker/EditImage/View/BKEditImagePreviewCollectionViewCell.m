@@ -7,7 +7,8 @@
 //
 
 #import "BKEditImagePreviewCollectionViewCell.h"
-#import "BKTool.h"
+#import "BKImagePickerMacro.h"
+#import "UIView+BKImagePicker.h"
 
 @implementation BKEditImagePreviewCollectionViewCell
 

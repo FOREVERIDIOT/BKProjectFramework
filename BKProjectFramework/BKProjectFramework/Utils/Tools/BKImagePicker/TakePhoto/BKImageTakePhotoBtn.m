@@ -7,7 +7,7 @@
 //
 
 #import "BKImageTakePhotoBtn.h"
-#import "BKTool.h"
+#import "UIView+BKImagePicker.h"
 
 typedef NS_ENUM(NSUInteger, BKShutterState) {
     BKShutterStateNormal = 0,

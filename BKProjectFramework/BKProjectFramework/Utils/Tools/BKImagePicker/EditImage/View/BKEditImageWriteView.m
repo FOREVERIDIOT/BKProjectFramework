@@ -7,7 +7,10 @@
 //
 
 #import "BKEditImageWriteView.h"
-#import "BKTool.h"
+#import "BKImagePickerMacro.h"
+#import "NSString+BKImagePicker.h"
+#import "UIView+BKImagePicker.h"
+#import "NSObject+BKImagePicker.h"
 
 @interface BKEditImageWriteView()<UIGestureRecognizerDelegate>
 
@@ -30,12 +33,12 @@
         return;
     }
     
-    _width = [[BKTool sharedManager] sizeWithString:_writeString UIHeight:MAXFLOAT font:[UIFont systemFontOfSize:50]].width + 20;
+    _width = [_writeString bk_calculateSizeWithUIHeight:MAXFLOAT font:[UIFont systemFontOfSize:50]].width + 20;
     if (_width > (BK_SCREENW - 20)*2) {
         _width = (BK_SCREENW - 20)*2;
     }
     
-    _height = [[BKTool sharedManager] sizeWithString:_writeString UIWidth:_width font:[UIFont systemFontOfSize:50]].height + 20;
+    _height = [_writeString bk_calculateSizeWithUIWidth:_width font:[UIFont systemFontOfSize:50]].height + 20;
     
     self.transform = CGAffineTransformIdentity;
     

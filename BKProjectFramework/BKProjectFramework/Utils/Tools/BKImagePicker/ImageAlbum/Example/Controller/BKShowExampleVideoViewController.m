@@ -8,7 +8,11 @@
 
 #import "BKShowExampleVideoViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "BKTool.h"
+#import "UIImage+BKImagePicker.h"
+#import "BKImagePickerMacro.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerConstant.h"
+#import "BKImagePicker.h"
 
 @interface BKShowExampleVideoViewController ()
 
@@ -85,7 +89,7 @@
 
 -(void)playbackFinished:(NSNotification *)notification
 {
-    UIImage * start_image = [[BKTool sharedManager] imageWithImageName:@"video_start"];
+    UIImage * start_image = [UIImage bk_imageWithImageName:@"video_start"];
     [_start_pause setImage:start_image forState:UIControlStateNormal];
     
     [self.player seekToTime:CMTimeMake(0, 1)];
@@ -124,7 +128,7 @@
 -(UIButton*)start_pause
 {
     if (!_start_pause) {
-        UIImage * start_image = [[BKTool sharedManager] imageWithImageName:@"video_start"];
+        UIImage * start_image = [UIImage bk_imageWithImageName:@"video_start"];
         
         _start_pause = [UIButton buttonWithType:UIButtonTypeCustom];
         _start_pause.frame = CGRectMake((self.bottomNavView.bk_width - 64)/2.0f, 0, 64, 64);
@@ -152,12 +156,12 @@
     }
     
     if (self.downloadProgress != 1) {
-        [[BKTool sharedManager] showRemind:@"视频正在加载中,请稍后再试"];
+        [self.view bk_showRemind:@"视频正在加载中,请稍后再试"];
         return;
     }
     
     self.tapVideoModel.url = ((AVURLAsset*)self.player.currentItem.asset).URL;
-    [[BKTool sharedManager].selectImageArray addObject:self.tapVideoModel];
+    [[BKImagePicker sharedManager].imageManageModel.selectImageArray addObject:self.tapVideoModel];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BKFinishSelectImageNotification object:nil userInfo:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -173,7 +177,7 @@
     }
     
     if (self.downloadProgress != 1) {
-        [[BKTool sharedManager] showRemind:@"视频正在加载中,请稍后再试"];
+        [self.view bk_showRemind:@"视频正在加载中,请稍后再试"];
         return;
     }
     
@@ -181,12 +185,12 @@
     _coverImageView = nil;
     
     if (self.player.rate == 0) {
-        UIImage * pause_image = [[BKTool sharedManager] imageWithImageName:@"video_pause"];
+        UIImage * pause_image = [UIImage bk_imageWithImageName:@"video_pause"];
         [_start_pause setImage:pause_image forState:UIControlStateNormal];
         
         [self.player play];
     }else {
-        UIImage * start_image = [[BKTool sharedManager] imageWithImageName:@"video_start"];
+        UIImage * start_image = [UIImage bk_imageWithImageName:@"video_start"];
         [_start_pause setImage:start_image forState:UIControlStateNormal];
         
         [self.player pause];
@@ -208,27 +212,27 @@
 
 -(void)loadVideoDataComplete:(void (^)(void))complete
 {
-    [[BKTool sharedManager] getVideoDataWithAsset:self.tapVideoModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+    [[BKImagePicker sharedManager] getVideoDataWithAsset:self.tapVideoModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
         
         self.isInCloud = YES;
         
         self.currentImageRequestID = imageRequestID;
         
         if (error) {
-            [[BKTool sharedManager] hideLoadInView:self.view];
+            [self.view bk_hideLoadLayer];
             if (!self.isLeaveFlag) {
                 self.isDownloadError = YES;
             }
             return;
         }
         
-        [[BKTool sharedManager] showLoadInView:self.view downLoadProgress:progress];
+        [self.view bk_showLoadLayerWithDownLoadProgress:progress];
         
         self.downloadProgress = progress;
         
     } complete:^(AVPlayerItem *playerItem, PHImageRequestID imageRequestID) {
         
-        [[BKTool sharedManager] hideLoadInView:self.view];
+        [self.view bk_hideLoadLayer];
         
         if (playerItem) {
             
@@ -250,7 +254,7 @@
         }else{
             self.isDownloadError = YES;
             if (!self.isLeaveFlag) {
-                [[BKTool sharedManager] showRemind:@"视频下载失败"];
+                [self.view bk_showRemind:@"视频下载失败"];
             }
         }
     }];
@@ -300,7 +304,7 @@
             
             [self getOriginalImageDataComplete:nil];
         }else{
-            [[BKTool sharedManager] getThumbImageWithAsset:self.tapVideoModel.asset complete:^(UIImage *thumbImage) {
+            [[BKImagePicker sharedManager] getThumbImageWithAsset:self.tapVideoModel.asset complete:^(UIImage *thumbImage) {
                 self.tapVideoModel.thumbImage = thumbImage;
                 self.coverImageView.image = thumbImage;
             }];
@@ -313,7 +317,7 @@
 
 -(void)getOriginalImageDataComplete:(void (^)(void))complete
 {
-    [[BKTool sharedManager] getOriginalImageDataWithAsset:self.tapVideoModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+    [[BKImagePicker sharedManager] getOriginalImageDataWithAsset:self.tapVideoModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
         
         self.tapVideoModel.loadingProgress = progress;
         
@@ -328,7 +332,7 @@
             self.coverImageView.image = originalImage;
         }else{
             self.tapVideoModel.loadingProgress = 0;
-            [[BKTool sharedManager] showRemind:@"封面下载失败"];
+            [self.view bk_showRemind:@"封面下载失败"];
         }
     }];
 }

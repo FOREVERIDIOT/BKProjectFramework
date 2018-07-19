@@ -10,11 +10,14 @@
 #import "BKShowExampleImageCollectionViewFlowLayout.h"
 #import "BKShowExampleImageCollectionViewCell.h"
 #import "BKImageAlbumItemSelectButton.h"
-#import "BKTool.h"
 #import "BKShowExampleInteractiveTransition.h"
 #import "BKShowExampleTransitionAnimater.h"
 #import "BKEditImageViewController.h"
 #import "BKImageOriginalButton.h"
+#import "BKImagePickerMacro.h"
+#import "BKImagePickerConstant.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePicker.h"
 
 @interface BKShowExampleImageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UINavigationControllerDelegate>
 
@@ -207,7 +210,7 @@
         self.title = [NSString stringWithFormat:@"%ld/%ld",_currentImageIndex+1,[self.imageListArray count]];
     }
     
-    if ([BKTool sharedManager].max_select > 1) {
+    if ([BKImagePicker sharedManager].imageManageModel.max_select > 1) {
 //        [self.rightBtn addSubview:self.rightNavBtn];
         BKNavButton * rightNavBtn = [[BKNavButton alloc] init];
         [rightNavBtn addSubview:self.rightNavBtn];
@@ -226,7 +229,7 @@
         }];
         
         if ([self.imageListArray count] == 1) {
-            if ([[BKTool sharedManager].selectImageArray count] == 1) {
+            if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] == 1) {
                 _rightNavBtn.title = @"1";
             }else{
                 _rightNavBtn.title = @"0";
@@ -239,9 +242,9 @@
 -(void)rightBtnClick:(BKImageAlbumItemSelectButton*)button
 {
     BKImageModel * model = self.imageListArray[_currentImageIndex];
-    BOOL isHave = [[BKTool sharedManager].selectImageArray containsObject:model];
-    if (!isHave && [[BKTool sharedManager].selectImageArray count] >= [BKTool sharedManager].max_select) {
-        [[BKTool sharedManager] showRemind:[NSString stringWithFormat:@"最多只能选择%ld张照片",[BKTool sharedManager].max_select]];
+    BOOL isHave = [[BKImagePicker sharedManager].imageManageModel.selectImageArray containsObject:model];
+    if (!isHave && [[BKImagePicker sharedManager].imageManageModel.selectImageArray count] >= [BKImagePicker sharedManager].imageManageModel.max_select) {
+        [self.view bk_showRemind:[NSString stringWithFormat:@"最多只能选择%ld张照片",[BKImagePicker sharedManager].imageManageModel.max_select]];
         return;
     }
     
@@ -250,35 +253,35 @@
     
     if (isHave) {
         
-        [[BKTool sharedManager].selectImageArray removeObject:model];
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray removeObject:model];
         [button cancelSelect];
         
-        [[BKTool sharedManager] hideLoadInView:cell];
+        [cell bk_hideLoadLayer];
     }else{
-        [[BKTool sharedManager].selectImageArray addObject:model];
-        [button selectClickNum:[[BKTool sharedManager].selectImageArray count]];
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray addObject:model];
+        [button selectClickNum:[[BKImagePicker sharedManager].imageManageModel.selectImageArray count]];
         
         if (model.loadingProgress != 1) {
             
-            [[BKTool sharedManager] showLoadInView:cell];
+            [cell bk_showLoadLayer];
             
-            [[BKTool sharedManager] getOriginalImageDataWithAsset:model.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+            [[BKImagePicker sharedManager] getOriginalImageDataWithAsset:model.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
                 
                 if (error) {
-                    [[BKTool sharedManager] hideLoadInView:cell];
+                    [cell bk_hideLoadLayer];
                     model.loadingProgress = 0;
                     return;
                 }
                 
-                [[BKTool sharedManager] showLoadInView:cell downLoadProgress:progress];
+                [cell bk_showLoadLayerWithDownLoadProgress:progress];
                 model.loadingProgress = progress;
                 
             } complete:^(NSData *originalImageData, NSURL *url, PHImageRequestID imageRequestID) {
                 
-                [[BKTool sharedManager] hideLoadInView:cell];
+                [cell bk_hideLoadLayer];
                 
                 if (originalImageData) {
-                    model.thumbImageData = [[BKTool sharedManager] compressImageData:originalImageData];
+                    model.thumbImageData = [[BKImagePicker sharedManager] compressImageData:originalImageData];
                     model.originalImageData = originalImageData;
                     model.loadingProgress = 1;
                     model.originalImageSize = (double)originalImageData.length/1024/1024;
@@ -288,7 +291,7 @@
                     [self refreshBottomNavBtnStateWithSelectIndex:INT_MAX];
                 }else{
                     model.loadingProgress = 0;
-                    [[BKTool sharedManager] showRemind:@"原图下载失败"];
+                    [self.view bk_showRemind:@"原图下载失败"];
                     //删除选中的自己
                     [self rightBtnClick:button];
                 }
@@ -307,7 +310,7 @@
     self.bottomNavViewHeight = BK_SYSTEM_TABBAR_HEIGHT;
     
     [self.bottomNavView addSubview:self.editBtn];
-    if ([BKTool sharedManager].isHaveOriginal) {
+    if ([BKImagePicker sharedManager].imageManageModel.isHaveOriginal) {
         [self.bottomNavView addSubview:self.originalBtn];
     }
     [self.bottomNavView addSubview:self.sendBtn];
@@ -325,8 +328,8 @@
 {
     __block BOOL canEidtFlag = YES;
     __block BOOL isContainsLoading = NO;
-    if ([[BKTool sharedManager].selectImageArray count] > 0) {
-        [[BKTool sharedManager].selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] > 0) {
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BKImageModel * currentImageModel = obj;
             if (currentImageModel.photoType != BKSelectPhotoTypeImage) {
                 canEidtFlag = NO;
@@ -361,10 +364,10 @@
         [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_sendBtn setBackgroundColor:BKHighlightColor];
     }
-    if ([[BKTool sharedManager].selectImageArray count] == 0) {
+    if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] == 0) {
         [_sendBtn setTitle:@"确认" forState:UIControlStateNormal];
     }else {
-        [_sendBtn setTitle:[NSString stringWithFormat:@"确认(%ld)",[[BKTool sharedManager].selectImageArray count]] forState:UIControlStateNormal];
+        [_sendBtn setTitle:[NSString stringWithFormat:@"确认(%ld)",[[BKImagePicker sharedManager].imageManageModel.selectImageArray count]] forState:UIControlStateNormal];
     }
 }
 
@@ -416,12 +419,12 @@
 
 -(void)editBtnClick:(UIButton*)button
 {
-    if ([[BKTool sharedManager].selectImageArray count] > 0) {
+    if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] > 0) {
         
         __block NSMutableArray * selectImageArr = [NSMutableArray array];
         __block NSInteger prepareIndex = 0;
         
-        [[BKTool sharedManager].selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BKImageModel * model = obj;
             if (model.photoType != BKSelectPhotoTypeImage) {
                 return;
@@ -435,7 +438,7 @@
                 }
                 prepareIndex++;
                 
-                if (prepareIndex == [[BKTool sharedManager].selectImageArray count]) {
+                if (prepareIndex == [[BKImagePicker sharedManager].imageManageModel.selectImageArray count]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self pushEditImageVCWithEditImageArr:[selectImageArr copy]];
                     });
@@ -462,7 +465,7 @@
             complete([UIImage imageWithData:imageModel.originalImageData]);
         }
     }else{
-        [[BKTool sharedManager] getOriginalImageDataWithAsset:imageModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+        [[BKImagePicker sharedManager] getOriginalImageDataWithAsset:imageModel.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
             
             imageModel.loadingProgress = progress;
             
@@ -473,7 +476,7 @@
                 imageModel.originalImageData = originalImageData;
                 imageModel.loadingProgress = 1;
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    imageModel.thumbImageData = [[BKTool sharedManager] compressImageData:originalImageData];
+                    imageModel.thumbImageData = [[BKImagePicker sharedManager] compressImageData:originalImageData];
                 });
                 imageModel.url = url;
                 imageModel.originalImageSize = (double)originalImageData.length/1024/1024;
@@ -499,7 +502,7 @@
 
 -(void)originalBtnClick
 {
-    [BKTool sharedManager].isOriginal = ![BKTool sharedManager].isOriginal;
+    [BKImagePicker sharedManager].imageManageModel.isOriginal = ![BKImagePicker sharedManager].imageManageModel.isOriginal;
     
     [self calculataImageSizeWithSelectIndex:INT_MAX];
 }
@@ -511,7 +514,7 @@
  */
 -(void)calculataImageSizeWithSelectIndex:(NSInteger)selectIndex
 {
-    if ([BKTool sharedManager].isOriginal) {
+    if ([BKImagePicker sharedManager].imageManageModel.isOriginal) {
         
         [_originalBtn setTitleColor:BKHighlightColor];
         _originalBtn.isSelect = YES;
@@ -519,11 +522,11 @@
         __block double allSize = 0.0;
         __block BOOL isContainsLoading = NO;
         
-        if ([BKTool sharedManager].max_select == 1) {
+        if ([BKImagePicker sharedManager].imageManageModel.max_select == 1) {
             BKImageModel * model = self.imageListArray[selectIndex==INT_MAX?_currentImageIndex:selectIndex];
             allSize = model.originalImageSize;
         }else{
-            [[BKTool sharedManager].selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [[BKImagePicker sharedManager].imageManageModel.selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 BKImageModel * model = obj;
                 allSize = allSize + model.originalImageSize;
                 if (model.loadingProgress != 1) {
@@ -558,20 +561,20 @@
 
 -(void)sendBtnClick:(UIButton*)button
 {
-    if ([[BKTool sharedManager].selectImageArray count] == 0) {
+    if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] == 0) {
         
         BKImageModel * model = _imageListArray[_currentImageIndex];
         if (model.loadingProgress != 1) {
-            [[BKTool sharedManager] showRemind:@"图片正在加载中,请稍后再试"];
+            [self.view bk_showRemind:@"图片正在加载中,请稍后再试"];
             return;
         }
         
-        [[BKTool sharedManager].selectImageArray addObject:model];
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray addObject:model];
         
     }else{
         
         __block BOOL isContainsLoading = NO;
-        [[BKTool sharedManager].selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BKImageModel * imageModel = obj;
             if (imageModel.loadingProgress != 1) {
                 isContainsLoading = YES;
@@ -580,7 +583,7 @@
         }];
         
         if (isContainsLoading == YES) {
-            [[BKTool sharedManager] showRemind:@"选中的图片正在加载中,请稍后再试"];
+            [self.view bk_showRemind:@"选中的图片正在加载中,请稍后再试"];
             return;
         }
     }
@@ -660,9 +663,9 @@
     BKImageModel * model = self.imageListArray[indexPath.item];
     
     if (model.loadingProgress > 0 && model.loadingProgress < 1) {
-        [[BKTool sharedManager] showLoadInView:currentCell downLoadProgress:model.loadingProgress];
+        [currentCell bk_showLoadLayerWithDownLoadProgress:model.loadingProgress];
     }else{
-        [[BKTool sharedManager] hideLoadInView:currentCell];
+        [currentCell bk_hideLoadLayer];
     }
     
     _currentOriginalImageLoadedFlag = NO;
@@ -676,17 +679,17 @@
     }else{
         if (model.thumbImage) {
             [self editImageView:currentCell.showImageView image:model.thumbImage imageData:nil scrollView:currentCell.imageScrollView];
-            [[BKTool sharedManager] getOriginalImageWithAsset:model.asset complete:^(UIImage *originalImage) {
+            [[BKImagePicker sharedManager] getOriginalImageWithAsset:model.asset complete:^(UIImage *originalImage) {
                 [self editImageView:currentCell.showImageView image:originalImage imageData:nil scrollView:currentCell.imageScrollView];
                 
                 self.currentOriginalImageLoadedFlag = YES;
             }];
         }else{
-            [[BKTool sharedManager] getThumbImageWithAsset:model.asset complete:^(UIImage *thumbImage) {
+            [[BKImagePicker sharedManager] getThumbImageWithAsset:model.asset complete:^(UIImage *thumbImage) {
                 model.thumbImage = thumbImage;
                 [self editImageView:currentCell.showImageView image:thumbImage imageData:nil scrollView:currentCell.imageScrollView];
                 
-                [[BKTool sharedManager] getOriginalImageWithAsset:model.asset complete:^(UIImage *originalImage) {
+                [[BKImagePicker sharedManager] getOriginalImageWithAsset:model.asset complete:^(UIImage *originalImage) {
                     [self editImageView:currentCell.showImageView image:originalImage imageData:nil scrollView:currentCell.imageScrollView];
                     
                     self.currentOriginalImageLoadedFlag = YES;
@@ -729,20 +732,20 @@
         }
         
     }else{
-        [[BKTool sharedManager] getOriginalImageDataWithAsset:model.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+        [[BKImagePicker sharedManager] getOriginalImageDataWithAsset:model.asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
             
             if (error) {
-                [[BKTool sharedManager] hideLoadInView:currentCell];
+                [currentCell bk_hideLoadLayer];
                 model.loadingProgress = 0;
                 return;
             }
             
-            [[BKTool sharedManager] showLoadInView:currentCell downLoadProgress:progress];
+            [currentCell bk_showLoadLayerWithDownLoadProgress:progress];
             model.loadingProgress = progress;
             
         } complete:^(NSData *originalImageData, NSURL *url, PHImageRequestID imageRequestID) {
             
-            [[BKTool sharedManager] hideLoadInView:currentCell];
+            [currentCell bk_hideLoadLayer];
             
             if (originalImageData) {
                 
@@ -754,7 +757,7 @@
                 }
                 
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    model.thumbImageData = [[BKTool sharedManager] compressImageData:originalImageData];
+                    model.thumbImageData = [[BKImagePicker sharedManager] compressImageData:originalImageData];
                 });
                 model.url = url;
                 model.originalImageSize = (double)originalImageData.length/1024/1024;
@@ -769,7 +772,7 @@
                 [visibleIndexPathArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSIndexPath * indexPath = obj;
                     if (indexPath.item == currentIndexPath.item && indexPath.section == currentIndexPath.section) {
-                        [[BKTool sharedManager] showRemind:@"原图下载失败"];
+                        [self.view bk_showRemind:@"原图下载失败"];
                         *stop = YES;
                     }
                 }];
@@ -871,7 +874,7 @@
         }
         
         self.rightNavBtn.title = @"";
-        [[BKTool sharedManager].selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[BKImagePicker sharedManager].imageManageModel.selectImageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BKImageModel * selectModel = obj;
             if ([model.fileName isEqualToString:selectModel.fileName]) {
                 self.rightNavBtn.title = [NSString stringWithFormat:@"%ld",idx+1];

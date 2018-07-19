@@ -7,7 +7,7 @@
 //
 
 #import "BKImageAlbumItemSelectButton.h"
-#import "BKTool.h"
+#import "BKImagePickerMacro.h"
 
 @interface BKImageAlbumItemSelectButton()
 

@@ -7,7 +7,8 @@
 //
 
 #import "BKShowExampleImageCollectionViewCell.h"
-#import "BKTool.h"
+#import "BKImagePickerConstant.h"
+#import "UIView+BKImagePicker.h"
 
 @interface BKShowExampleImageCollectionViewCell()<UIScrollViewDelegate>
 

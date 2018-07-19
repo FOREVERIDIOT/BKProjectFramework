@@ -7,6 +7,7 @@
 //
 
 #import "BKShowExampleInteractiveTransition.h"
+#import "UIView+BKImagePicker.h"
 
 @interface BKShowExampleInteractiveTransition()<UIGestureRecognizerDelegate>
 

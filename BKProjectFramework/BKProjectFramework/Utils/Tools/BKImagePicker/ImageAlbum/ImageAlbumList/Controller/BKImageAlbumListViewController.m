@@ -14,6 +14,9 @@
 #import "BKImageAlbumListModel.h"
 #import "BKImageAlbumListTableViewCell.h"
 #import "BKImagePicker.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerConstant.h"
+#import "BKImagePickerMacro.h"
 
 @interface BKImageAlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -61,7 +64,7 @@
             __block NSInteger assetsCount = [assets count];
             [assets enumerateObjectsUsingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
-                switch ([BKTool sharedManager].photoType) {
+                switch ([BKImagePicker sharedManager].imageManageModel.photoType) {
                     case BKPhotoTypeDefault:
                         break;
                     case BKPhotoTypeImageAndGif:
@@ -115,7 +118,7 @@
                 
                 PHAsset * asset = assets[coverCount];
                 
-                [[BKTool sharedManager] getThumbImageWithAsset:asset complete:^(UIImage *thumbImage) {
+                [[BKImagePicker sharedManager] getThumbImageWithAsset:asset complete:^(UIImage *thumbImage) {
                     model.albumName = collection.localizedTitle;
                     model.albumFirstImage = thumbImage;
                     model.albumImageCount = assetsCount;
@@ -160,23 +163,14 @@
 -(void)initTopNav
 {
     self.title = @"相册";
-//    self.rightLab.text = @"取消";
-//    self.leftImageView.image = nil;
     
     self.leftNavBtns = @[];
     
     BKNavButton * rightNav = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKHighlightColor];
+    [rightNav setClickMethod:^(BKNavButton *button) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
     self.rightNavBtns = @[rightNav];
-}
-
--(void)leftNavBtnAction:(UIButton *)button
-{
-    
-}
-
--(void)rightNavBtnAction:(UIButton *)button
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableView

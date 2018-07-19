@@ -7,6 +7,8 @@
 //
 
 #import "BKImageAlbumItemView.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerMacro.h"
 
 @interface BKImageAlbumItemView()
 

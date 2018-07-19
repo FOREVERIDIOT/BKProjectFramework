@@ -43,7 +43,7 @@
 {
     [super viewWillAppear:animated];
     
-    [[BKShareManager sharedManager] getCurrentTime];
+//    [[BKShareManager sharedManager] getCurrentTime];
 }
 
 #pragma mark - 顶部导航

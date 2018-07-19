@@ -7,7 +7,8 @@
 //
 
 #import "BKImageOriginalButton.h"
-#import "BKTool.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerMacro.h"
 
 @implementation BKImageOriginalButton
 

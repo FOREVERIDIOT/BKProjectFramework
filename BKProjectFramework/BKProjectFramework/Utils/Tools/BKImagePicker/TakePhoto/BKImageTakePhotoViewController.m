@@ -7,10 +7,12 @@
 //
 
 #import "BKImageTakePhotoViewController.h"
-#import "BKTool.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BKImageTakePhotoBtn.h"
 #import "BKEditImageViewController.h"
+#import "UIView+BKImagePicker.h"
+#import "BKImagePickerMacro.h"
+#import "UIImage+BKImagePicker.h"
 
 @interface BKImageTakePhotoViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -31,7 +33,6 @@
 @property (nonatomic,strong) UIButton * lightBtn;//闪光按钮
 @property (nonatomic,strong) UIButton * switchShotBtn;//镜头按钮
 
-
 @end
 
 @implementation BKImageTakePhotoViewController
@@ -41,18 +42,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.topNavView.hidden = YES;
     self.bottomNavView.hidden = YES;
-    
+
     [self.view addSubview:self.previewView];
-    
+
     [self.captureSession startRunning];
     if (_videoInput) {
         AVCaptureDevice * captureDevice = [_videoInput device];
         [self addNotificationToCaptureDevice:captureDevice];
     }
-    
+
     [self.view addSubview:self.shutterBtn];
     [self.view addSubview:self.closeBtn];
     [self.view addSubview:self.lightBtn];
@@ -62,14 +63,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     [self.captureSession startRunning];
     if (_videoInput) {
         AVCaptureDevice * captureDevice = [_videoInput device];
@@ -80,9 +81,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
+
     [self.captureSession stopRunning];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -94,7 +95,7 @@
     if (!_previewView) {
         _previewView = [[UIView alloc]initWithFrame:self.view.bounds];
         _previewView.backgroundColor = [UIColor blackColor];
-        
+
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(previewViewTap:)];
         [_previewView addGestureRecognizer:tap];
     }
@@ -106,38 +107,38 @@
 -(AVCaptureSession*)captureSession
 {
     if (!_captureSession) {
-        
+
         //初始化会话
         _captureSession = [[AVCaptureSession alloc]init];
         if ([_captureSession canSetSessionPreset:AVCaptureSessionPresetHigh]) {//设置分辨率
             _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
         }
-        
+
         _videoQueue = dispatch_queue_create("videoQueue", DISPATCH_QUEUE_SERIAL);
-        
+
         //获得输入设备
         AVCaptureDevice * captureDevice = [self getCameraDeviceWithPosition:AVCaptureDevicePositionBack];//取得后置摄像头
         if (!captureDevice) {
             captureDevice = [self getCameraDeviceWithPosition:AVCaptureDevicePositionFront];//取得前置摄像头
             if (!captureDevice) {
-                [[BKTool sharedManager] showRemind:@"取得摄像头时出现问题!"];
+                [self.view bk_showRemind:@"取得摄像头时出现问题!"];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return nil;
             }
         }
-        
+
         NSError *error = nil;
-        
+
         _videoInput = [[AVCaptureDeviceInput alloc]initWithDevice:captureDevice error:&error];
         if (error) {
-            [[BKTool sharedManager] showRemind:@"初始化设备出错"];
+            [self.view bk_showRemind:@"初始化设备出错"];
             [self dismissViewControllerAnimated:YES completion:nil];
             return nil;
         }
         if ([_captureSession canAddInput:_videoInput]) {
             [_captureSession addInput:_videoInput];
         }
-        
+
         _videoOutput = [[AVCaptureVideoDataOutput alloc] init];
         _videoOutput.alwaysDiscardsLateVideoFrames = YES; //立即丢弃旧帧，节省内存，默认YES
         [_videoOutput setSampleBufferDelegate:self queue:self.videoQueue];
@@ -148,10 +149,10 @@
         if ([_captureSession canAddOutput:_videoOutput]) {
             [_captureSession addOutput:_videoOutput];
         }
-        
+
         //根据设备输出获得连接
         AVCaptureConnection * connection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-        
+
         AVCaptureDevicePosition currentPosition = [[_videoInput device] position];
         // 前置摄像头镜像翻转 保证和后置摄像头镜头方向一致
         if (currentPosition == AVCaptureDevicePositionFront) {
@@ -160,13 +161,13 @@
             connection.videoMirrored = NO;
         }
         connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-        
+
         //创建视频预览层，用于实时展示摄像头状态
         _previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:_captureSession];
         _previewLayer.frame = self.previewView.bounds;
         _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;//填充模式
         [self.previewView.layer addSublayer:_previewLayer];
-        
+
     }
     return _captureSession;
 }
@@ -187,13 +188,13 @@
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    
+
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
     CGImageRef quartzImage = CGBitmapContextCreateImage(context);
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
-    
+
     UIImage *image = [UIImage imageWithCGImage:quartzImage];
     CGImageRelease(quartzImage);
     return image;
@@ -212,9 +213,9 @@
 {
     NSString * version = [UIDevice currentDevice].systemVersion;
     if ([version doubleValue] >= 10) {
-        
+
         AVCaptureDeviceDiscoverySession * session = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera] mediaType:AVMediaTypeVideo position:position];
-        
+
         NSArray * devices  = session.devices;
         for (AVCaptureDevice * device in devices) {
             if ([device position] == position) {
@@ -248,7 +249,7 @@
 
 /**
  捕获区域发生改变
- 
+
  @param notification notification
  */
 -(void)areaChange:(NSNotification*)notification
@@ -268,10 +269,10 @@
     //获取点击坐标
     CGPoint point = [tapGesture locationInView:self.previewView];
     [self setFocusCursorWithPoint:point];
-    
+
     //将UI坐标转化为摄像头坐标
     CGPoint cameraPoint = [self.previewLayer captureDevicePointOfInterestForPoint:point];
-    
+
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
 }
 
@@ -287,16 +288,16 @@
     if (_focusCursorTimer) {
         [_focusCursorTimer invalidate];
         _focusCursorTimer = nil;
-        
+
         [self.focusImageView removeFromSuperview];
         self.focusImageView = nil;
     }
-    
+
     self.focusImageView.center = point;
     [UIView animateWithDuration:0.2 animations:^{
         self.focusImageView.transform = CGAffineTransformMakeScale(0.8, 0.8);
     }];
-    
+
     _focusCursorTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(deleteFocusCursor:) userInfo:nil repeats:NO];
     [[NSRunLoop mainRunLoop] addTimer:_focusCursorTimer forMode:NSRunLoopCommonModes];
 }
@@ -309,7 +310,7 @@
 -(void)focusWithMode:(AVCaptureFocusMode)focusMode exposureMode:(AVCaptureExposureMode)exposureMode atPoint:(CGPoint)point
 {
     [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
-        
+
         if ([captureDevice isFocusModeSupported:focusMode]) {
             [captureDevice setFocusMode:focusMode];
         }
@@ -341,7 +342,7 @@
         }
         [captureDevice unlockForConfiguration];
     }else{
-        [[BKTool sharedManager] showRemind:@"设置设备属性过程发生错误,请重试"];
+        [self.view bk_showRemind:@"设置设备属性过程发生错误,请重试"];
     }
 }
 
@@ -353,7 +354,7 @@
         _focusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, BK_SCREENW/4, BK_SCREENW/4)];
         _focusImageView.clipsToBounds = YES;
         _focusImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _focusImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_focus"];
+        _focusImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_focus"];
         [self.view insertSubview:_focusImageView aboveSubview:_previewView];
     }
     return _focusImageView;
@@ -373,9 +374,9 @@
         _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _closeBtn.frame = CGRectMake(0, BK_SYSTEM_STATUSBAR_HEIGHT, 64, BK_SYSTEM_NAV_UI_HEIGHT);
         [_closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+
         UIImageView * closeImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_closeBtn.bk_width - 25)/2, (_closeBtn.bk_height - 25)/2, 25, 25)];
-        closeImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_close"];
+        closeImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_close"];
         [_closeBtn addSubview:closeImageView];
     }
     return _closeBtn;
@@ -394,9 +395,9 @@
         _switchShotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _switchShotBtn.frame = CGRectMake(BK_SCREENW - 44 - 10, BK_SYSTEM_STATUSBAR_HEIGHT, 44, BK_SYSTEM_NAV_UI_HEIGHT);
         [_switchShotBtn addTarget:self action:@selector(switchShotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+
         UIImageView * switchShotImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_switchShotBtn.bk_width - 25)/2, (_switchShotBtn.bk_height - 25)/2, 25, 25)];
-        switchShotImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_switch_shot"];
+        switchShotImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_switch_shot"];
         [_switchShotBtn addSubview:switchShotImageView];
     }
     return _switchShotBtn;
@@ -408,9 +409,9 @@
     AVCaptureDevice * currentDevice = self.videoInput.device;
     //当前摄像头
     AVCaptureDevicePosition currentPosition = self.videoInput.device.position;
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentDevice];
-    
+
     //获取需要切换的摄像头
     if (currentPosition == AVCaptureDevicePositionBack) {
         currentPosition = AVCaptureDevicePositionFront;
@@ -430,12 +431,12 @@
             toDevice = camera;
         }
     }
-    
+
     [self addNotificationToCaptureDevice:toDevice];
-    
+
     //创建新的input
     AVCaptureDeviceInput * toInput = [AVCaptureDeviceInput deviceInputWithDevice:toDevice error:nil];
-    
+
     //改变会话的配置前一定要先开启配置，配置完成后提交配置改变
     [self.captureSession beginConfiguration];
     //移除原有输入对象
@@ -445,7 +446,7 @@
         [self.captureSession addInput:toInput];
         self.videoInput = toInput;
     }
-    
+
     //根据设备输出获得连接
     AVCaptureConnection * connection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
     // 前置摄像头镜像翻转 保证和后置摄像头镜头方向一致
@@ -455,7 +456,7 @@
         connection.videoMirrored = NO;
     }
     connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-    
+
     //提交会话配置
     [self.captureSession commitConfiguration];
 }
@@ -468,9 +469,9 @@
         _lightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _lightBtn.frame = CGRectMake(self.switchShotBtn.bk_x - 44, BK_SYSTEM_STATUSBAR_HEIGHT, 44, BK_SYSTEM_NAV_UI_HEIGHT);
         [_lightBtn addTarget:self action:@selector(lightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+
         UIImageView * lightImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_lightBtn.bk_width - 25)/2, (_lightBtn.bk_height - 25)/2, 25, 25)];
-        lightImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_close_light"];
+        lightImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_close_light"];
         lightImageView.tag = 1;
         [_lightBtn addSubview:lightImageView];
     }
@@ -483,26 +484,26 @@
     if (captureDeviceClass != nil) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         if ([device hasTorch] && [device hasFlash]){
-            
+
             [device lockForConfiguration:nil];
             UIImageView * lightImageView = (UIImageView*)[_lightBtn viewWithTag:1];
-            
+
             if (!button.isSelected) {
                 button.selected = YES;
-                
+
                 [device setTorchMode:AVCaptureTorchModeOn];
                 [device setFlashMode:AVCaptureFlashModeOn];
-                
-                lightImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_open_light"];
+
+                lightImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_open_light"];
             }else{
                 button.selected = NO;
-                
+
                 [device setTorchMode:AVCaptureTorchModeOff];
                 [device setFlashMode:AVCaptureFlashModeOff];
-                
-                lightImageView.image = [[BKTool sharedManager] takePhotoImageWithImageName:@"takephoto_close_light"];
+
+                lightImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_close_light"];
             }
-            
+
             [device unlockForConfiguration];
         }
     }
@@ -525,7 +526,5 @@
     }
     return _shutterBtn;
 }
-
-
 
 @end
