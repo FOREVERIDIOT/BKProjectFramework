@@ -16,3 +16,4 @@ float const BKExampleImagesSpacing = 10;//查看的大图图片间距
 float const BKCheckExampleImageAnimateTime = 0.5;//查看大图图片过场动画时间
 float const BKCheckExampleGifAndVideoAnimateTime = 0.3;//查看Gif、Video过场动画时间
 float const BKThumbImageCompressSizeMultiplier = 0.5;//图片长宽压缩比例 (小于1会把图片的长宽缩小)
+float const BKRecordVideoMaxTime = 10;//录制视频最大时长

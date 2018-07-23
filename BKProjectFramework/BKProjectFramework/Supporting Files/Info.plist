@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -15,7 +11,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>相机</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
 	<string>OC开发框架</string>
 	<key>CFBundleExecutable</key>

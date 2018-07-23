@@ -73,7 +73,6 @@
 		1D45CAE720FC7DFC003C7BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D45CAE620FC7DFC003C7BA4 /* UIKit.framework */; };
 		1D45CAE920FC7E09003C7BA4 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */; };
 		1D45CB0420FC8328003C7BA4 /* BKImageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CB0320FC8328003C7BA4 /* BKImageBaseViewController.m */; };
-		1D50C9D120FF255000626230 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D50C9D020FF255000626230 /* IJKMediaFramework.framework */; };
 		1D50C9D520FF2BFC00626230 /* BKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D50C9D420FF2BFC00626230 /* BKDemoViewController.m */; };
 		1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE220EF09EE00BBEAD1 /* BKCycleScrollView.m */; };
 		1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FE320EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m */; };
@@ -91,6 +90,10 @@
 		1DA0E13621002C48005D6FB3 /* BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13521002C48005D6FB3 /* BKImagePicker.m */; };
 		1DA0E13A21003506005D6FB3 /* BKImageManageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13921003506005D6FB3 /* BKImageManageModel.m */; };
 		1DA0E14021006EC6005D6FB3 /* NSString+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13F21006EC6005D6FB3 /* NSString+BKImagePicker.m */; };
+		1DA9FC0D21056C4300A11500 /* BKCameraShutterBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA9FC0C21056C4300A11500 /* BKCameraShutterBtn.m */; };
+		1DA9FC102105741A00A11500 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA9FC0F2105741A00A11500 /* IJKMediaFramework.framework */; };
+		1DA9FC132105759000A11500 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA9FC11210574AA00A11500 /* libc++.tbd */; };
+		1DA9FC162105C26800A11500 /* BKCameraRecordVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA9FC152105C26800A11500 /* BKCameraRecordVideoModel.m */; };
 		1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1786E20EDAD9000BA7652 /* AppDelegate.m */; };
 		1DB1787720EDAD9100BA7652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DB1787620EDAD9100BA7652 /* Assets.xcassets */; };
 		1DB1787D20EDAD9100BA7652 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1787C20EDAD9100BA7652 /* main.m */; };
@@ -222,7 +225,6 @@
 		1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		1D45CB0220FC8328003C7BA4 /* BKImageBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImageBaseViewController.h; sourceTree = "<group>"; };
 		1D45CB0320FC8328003C7BA4 /* BKImageBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImageBaseViewController.m; sourceTree = "<group>"; };
-		1D50C9D020FF255000626230 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1D50C9D320FF2BFC00626230 /* BKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDemoViewController.h; sourceTree = "<group>"; };
 		1D50C9D420FF2BFC00626230 /* BKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKDemoViewController.m; sourceTree = "<group>"; };
 		1D6B8FE120EF09EE00BBEAD1 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
@@ -259,6 +261,12 @@
 		1DA0E13921003506005D6FB3 /* BKImageManageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImageManageModel.m; sourceTree = "<group>"; };
 		1DA0E13E21006EC6005D6FB3 /* NSString+BKImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+BKImagePicker.h"; sourceTree = "<group>"; };
 		1DA0E13F21006EC6005D6FB3 /* NSString+BKImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+BKImagePicker.m"; sourceTree = "<group>"; };
+		1DA9FC0B21056C4300A11500 /* BKCameraShutterBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraShutterBtn.h; sourceTree = "<group>"; };
+		1DA9FC0C21056C4300A11500 /* BKCameraShutterBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraShutterBtn.m; sourceTree = "<group>"; };
+		1DA9FC0F2105741A00A11500 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		1DA9FC11210574AA00A11500 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		1DA9FC142105C26800A11500 /* BKCameraRecordVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraRecordVideoModel.h; sourceTree = "<group>"; };
+		1DA9FC152105C26800A11500 /* BKCameraRecordVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraRecordVideoModel.m; sourceTree = "<group>"; };
 		1DB1786A20EDAD9000BA7652 /* BKProjectFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKProjectFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DB1786D20EDAD9000BA7652 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1DB1786E20EDAD9000BA7652 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -286,10 +294,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DA9FC132105759000A11500 /* libc++.tbd in Frameworks */,
 				1D45CAE920FC7E09003C7BA4 /* VideoToolbox.framework in Frameworks */,
 				1D45CAE720FC7DFC003C7BA4 /* UIKit.framework in Frameworks */,
 				1D45CAE520FC7DF3003C7BA4 /* QuartzCore.framework in Frameworks */,
-				1D50C9D120FF255000626230 /* IJKMediaFramework.framework in Frameworks */,
+				1DA9FC102105741A00A11500 /* IJKMediaFramework.framework in Frameworks */,
 				1D45CAE320FC7DEC003C7BA4 /* OpenGLES.framework in Frameworks */,
 				1D45CAE120FC7DE4003C7BA4 /* MobileCoreServices.framework in Frameworks */,
 				1D45CADF20FC7DD9003C7BA4 /* MediaPlayer.framework in Frameworks */,
@@ -621,14 +630,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		1D50C9CF20FF255000626230 /* IJKMediaFramework */ = {
-			isa = PBXGroup;
-			children = (
-				1D50C9D020FF255000626230 /* IJKMediaFramework.framework */,
-			);
-			path = IJKMediaFramework;
-			sourceTree = "<group>";
-		};
 		1D50C9D220FF2BDC00626230 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,6 +689,10 @@
 			children = (
 				1DA0E12C2100288D005D6FB3 /* BKCameraViewController.h */,
 				1DA0E12D2100288D005D6FB3 /* BKCameraViewController.m */,
+				1DA9FC0B21056C4300A11500 /* BKCameraShutterBtn.h */,
+				1DA9FC0C21056C4300A11500 /* BKCameraShutterBtn.m */,
+				1DA9FC142105C26800A11500 /* BKCameraRecordVideoModel.h */,
+				1DA9FC152105C26800A11500 /* BKCameraRecordVideoModel.m */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -709,6 +714,14 @@
 				1D45CA5120FC6892003C7BA4 /* BKImage.bundle */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		1DA9FC0E2105741A00A11500 /* IJKMediaFramework */ = {
+			isa = PBXGroup;
+			children = (
+				1DA9FC0F2105741A00A11500 /* IJKMediaFramework.framework */,
+			);
+			path = IJKMediaFramework;
 			sourceTree = "<group>";
 		};
 		1DB1786120EDAD9000BA7652 = {
@@ -778,7 +791,7 @@
 		1DB1788620EDB4B200BA7652 /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				1D50C9CF20FF255000626230 /* IJKMediaFramework */,
+				1DA9FC0E2105741A00A11500 /* IJKMediaFramework */,
 				1D0294A120F5E3F100D75606 /* GTMBase64 */,
 			);
 			path = Third;
@@ -839,6 +852,7 @@
 		D60AA249455D60B29332888F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DA9FC11210574AA00A11500 /* libc++.tbd */,
 				1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */,
 				1D45CAE620FC7DFC003C7BA4 /* UIKit.framework */,
 				1D45CAE420FC7DF3003C7BA4 /* QuartzCore.framework */,
@@ -950,12 +964,22 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BKProjectFramework/Pods-BKProjectFramework-resources.sh",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_amatorka.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_miss_etikate.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_1.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_2.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
@@ -1026,9 +1050,11 @@
 				1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */,
 				1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */,
 				1DB1789020EDB81A00BA7652 /* NSObject+BKExtension.m in Sources */,
+				1DA9FC0D21056C4300A11500 /* BKCameraShutterBtn.m in Sources */,
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
 				1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */,
 				1DA0E14021006EC6005D6FB3 /* NSString+BKImagePicker.m in Sources */,
+				1DA9FC162105C26800A11500 /* BKCameraRecordVideoModel.m in Sources */,
 				1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */,
 				1D45CACA20FC6892003C7BA4 /* BKImageAlbumListViewController.m in Sources */,
 				1D45CABE20FC6892003C7BA4 /* BKImagePickerViewController.m in Sources */,

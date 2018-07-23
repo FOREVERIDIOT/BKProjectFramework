@@ -92,11 +92,21 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png"
   install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png"
+  install_resource "${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png"
   install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle"

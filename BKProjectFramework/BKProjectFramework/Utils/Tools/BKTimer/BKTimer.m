@@ -93,6 +93,17 @@ CGFloat const kMinTimeInterval = 0.000001;
 
 -(void)bk_removeTimer:(dispatch_source_t)timer
 {
+    if (!timer) {
+        return;
+    }
+    
+    [self.timers enumerateObjectsUsingBlock:^(BKTimerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.timer == timer) {
+            [self.timers removeObjectAtIndex:idx];
+            *stop = YES;
+        }
+    }];
+    
     dispatch_source_cancel(timer);
     timer = nil;
 }

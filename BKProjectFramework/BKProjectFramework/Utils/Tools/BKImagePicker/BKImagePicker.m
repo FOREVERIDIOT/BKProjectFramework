@@ -15,7 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "BKImageAlbumListViewController.h"
 #import "BKImagePickerViewController.h"
-#import "BKImageTakePhotoViewController.h"
+#import "BKCameraViewController.h"
 
 @interface BKImagePicker ()
 
@@ -102,7 +102,8 @@
             
             UIViewController * lastVC = [self getCurrentVC];
             
-            BKImageTakePhotoViewController * vc = [[BKImageTakePhotoViewController alloc]init];
+            BKCameraViewController * vc = [[BKCameraViewController alloc]init];
+            vc.cameraType = BKCameraTypeRecordVideo;
             BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:vc];
             [lastVC presentViewController:nav animated:YES completion:nil];
             

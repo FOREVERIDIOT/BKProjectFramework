@@ -16,4 +16,5 @@ UIKIT_EXTERN const float BKExampleImagesSpacing;
 UIKIT_EXTERN const float BKCheckExampleImageAnimateTime;
 UIKIT_EXTERN const float BKCheckExampleGifAndVideoAnimateTime;
 UIKIT_EXTERN const float BKThumbImageCompressSizeMultiplier;
+UIKIT_EXTERN const float BKRecordVideoMaxTime;
 

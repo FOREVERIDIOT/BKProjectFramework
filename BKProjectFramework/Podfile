@@ -16,6 +16,6 @@ pod 'FLAnimatedImage'
 pod 'IQKeyboardManager'
 pod 'SAMKeychain'
 pod 'MBProgressHUD'
-pod 'LFLiveKit'
+pod 'GPUImage'
 
 end

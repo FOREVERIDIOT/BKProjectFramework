@@ -1,6 +1,10 @@
 # BKProjectFramework
 未来自己使用的框架（一步步更新中）
 
+## IJKPlayer模拟器+真机合并下载地址
+提示:IJKPlayer太大，所以项目中未上传IJKPlayer，我把IJKPlayer上传到百度云盘，链接如下
+链接:[IJKPlayer下载链接](https://pan.baidu.com/s/10qUR69T2FwgDrSVLE4gVCg)    密码:hlat
+
 ## 记录坑点
 1. 运行时赋值object_setIvar(id  _Nullable obj, Ivar  _Nonnull ivar, id  _Nullable value) 该方法不执行setter方法 
 2. [obj setValue:(nullable id) forKey:(nonnull NSString *)] 若forKey传入的属性名前加下划线不会执行setter方法
@@ -13,7 +17,17 @@
     make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1
    ```
    是因为最新的 Xcode 已经弱化了对 32 位的支持, 解决方法:在 compile-ffmpeg.sh 中删除 armv7 , 修改如: FF_ALL_ARCHS_IOS8_SDK="arm64 i386 x86_64" 再重新执行出现错误的命令: ./compile-ffmpeg.sh all    [[参考链接](https://www.jianshu.com/p/9743a68c2939)]
-
-## IJKPlayer模拟器+真机合并下载地址
-提示:IJKPlayer太大，所以项目中未上传IJKPlayer，我把IJKPlayer上传到百度云盘，链接如下
-链接:[IJKPlayer](https://pan.baidu.com/s/10qUR69T2FwgDrSVLE4gVCg)    密码:hlat
+5. IJKPlayer安装步骤坑点三: 按github官网步骤添加完系统库，并把IJKMediaFramework导入项目中出现了下面这个错误
+   ```
+   Undefined symbols for architecture arm64:
+   "operator delete(void*)", referenced from:
+   _ijk_map_destroy in IJKMediaFramework(ijkstl.o)
+   std::__1::__tree<std::__1::__value_type<long long, void*>, std::__1::__map_value_compare<long long, std::__1::__value_type<long long, void*>, std::__1::less<long long>, true>, std::__1::allocator<std::__1::__value_type<long long, void*> > >::destroy(std::__1::__tree_node<std::__1::__value_type<long long, void*>, void*>*) in IJKMediaFramework(ijkstl.o)
+   std::__1::__tree<std::__1::__value_type<long long, void*>, std::__1::__map_value_compare<long long, std::__1::__value_type<long long, void*>, std::__1::less<long long>, true>, std::__1::allocator<std::__1::__value_type<long long, void*> > >::erase(std::__1::__tree_const_iterator<std::__1::__value_type<long long, void*>, std::__1::__tree_node<std::__1::__value_type<long long, void*>, void*>*, long>) in IJKMediaFramework(ijkstl.o)
+   "operator new(unsigned long)", referenced from:
+   _ijk_map_create in IJKMediaFramework(ijkstl.o)
+   std::__1::pair<std::__1::__tree_iterator<std::__1::__value_type<long long, void*>, std::__1::__tree_node<std::__1::__value_type<long long, void*>, void*>*, long>, bool> std::__1::__tree<std::__1::__value_type<long long, void*>, std::__1::__map_value_compare<long long, std::__1::__value_type<long long, void*>, std::__1::less<long long>, true>, std::__1::allocator<std::__1::__value_type<long long, void*> > >::__emplace_unique_key_args<long long, std::__1::piecewise_construct_t const&, std::__1::tuple<long long const&>, std::__1::tuple<> >(long long const&, std::__1::piecewise_construct_t const&&&, std::__1::tuple<long long const&>&&, std::__1::tuple<>&&) in IJKMediaFramework(ijkstl.o)
+   ld: symbol(s) not found for architecture arm64
+   clang: error: linker command failed with exit code 1 (use -v to see invocation)
+   ```
+   解决方法：添加系统依赖库libc++.dylib(tbd)，然后重新编译就可以了。    [[参考链接](https://www.jianshu.com/p/93b8379c35f8)]
