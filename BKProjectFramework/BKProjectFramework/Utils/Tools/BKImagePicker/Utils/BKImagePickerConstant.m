@@ -11,6 +11,8 @@
 NSString * const BKFinishTakePhotoNotification = @"BKFinishTakePhotoNotification";//拍照完成通知
 NSString * const BKFinishSelectImageNotification = @"BKFinishSelectImageNotification";//选择完成通知
 
+NSString * const BKRecordVideoMaxTimeRemind = @"录制时间已达上限";//录制到最大时间提示
+
 float const BKAlbumImagesSpacing = 1;//相簿图片间距
 float const BKExampleImagesSpacing = 10;//查看的大图图片间距
 float const BKCheckExampleImageAnimateTime = 0.5;//查看大图图片过场动画时间

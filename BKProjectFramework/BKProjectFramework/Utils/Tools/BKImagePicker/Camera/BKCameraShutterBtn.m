@@ -18,6 +18,8 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     BKShutterStateLongPress        //长按状态
 };
 
+float const kTimerInterval = 0.01;//定时器执行间距
+
 @interface BKCameraShutterBtn()
 
 @property (nonatomic,assign) CGPoint startPoint;//记录开始手势的位置
@@ -36,11 +38,6 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
 @end
 
 @implementation BKCameraShutterBtn
-
--(void)dealloc
-{
-    NSLog(@"BKCameraShutterBtn释放");
-}
 
 #pragma mark - init
 
@@ -144,18 +141,20 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     }
 }
 
+/**
+ 改变快门按钮的状态
+ */
 -(void)setShutterState:(BKShutterState)shutterState
 {
     _shutterState = shutterState;
     
-    BK_WEAK_SELF(self);
     [UIView animateWithDuration:0.1 animations:^{
-        if (weakSelf.shutterState == BKShutterStateCancel) {
-            weakSelf.blurView.transform = CGAffineTransformIdentity;
-            weakSelf.middleCircleView.transform = CGAffineTransformIdentity;
-        }else if (weakSelf.shutterState == BKShutterStateLongPress) {
-            weakSelf.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
-            weakSelf.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
+        if (self.shutterState == BKShutterStateCancel) {
+            self.blurView.transform = CGAffineTransformIdentity;
+            self.middleCircleView.transform = CGAffineTransformIdentity;
+        }else if (self.shutterState == BKShutterStateLongPress) {
+            self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
         }
     }];
 }
@@ -182,16 +181,28 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan:
         {
-            self.recordState = BKRecordStateBegin;
-            [self changeRecordAction];
+            if (self.recordState == BKRecordStateNone) {
+                [self setRecordState:BKRecordStatePrepare oldRecordState:BKRecordStateNone];
+            }else if (self.recordState == BKRecordStatePause) {
+                [self setRecordState:BKRecordStateRecording oldRecordState:BKRecordStatePause];
+            }else if (self.recordState == BKRecordStateEnd) {
+                [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
+                longPress.enabled = NO;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    longPress.enabled = YES;
+                });
+            }
         }
             break;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
         {
-            self.recordState = BKRecordStatePause;
-            [self changeRecordAction];
+            if (self.recordState == BKRecordStatePrepare) {
+                [self setRecordState:BKRecordStateNone oldRecordState:BKRecordStatePrepare];
+            }else if (self.recordState == BKRecordStateRecording) {
+                [self setRecordState:BKRecordStatePause oldRecordState:BKRecordStateRecording];
+            }
         }
             break;
         default:
@@ -199,15 +210,29 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     }
 }
 
--(void)setRecordState:(BKRecordState)recordState
+/**
+ 改变录制按钮状态
+
+ @param recordState 新状态
+ @param oldRecordState 旧状态
+ */
+-(void)setRecordState:(BKRecordState)recordState oldRecordState:(BKRecordState)oldRecordState
 {
-    if (_recordState == BKRecordStateNone && recordState == BKRecordStateBegin) {
-        BK_WEAK_SELF(self);
+    _recordState = recordState;
+    
+    if (oldRecordState == BKRecordStateNone && recordState == BKRecordStatePrepare) {
+        
         [UIView animateWithDuration:0.2 animations:^{
-            weakSelf.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
-            weakSelf.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
+            self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
         } completion:^(BOOL finished) {
     
+            if (self.recordState == BKRecordStateNone) {
+                return;
+            }
+            
+            self.recordState = BKRecordStateRecording;
+            
             [self.layer addSublayer:self.progressLayer];
             if ([self.progressLayer.animationKeys containsObject:@"progressAnimate"]) {
                 [self.progressLayer removeAnimationForKey:@"progressAnimate"];
@@ -215,16 +240,22 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
             [self addProgressAnimate];
             [self setupTimer];
         }];
-    }else if (_recordState == BKRecordStatePause && recordState == BKRecordStateBegin) {
+    }else if (oldRecordState == BKRecordStatePrepare && recordState == BKRecordStateNone) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.blurView.transform = CGAffineTransformIdentity;
+            self.middleCircleView.transform = CGAffineTransformIdentity;
+        }];
+    }else if (oldRecordState == BKRecordStateRecording && recordState == BKRecordStatePause) {
+        [self pauseRecord];
+    }else if (oldRecordState == BKRecordStatePause && recordState == BKRecordStateRecording) {
         [self continueRecord];
         [self setupTimer];
-    }else if (_recordState == BKRecordStateBegin && recordState == BKRecordStatePause) {
-        [self pauseRecord];
     }
-    
-    _recordState = recordState;
 }
 
+/**
+ 进度条
+ */
 -(CAShapeLayer*)progressLayer
 {
     if (!_progressLayer) {
@@ -241,10 +272,14 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     return _progressLayer;
 }
 
+/**
+ 进度条动画
+ */
 -(void)addProgressAnimate
 {
     CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
     animation.repeatCount = 1;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.duration = BKRecordVideoMaxTime;
@@ -254,13 +289,27 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     [self.progressLayer addAnimation:animation forKey:@"progressAnimate"];
 }
 
+/**
+ 进度定时器
+ */
 -(void)setupTimer
 {
-    self.recordTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:0.01 totalTime:BKRecordVideoMaxTime - self.recordTime handler:^(BKTimerModel *timerModel) {
+    /*
+     貌似CABasicAnimation动画比定时以kTimerInterval(即0.01)执行一次速度快一个kTimerInterval(即0.01)
+     所以全部时间 - 一次间隔 才会和停止的线相对齐
+     */
+    CGFloat totalTime = BKRecordVideoMaxTime - self.recordTime - kTimerInterval;
+    if (totalTime < 0) {//如果定时器时间小于0 return
+        return;
+    }
+    self.recordTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:kTimerInterval totalTime:totalTime handler:^(BKTimerModel *timerModel) {
         self.recordTime = BKRecordVideoMaxTime - timerModel.lastTime;
     }];
 }
 
+/**
+ 暂停录制
+ */
 -(void)pauseRecord
 {
     [[BKTimer sharedManager] bk_removeTimer:self.recordTimer];
@@ -278,6 +327,9 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     [self.recordVideos addObject:model];
 }
 
+/**
+ 继续录制
+ */
 -(void)continueRecord
 {
     CFTimeInterval pauseTime = self.progressLayer.timeOffset;
@@ -287,9 +339,12 @@ typedef NS_ENUM(NSUInteger, BKShutterState) {
     self.progressLayer.speed = 1;
 }
 
+/**
+ 暂停录制线
+ */
 -(CAShapeLayer*)setupStopLayer
 {
-    CGFloat bai = self.recordTime / BKRecordVideoMaxTime + 0.01;
+    CGFloat bai = self.recordTime / BKRecordVideoMaxTime;
     CGFloat startAngle = -M_PI_2;
     CGFloat totalAngle = M_PI*2;
     

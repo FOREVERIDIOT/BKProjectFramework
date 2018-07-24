@@ -11,6 +11,8 @@
 UIKIT_EXTERN NSString * const BKFinishTakePhotoNotification;
 UIKIT_EXTERN NSString * const BKFinishSelectImageNotification;
 
+UIKIT_EXTERN NSString * const BKRecordVideoMaxTimeRemind;
+
 UIKIT_EXTERN const float BKAlbumImagesSpacing;
 UIKIT_EXTERN const float BKExampleImagesSpacing;
 UIKIT_EXTERN const float BKCheckExampleImageAnimateTime;

@@ -11,7 +11,8 @@
 
 typedef NS_ENUM(NSUInteger, BKRecordState) {
     BKRecordStateNone = 0,      //未录制
-    BKRecordStateBegin,         //录制开始
+    BKRecordStatePrepare,       //准备录制
+    BKRecordStateRecording,     //录制中
     BKRecordStatePause,         //录制暂停
     BKRecordStateEnd            //录制结束
 };
