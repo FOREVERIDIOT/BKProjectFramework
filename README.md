@@ -31,3 +31,6 @@
    clang: error: linker command failed with exit code 1 (use -v to see invocation)
    ```
    解决方法：添加系统依赖库libc++.dylib(tbd)，然后重新编译就可以了。    [[参考链接](https://www.jianshu.com/p/93b8379c35f8)]
+6. 猜想CABasicAnimation和dispatch_source_t定时器(定时器以0.01s执行一次)同时开始进行 CABasicAnimation比dispatch_source_t定时器执行快0.01s。原因未知。
+   
+   
