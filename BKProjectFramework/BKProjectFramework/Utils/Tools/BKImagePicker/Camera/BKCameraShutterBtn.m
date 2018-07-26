@@ -233,6 +233,8 @@ float const kTimerInterval = 0.01;//定时器执行间距
             
             self.recordState = BKRecordStateRecording;
             
+            [self changeRecordAction];
+            
             [self.layer addSublayer:self.progressLayer];
             if ([self.progressLayer.animationKeys containsObject:@"progressAnimate"]) {
                 [self.progressLayer removeAnimationForKey:@"progressAnimate"];
@@ -247,6 +249,7 @@ float const kTimerInterval = 0.01;//定时器执行间距
         }];
     }else if (oldRecordState == BKRecordStateRecording && recordState == BKRecordStatePause) {
         [self pauseRecord];
+        [self changeRecordAction];
     }else if (oldRecordState == BKRecordStatePause && recordState == BKRecordStateRecording) {
         [self continueRecord];
         [self setupTimer];

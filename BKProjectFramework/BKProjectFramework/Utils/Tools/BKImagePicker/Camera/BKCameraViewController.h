@@ -7,11 +7,7 @@
 //
 
 #import "BKBaseViewController.h"
-
-typedef NS_ENUM(NSUInteger, BKCameraType) {
-    BKCameraTypeTakePhoto = 0, //拍照
-    BKCameraTypeRecordVideo,   //录视频
-};
+#import "BKCameraManager.h"
 
 @interface BKCameraViewController : BKBaseViewController
 

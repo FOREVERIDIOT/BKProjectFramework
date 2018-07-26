@@ -20,6 +20,7 @@
 		1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BB20F6003300D75606 /* BKTabBarController.m */; };
 		1D0294BF20F6004B00D75606 /* BKTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BE20F6004B00D75606 /* BKTabBar.m */; };
 		1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294C120F6058700D75606 /* BKTabBarBtn.m */; };
+		1D07D9872107010200EC98F4 /* BKCameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D07D9862107010200EC98F4 /* BKCameraManager.m */; };
 		1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */; };
 		1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77420F740FA0010FBB5 /* UINavigationController+BKNavExtension.m */; };
 		1D3AA77C20F740FA0010FBB5 /* BKNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77620F740FA0010FBB5 /* BKNavViewController.m */; };
@@ -32,8 +33,6 @@
 		1D45CAA920FC6892003C7BA4 /* UIBezierPath+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4B20FC6892003C7BA4 /* UIBezierPath+BKImagePicker.m */; };
 		1D45CAAA20FC6892003C7BA4 /* BKImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4F20FC6892003C7BA4 /* BKImageModel.m */; };
 		1D45CAAB20FC6892003C7BA4 /* BKImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D45CA5120FC6892003C7BA4 /* BKImage.bundle */; };
-		1D45CAB220FC6892003C7BA4 /* BKImageTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA6020FC6892003C7BA4 /* BKImageTakePhotoViewController.m */; };
-		1D45CAB320FC6892003C7BA4 /* BKImageTakePhotoBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA6120FC6892003C7BA4 /* BKImageTakePhotoBtn.m */; };
 		1D45CAB420FC6892003C7BA4 /* BKEditImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA6620FC6892003C7BA4 /* BKEditImageViewController.m */; };
 		1D45CAB520FC6892003C7BA4 /* BKEditImageDrawModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA6820FC6892003C7BA4 /* BKEditImageDrawModel.m */; };
 		1D45CAB620FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA6D20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.m */; };
@@ -133,6 +132,8 @@
 		1D0294BE20F6004B00D75606 /* BKTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBar.m; sourceTree = "<group>"; };
 		1D0294C020F6058700D75606 /* BKTabBarBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBarBtn.h; sourceTree = "<group>"; };
 		1D0294C120F6058700D75606 /* BKTabBarBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBarBtn.m; sourceTree = "<group>"; };
+		1D07D9852107010200EC98F4 /* BKCameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraManager.h; sourceTree = "<group>"; };
+		1D07D9862107010200EC98F4 /* BKCameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraManager.m; sourceTree = "<group>"; };
 		1D3AA76320F6F5650010FBB5 /* BKBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBaseViewController.h; sourceTree = "<group>"; };
 		1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBaseViewController.m; sourceTree = "<group>"; };
 		1D3AA77320F740FA0010FBB5 /* BKTransitionAnimater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKTransitionAnimater.h; sourceTree = "<group>"; };
@@ -156,10 +157,6 @@
 		1D45CA4E20FC6892003C7BA4 /* BKImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImageModel.h; sourceTree = "<group>"; };
 		1D45CA4F20FC6892003C7BA4 /* BKImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImageModel.m; sourceTree = "<group>"; };
 		1D45CA5120FC6892003C7BA4 /* BKImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKImage.bundle; sourceTree = "<group>"; };
-		1D45CA5F20FC6892003C7BA4 /* BKImageTakePhotoBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImageTakePhotoBtn.h; sourceTree = "<group>"; };
-		1D45CA6020FC6892003C7BA4 /* BKImageTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImageTakePhotoViewController.m; sourceTree = "<group>"; };
-		1D45CA6120FC6892003C7BA4 /* BKImageTakePhotoBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImageTakePhotoBtn.m; sourceTree = "<group>"; };
-		1D45CA6220FC6892003C7BA4 /* BKImageTakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImageTakePhotoViewController.h; sourceTree = "<group>"; };
 		1D45CA6520FC6892003C7BA4 /* BKEditImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEditImageViewController.h; sourceTree = "<group>"; };
 		1D45CA6620FC6892003C7BA4 /* BKEditImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEditImageViewController.m; sourceTree = "<group>"; };
 		1D45CA6820FC6892003C7BA4 /* BKEditImageDrawModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEditImageDrawModel.m; sourceTree = "<group>"; };
@@ -399,7 +396,6 @@
 				1DA0E12F21002AF9005D6FB3 /* ImageModel */,
 				1D45CA7B20FC6892003C7BA4 /* ImageAlbum */,
 				1DA0E12B210027E2005D6FB3 /* Camera */,
-				1D45CA5E20FC6892003C7BA4 /* TakePhoto */,
 				1D45CA6320FC6892003C7BA4 /* EditImage */,
 				1DA0E13421002C48005D6FB3 /* BKImagePicker.h */,
 				1DA0E13521002C48005D6FB3 /* BKImagePicker.m */,
@@ -432,17 +428,6 @@
 				1DA0E13F21006EC6005D6FB3 /* NSString+BKImagePicker.m */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		1D45CA5E20FC6892003C7BA4 /* TakePhoto */ = {
-			isa = PBXGroup;
-			children = (
-				1D45CA6220FC6892003C7BA4 /* BKImageTakePhotoViewController.h */,
-				1D45CA6020FC6892003C7BA4 /* BKImageTakePhotoViewController.m */,
-				1D45CA5F20FC6892003C7BA4 /* BKImageTakePhotoBtn.h */,
-				1D45CA6120FC6892003C7BA4 /* BKImageTakePhotoBtn.m */,
-			);
-			path = TakePhoto;
 			sourceTree = "<group>";
 		};
 		1D45CA6320FC6892003C7BA4 /* EditImage */ = {
@@ -689,6 +674,8 @@
 			children = (
 				1DA0E12C2100288D005D6FB3 /* BKCameraViewController.h */,
 				1DA0E12D2100288D005D6FB3 /* BKCameraViewController.m */,
+				1D07D9852107010200EC98F4 /* BKCameraManager.h */,
+				1D07D9862107010200EC98F4 /* BKCameraManager.m */,
 				1DA9FC0B21056C4300A11500 /* BKCameraShutterBtn.h */,
 				1DA9FC0C21056C4300A11500 /* BKCameraShutterBtn.m */,
 				1DA9FC142105C26800A11500 /* BKCameraRecordVideoModel.h */,
@@ -1000,7 +987,7 @@
 				1D45CAC920FC6892003C7BA4 /* BKShowExampleImageCollectionViewCell.m in Sources */,
 				1D45CAB720FC6892003C7BA4 /* BKEditImageClipFrameView.m in Sources */,
 				1D6B8FEE20EF09EE00BBEAD1 /* BKCycleScrollImageView.m in Sources */,
-				1D45CAB220FC6892003C7BA4 /* BKImageTakePhotoViewController.m in Sources */,
+				1D07D9872107010200EC98F4 /* BKCameraManager.m in Sources */,
 				1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */,
 				1DB1788B20EDB52F00BA7652 /* BKShareManager.m in Sources */,
 				1D45CAA920FC6892003C7BA4 /* UIBezierPath+BKImagePicker.m in Sources */,
@@ -1066,7 +1053,6 @@
 				1D45CAAA20FC6892003C7BA4 /* BKImageModel.m in Sources */,
 				1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */,
 				1D50C9D520FF2BFC00626230 /* BKDemoViewController.m in Sources */,
-				1D45CAB320FC6892003C7BA4 /* BKImageTakePhotoBtn.m in Sources */,
 				1D02949420F5D85700D75606 /* UIView+BKExtension.m in Sources */,
 				1D45CABC20FC6892003C7BA4 /* BKEditImageBgView.m in Sources */,
 				1D45CABF20FC6892003C7BA4 /* BKImageAlbumItemView.m in Sources */,
