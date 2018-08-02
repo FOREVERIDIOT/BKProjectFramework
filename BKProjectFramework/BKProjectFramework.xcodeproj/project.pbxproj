@@ -85,6 +85,7 @@
 		1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFD20EF152100BBEAD1 /* BKNetworkRequest.m */; };
 		1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */; };
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
+		1D7CC25421130B1900536C5F /* BKCameraRecordProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7CC25321130B1900536C5F /* BKCameraRecordProgress.m */; };
 		1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */; };
 		1DA0E12E2100288D005D6FB3 /* BKCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E12D2100288D005D6FB3 /* BKCameraViewController.m */; };
 		1DA0E13321002C1E005D6FB3 /* BKImagePickerConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13221002C1E005D6FB3 /* BKImagePickerConstant.m */; };
@@ -251,6 +252,8 @@
 		1D6B900020EF152100BBEAD1 /* BKNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequest.h; sourceTree = "<group>"; };
 		1D6B900320EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNetworkRequestFailureView.h; sourceTree = "<group>"; };
 		1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNetworkRequestFailureView.m; sourceTree = "<group>"; };
+		1D7CC25221130B1900536C5F /* BKCameraRecordProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraRecordProgress.h; sourceTree = "<group>"; };
+		1D7CC25321130B1900536C5F /* BKCameraRecordProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraRecordProgress.m; sourceTree = "<group>"; };
 		1D7E145920F360EB00E6546D /* NSObject+BKNetworkExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BKNetworkExtension.h"; sourceTree = "<group>"; };
 		1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKNetworkExtension.m"; sourceTree = "<group>"; };
 		1DA0E12C2100288D005D6FB3 /* BKCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraViewController.h; sourceTree = "<group>"; };
@@ -695,6 +698,8 @@
 				1D3CDA91210AC696006739A8 /* BKGPUImageBeautyFilter.m */,
 				1DA9FC0B21056C4300A11500 /* BKCameraShutterBtn.h */,
 				1DA9FC0C21056C4300A11500 /* BKCameraShutterBtn.m */,
+				1D7CC25221130B1900536C5F /* BKCameraRecordProgress.h */,
+				1D7CC25321130B1900536C5F /* BKCameraRecordProgress.m */,
 				1DA9FC142105C26800A11500 /* BKCameraRecordVideoModel.h */,
 				1DA9FC152105C26800A11500 /* BKCameraRecordVideoModel.m */,
 			);
@@ -1078,6 +1083,7 @@
 				1D45CABF20FC6892003C7BA4 /* BKImageAlbumItemView.m in Sources */,
 				1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
+				1D7CC25421130B1900536C5F /* BKCameraRecordProgress.m in Sources */,
 				1D45CAC720FC6892003C7BA4 /* BKShowExampleTransitionAnimater.m in Sources */,
 				1D0294B820F5FFB200D75606 /* BKImageView.m in Sources */,
 			);

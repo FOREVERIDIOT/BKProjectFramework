@@ -19,6 +19,14 @@
  */
 -(UIImage*)bk_editImageOrientation;
 
+/**
+ 修改图片方向
+
+ @param orientation 修改方向
+ @return 图片
+ */
+-(UIImage*)bk_editImageOrientation:(UIImageOrientation)orientation;
+
 #pragma mark - 图片资源
 
 /**

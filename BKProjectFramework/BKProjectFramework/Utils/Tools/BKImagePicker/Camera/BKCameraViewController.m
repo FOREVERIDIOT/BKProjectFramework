@@ -9,6 +9,7 @@
 #import "BKCameraViewController.h"
 #import "BKCameraShutterBtn.h"
 #import "BKImagePickerMacro.h"
+#import "BKCameraRecordProgress.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
 
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) BKCameraManager * cameraManager;
 
 @property (nonatomic,strong) BKCameraShutterBtn * shutterBtn;//快门按钮
+@property (nonatomic,strong) BKCameraRecordProgress * recordProgress;//记录进度
 @property (nonatomic,strong) UIButton * closeBtn;//关闭按钮
 @property (nonatomic,strong) UIButton * flashBtn;//闪光按钮
 @property (nonatomic,strong) UIButton * switchShotBtn;//镜头按钮

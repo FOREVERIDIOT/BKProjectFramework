@@ -23,6 +23,8 @@ float const kTimerInterval = 0.01;//定时器执行间距
 @interface BKCameraShutterBtn()
 
 @property (nonatomic,assign) CGPoint startPoint;//记录开始手势的位置
+@property (nonatomic,assign) CGPoint blurView_startCenterPoint;
+@property (nonatomic,assign) CGPoint middleCircleView_startCenterPoint;
 
 @property (nonatomic,strong) UIView * blurView;
 @property (nonatomic,strong) UIView * middleCircleView;
@@ -111,8 +113,9 @@ float const kTimerInterval = 0.01;//定时器执行间距
             break;
         case UIGestureRecognizerStateChanged:
         {
-            CGFloat tranX = [longPress locationOfTouch:0 inView:self].x - _startPoint.x;
-            CGFloat tranY = [longPress locationOfTouch:0 inView:self].y - _startPoint.y;
+            CGPoint point = [longPress locationOfTouch:0 inView:self];
+            CGFloat tranX = point.x - _startPoint.x;
+            CGFloat tranY = point.y - _startPoint.y;
             
             if (fabs(tranX) > self.bk_width || fabs(tranY) > self.bk_height) {
                 self.shutterState = BKShutterStateCancel;
@@ -181,10 +184,13 @@ float const kTimerInterval = 0.01;//定时器执行间距
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan:
         {
-            if (self.recordState == BKRecordStateNone) {
-                [self setRecordState:BKRecordStatePrepare oldRecordState:BKRecordStateNone];
-            }else if (self.recordState == BKRecordStatePause) {
-                [self setRecordState:BKRecordStateRecording oldRecordState:BKRecordStatePause];
+            if (self.recordState == BKRecordStatePrepare || self.recordState == BKRecordStatePause) {
+                
+                self.startPoint = [longPress locationInView:self];
+                self.blurView_startCenterPoint = self.blurView.center;
+                self.middleCircleView_startCenterPoint = self.middleCircleView.center;
+                [self setRecordState:BKRecordStateRecording];
+                
             }else if (self.recordState == BKRecordStateEnd) {
                 [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
                 longPress.enabled = NO;
@@ -194,14 +200,24 @@ float const kTimerInterval = 0.01;//定时器执行间距
             }
         }
             break;
+        case UIGestureRecognizerStateChanged:
+        {
+            if (self.recordState == BKRecordStateRecording) {
+                CGPoint point = [longPress locationOfTouch:0 inView:self];
+                CGFloat tranX = point.x - _startPoint.x;
+                CGFloat tranY = point.y - _startPoint.y;
+                
+                self.blurView.center = CGPointMake(self.blurView_startCenterPoint.x + tranX, self.blurView_startCenterPoint.y + tranY);
+                self.middleCircleView.center = CGPointMake(self.middleCircleView_startCenterPoint.x + tranX, self.middleCircleView_startCenterPoint.y + tranY);
+            }
+        }
+            break;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
         {
-            if (self.recordState == BKRecordStatePrepare) {
-                [self setRecordState:BKRecordStateNone oldRecordState:BKRecordStatePrepare];
-            }else if (self.recordState == BKRecordStateRecording) {
-                [self setRecordState:BKRecordStatePause oldRecordState:BKRecordStateRecording];
+            if (self.recordState == BKRecordStateRecording) {
+                [self setRecordState:BKRecordStatePause];
             }
         }
             break;
@@ -212,85 +228,126 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 /**
  改变录制按钮状态
-
- @param recordState 新状态
- @param oldRecordState 旧状态
  */
--(void)setRecordState:(BKRecordState)recordState oldRecordState:(BKRecordState)oldRecordState
+-(void)setRecordState:(BKRecordState)recordState
 {
     _recordState = recordState;
     
-    if (oldRecordState == BKRecordStateNone && recordState == BKRecordStatePrepare) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
-            self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
-        } completion:^(BOOL finished) {
+//    if (oldRecordState == BKRecordStateNone && recordState == BKRecordStatePrepare) {
+//
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+//            self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
+//        } completion:^(BOOL finished) {
+//
+//            if (self.recordState == BKRecordStateNone) {
+//                return;
+//            }
+//
+//            self.recordState = BKRecordStateRecording;
+//
+//            [self changeRecordAction];
+//
+//            [self.layer addSublayer:self.progressLayer];
+//            if ([self.progressLayer.animationKeys containsObject:@"progressAnimate"]) {
+//                [self.progressLayer removeAnimationForKey:@"progressAnimate"];
+//            }
+////            [self addProgressAnimate];
+//            [self setupTimer];
+//        }];
+//    }else if (oldRecordState == BKRecordStatePrepare && recordState == BKRecordStateNone) {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.blurView.transform = CGAffineTransformIdentity;
+//            self.middleCircleView.transform = CGAffineTransformIdentity;
+//        }];
+//    }else
     
-            if (self.recordState == BKRecordStateNone) {
-                return;
-            }
-            
-            self.recordState = BKRecordStateRecording;
-            
-            [self changeRecordAction];
-            
-            [self.layer addSublayer:self.progressLayer];
-            if ([self.progressLayer.animationKeys containsObject:@"progressAnimate"]) {
-                [self.progressLayer removeAnimationForKey:@"progressAnimate"];
-            }
-            [self addProgressAnimate];
-            [self setupTimer];
-        }];
-    }else if (oldRecordState == BKRecordStatePrepare && recordState == BKRecordStateNone) {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.blurView.transform = CGAffineTransformIdentity;
-            self.middleCircleView.transform = CGAffineTransformIdentity;
-        }];
-    }else if (oldRecordState == BKRecordStateRecording && recordState == BKRecordStatePause) {
-        [self pauseRecord];
-        [self changeRecordAction];
-    }else if (oldRecordState == BKRecordStatePause && recordState == BKRecordStateRecording) {
-        [self continueRecord];
-        [self setupTimer];
-    }
-}
-
-/**
- 进度条
- */
--(CAShapeLayer*)progressLayer
-{
-    if (!_progressLayer) {
-        UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:-M_PI_2 endAngle:M_PI_2+M_PI clockwise:YES];
         
-        _progressLayer = [CAShapeLayer layer];
-        _progressLayer.path = path.CGPath;
-        _progressLayer.bounds = self.blurView.bounds;
-        _progressLayer.position = self.blurView.center;
-        _progressLayer.lineWidth = 4;
-        _progressLayer.fillColor = [UIColor clearColor].CGColor;
-        _progressLayer.strokeColor = [UIColor redColor].CGColor;
+    if (_recordState == BKRecordStateRecording) {
+//        [self changeRecordAction];
+//        [self continueRecord];
+//        [self setupTimer];
+        [self unfoldAnimate:0];
+    }else if (_recordState == BKRecordStatePause) {
+//        [self pauseRecord];
+//        [self changeRecordAction];
+        [self closeAnimate];
     }
-    return _progressLayer;
 }
 
 /**
- 进度条动画
+ 展开动画
+
+ @param state 0第一次大动画 1大动画 2小动画
  */
--(void)addProgressAnimate
+-(void)unfoldAnimate:(NSInteger)state
 {
-    CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
-    animation.repeatCount = 1;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    animation.duration = BKRecordVideoMaxTime;
-    animation.autoreverses = NO;
-    animation.fromValue = @(0);
-    animation.toValue = @(1);
-    [self.progressLayer addAnimation:animation forKey:@"progressAnimate"];
+    if (self.recordState == BKRecordStateRecording) {
+        [UIView animateWithDuration:state==0?0.2:0.4 animations:^{
+            if (state == 0 || state == 1) {
+                self.blurView.transform = CGAffineTransformMakeScale(1.4, 1.4);
+                self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
+            }else{
+                self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+                self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
+            }
+        } completion:^(BOOL finished) {
+            if (state == 1) {
+                [self unfoldAnimate:2];
+            }else{
+                [self unfoldAnimate:1];
+            }
+        }];
+    }
 }
+
+-(void)closeAnimate
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        self.blurView.center = self.blurView_startCenterPoint;
+        self.middleCircleView.center = self.middleCircleView_startCenterPoint;
+        
+        self.blurView.transform = CGAffineTransformIdentity;
+        self.middleCircleView.transform = CGAffineTransformIdentity;
+    }];
+}
+
+///**
+// 进度条
+// */
+//-(CAShapeLayer*)progressLayer
+//{
+//    if (!_progressLayer) {
+//        UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:-M_PI_2 endAngle:M_PI_2+M_PI clockwise:YES];
+//
+//        _progressLayer = [CAShapeLayer layer];
+//        _progressLayer.path = path.CGPath;
+//        _progressLayer.bounds = self.blurView.bounds;
+//        _progressLayer.position = self.blurView.center;
+//        _progressLayer.lineWidth = 4;
+//        _progressLayer.fillColor = [UIColor clearColor].CGColor;
+//        _progressLayer.strokeColor = [UIColor redColor].CGColor;
+//    }
+//    return _progressLayer;
+//}
+
+///**
+// 进度条动画
+// */
+//-(void)addProgressAnimate
+//{
+//    CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+//    animation.removedOnCompletion = NO;
+//    animation.fillMode = kCAFillModeForwards;
+//    animation.repeatCount = 1;
+//    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    animation.duration = BKRecordVideoMaxTime;
+//    animation.autoreverses = NO;
+//    animation.fromValue = @(0);
+//    animation.toValue = @(1);
+//    [self.progressLayer addAnimation:animation forKey:@"progressAnimate"];
+//}
 
 /**
  进度定时器
@@ -317,17 +374,17 @@ float const kTimerInterval = 0.01;//定时器执行间距
 {
     [[BKTimer sharedManager] bk_removeTimer:self.recordTimer];
     
-    CFTimeInterval pauseTime = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil];
-    self.progressLayer.timeOffset = pauseTime;
-    self.progressLayer.speed = 0;
-    
-    CAShapeLayer * stopLayer = [self setupStopLayer];
-    [self.layer addSublayer:stopLayer];
-    
-    BKCameraRecordVideoModel * model = [[BKCameraRecordVideoModel alloc] init];
-    model.pauseTime = pauseTime;
-    model.stopLayer = stopLayer;
-    [self.recordVideos addObject:model];
+//    CFTimeInterval pauseTime = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil];
+//    self.progressLayer.timeOffset = pauseTime;
+//    self.progressLayer.speed = 0;
+//    
+//    CAShapeLayer * stopLayer = [self setupStopLayer];
+//    [self.layer addSublayer:stopLayer];
+//    
+//    BKCameraRecordVideoModel * model = [[BKCameraRecordVideoModel alloc] init];
+//    model.pauseTime = pauseTime;
+//    model.stopLayer = stopLayer;
+//    [self.recordVideos addObject:model];
 }
 
 /**
@@ -335,40 +392,40 @@ float const kTimerInterval = 0.01;//定时器执行间距
  */
 -(void)continueRecord
 {
-    CFTimeInterval pauseTime = self.progressLayer.timeOffset;
-    CFTimeInterval begin = CACurrentMediaTime() - pauseTime;
-    self.progressLayer.timeOffset = 0;
-    [self.progressLayer setBeginTime:begin];
-    self.progressLayer.speed = 1;
+//    CFTimeInterval pauseTime = self.progressLayer.timeOffset;
+//    CFTimeInterval begin = CACurrentMediaTime() - pauseTime;
+//    self.progressLayer.timeOffset = 0;
+//    [self.progressLayer setBeginTime:begin];
+//    self.progressLayer.speed = 1;
 }
 
-/**
- 暂停录制线
- */
--(CAShapeLayer*)setupStopLayer
-{
-    CGFloat bai = self.recordTime / BKRecordVideoMaxTime;
-    CGFloat startAngle = -M_PI_2;
-    CGFloat totalAngle = M_PI*2;
-    
-    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:startAngle+totalAngle*(bai-0.01) endAngle:startAngle+totalAngle*bai clockwise:YES];
-    
-    CAShapeLayer * layer = [CAShapeLayer layer];
-    layer.path = path.CGPath;
-    layer.bounds = self.blurView.bounds;
-    layer.position = self.blurView.center;
-    layer.lineWidth = 4;
-    layer.fillColor = [UIColor clearColor].CGColor;
-    layer.strokeColor = [UIColor blueColor].CGColor;
-    
-    return layer;
-}
+///**
+// 暂停录制线
+// */
+//-(CAShapeLayer*)setupStopLayer
+//{
+//    CGFloat bai = self.recordTime / BKRecordVideoMaxTime;
+//    CGFloat startAngle = -M_PI_2;
+//    CGFloat totalAngle = M_PI*2;
+//
+//    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:startAngle+totalAngle*(bai-0.01) endAngle:startAngle+totalAngle*bai clockwise:YES];
+//
+//    CAShapeLayer * layer = [CAShapeLayer layer];
+//    layer.path = path.CGPath;
+//    layer.bounds = self.blurView.bounds;
+//    layer.position = self.blurView.center;
+//    layer.lineWidth = 4;
+//    layer.fillColor = [UIColor clearColor].CGColor;
+//    layer.strokeColor = [UIColor blueColor].CGColor;
+//
+//    return layer;
+//}
 
 -(void)changeRecordAction
 {
-    if (self.recordVideoAction) {
-        self.recordVideoAction(_recordState);
-    }
+//    if (self.recordVideoAction) {
+//        self.recordVideoAction(_recordState);
+//    }
 }
 
 @end

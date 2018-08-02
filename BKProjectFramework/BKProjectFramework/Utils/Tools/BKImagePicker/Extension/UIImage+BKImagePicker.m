@@ -12,6 +12,9 @@
 
 #pragma mark - 调整图片方向
 
+/**
+ 修改图片方向为正方向
+ */
 -(UIImage*)bk_editImageOrientation
 {
     if ([self isKindOfClass:[UIImage class]]) {
@@ -96,6 +99,109 @@
             
             return contextedImage;
         }
+    }else{
+        return nil;
+    }
+}
+
+/**
+ 修改图片方向
+ */
+-(UIImage*)bk_editImageOrientation:(UIImageOrientation)orientation
+{
+    if ([self isKindOfClass:[UIImage class]]) {
+        
+        CGImageRef imageRef = self.CGImage;
+        CGRect rect = CGRectMake(0, 0, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
+        
+        CGRect editRect = rect;
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        
+        switch (orientation) {
+            case UIImageOrientationDown:
+            {
+                transform = CGAffineTransformMakeTranslation(rect.size.width, rect.size.height);
+                transform = CGAffineTransformRotate(transform, M_PI);
+            }
+                break;
+            case UIImageOrientationLeft:
+            {
+                editRect = CGRectMake(0, 0, rect.size.height, rect.size.width);
+                transform = CGAffineTransformMakeTranslation(0.0, rect.size.width);
+                transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
+            }
+                break;
+            case UIImageOrientationRight:
+            {
+                editRect = CGRectMake(0, 0, rect.size.height, rect.size.width);
+                transform = CGAffineTransformMakeTranslation(rect.size.height, 0.0);
+                transform = CGAffineTransformRotate(transform, M_PI / 2.0);
+            }
+                break;
+            case UIImageOrientationUpMirrored:
+            {
+                transform = CGAffineTransformMakeTranslation(rect.size.width, 0.0);
+                transform = CGAffineTransformScale(transform, -1.0, 1.0);
+            }
+                break;
+            case UIImageOrientationDownMirrored:
+            {
+                transform = CGAffineTransformMakeTranslation(0.0, rect.size.height);
+                transform = CGAffineTransformScale(transform, 1.0, -1.0);
+            }
+                break;
+            case UIImageOrientationLeftMirrored:
+            {
+                editRect = CGRectMake(0, 0, rect.size.height, rect.size.width);
+                transform = CGAffineTransformMakeTranslation(rect.size.height, rect.size.width);
+                transform = CGAffineTransformScale(transform, -1.0, 1.0);
+                transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
+            }
+                break;
+            case UIImageOrientationRightMirrored:
+            {
+                editRect = CGRectMake(0, 0, rect.size.height, rect.size.width);
+                transform = CGAffineTransformMakeScale(-1.0, 1.0);
+                transform = CGAffineTransformRotate(transform, M_PI / 2.0);
+            }
+                break;
+            default:
+            {
+                return self;
+            }
+                break;
+        }
+        
+        UIGraphicsBeginImageContext(editRect.size);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        switch (orientation)
+        {
+            case UIImageOrientationLeft:
+            case UIImageOrientationLeftMirrored:
+            case UIImageOrientationRight:
+            case UIImageOrientationRightMirrored:
+            {
+                CGContextScaleCTM(ctx, -1.0, 1.0);
+                CGContextTranslateCTM(ctx, -rect.size.height, 0.0);
+            }
+                break;
+            default:
+            {
+                CGContextScaleCTM(ctx, 1.0, -1.0);
+                CGContextTranslateCTM(ctx, 0.0, -rect.size.height);
+            }
+                break;
+        }
+        
+        CGContextConcatCTM(ctx, transform);
+        CGContextDrawImage(UIGraphicsGetCurrentContext(), rect, imageRef);
+        
+        UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return resultImage;
+        
     }else{
         return nil;
     }

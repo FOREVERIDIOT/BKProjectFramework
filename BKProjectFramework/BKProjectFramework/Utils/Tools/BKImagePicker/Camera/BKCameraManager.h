@@ -82,6 +82,11 @@ typedef NS_ENUM(NSUInteger, BKRecordVideoFailure) {
 -(void)pauseRecordVideo;
 
 /**
+ 完成录制
+ */
+-(void)finishRecordVideo;
+
+/**
  切换镜头
 
  @param complete flag切换结果是否成功 position镜头方向
