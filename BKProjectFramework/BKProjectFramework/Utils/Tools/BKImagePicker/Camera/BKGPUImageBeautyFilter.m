@@ -11,19 +11,19 @@
 @interface BKGPUImageBeautyFilter()
 
 /**
- 美颜滤镜
+ 磨皮滤镜
  */
-@property (nonatomic,strong) FSKGPUImageBeautyFilter * beautyFilter;
+@property (nonatomic,strong) GPUImageBeautifyFilter * beautyFilter;
 
 /**
- 饱和度
+ 亮度滤镜
  */
-@property (nonatomic,strong) GPUImageSaturationFilter * saturationFilter;
+@property (nonatomic,strong) GPUImageBrightnessFilter * brightnessFilter;
 
 /**
- 阴影和高光
+ 添加的滤镜数据 (自带数组self.targets一直是空数组...)
  */
-@property (nonatomic,strong) GPUImageHighlightShadowFilter * highlightShadowFilter;
+@property (nonatomic,strong) NSMutableArray<GPUImageFilter*> * groupTargets;
 
 @end
 
@@ -35,37 +35,46 @@
 {
     _beautyLevel = beautyLevel;
     
-    [self removeFilter];
-   
+    GPUImageBilateralFilter * bilateralFilter = [self.beautyFilter valueForKey:@"bilateralFilter"];
+    if (!bilateralFilter) {
+        return;
+    }
+    
     switch (_beautyLevel) {
+        case BKBeautyLevelZero:
+        {
+            bilateralFilter.texelSpacingMultiplier = 0;
+            bilateralFilter.distanceNormalizationFactor = 8;
+        }
+            break;
         case BKBeautyLevelOne:
         {
-            [self addFilter];
-            self.beautyFilter.beautyLevel = 0.2;
+            bilateralFilter.texelSpacingMultiplier = 1.6;
+            bilateralFilter.distanceNormalizationFactor = 7;
         }
             break;
         case BKBeautyLevelTwo:
         {
-            [self addFilter];
-            self.beautyFilter.beautyLevel = 0.4;
+            bilateralFilter.texelSpacingMultiplier = 3.2;
+            bilateralFilter.distanceNormalizationFactor = 6;
         }
             break;
         case BKBeautyLevelThree:
         {
-            [self addFilter];
-            self.beautyFilter.beautyLevel = 0.6;
+            bilateralFilter.texelSpacingMultiplier = 4.8;
+            bilateralFilter.distanceNormalizationFactor = 5;
         }
             break;
         case BKBeautyLevelFour:
         {
-            [self addFilter];
-            self.beautyFilter.beautyLevel = 0.8;
+            bilateralFilter.texelSpacingMultiplier = 6.4;
+            bilateralFilter.distanceNormalizationFactor = 4;
         }
             break;
         case BKBeautyLevelFive:
         {
-            [self addFilter];
-            self.beautyFilter.beautyLevel = 1;
+            bilateralFilter.texelSpacingMultiplier = 8;
+            bilateralFilter.distanceNormalizationFactor = 3;
         }
             break;
         default:
@@ -73,68 +82,112 @@
     }
 }
 
+#pragma mark - 亮度等级
+
+-(void)setBrightnessLevel:(CGFloat)brightnessLevel
+{
+    _brightnessLevel = brightnessLevel;
+    self.brightnessFilter.brightness = _brightnessLevel;
+}
+
+#pragma mark - get
+
+-(NSMutableArray<GPUImageFilter *> *)groupTargets
+{
+    if (!_groupTargets) {
+        _groupTargets = [NSMutableArray array];
+    }
+    return _groupTargets;
+}
+
+#pragma mark - init
+
+-(instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self bk_addFilter:(GPUImageFilter*)self.beautyFilter];
+        [self addFilter:self.brightnessFilter];
+    }
+    return self;
+}
+
 #pragma mark - 滤镜
 
--(FSKGPUImageBeautyFilter*)beautyFilter
+-(GPUImageBeautifyFilter*)beautyFilter
 {
     if (!_beautyFilter) {
-        _beautyFilter = [[FSKGPUImageBeautyFilter alloc] init];
-        _beautyFilter.brightLevel = 0.5;
-        _beautyFilter.toneLevel = 0.35;
+        _beautyFilter = [[GPUImageBeautifyFilter alloc] init];
+        [self setBeautyLevel:BKBeautyLevelZero];
     }
     return _beautyFilter;
 }
 
--(GPUImageSaturationFilter *)saturationFilter
+-(GPUImageBrightnessFilter*)brightnessFilter
 {
-    if (!_saturationFilter) {
-        _saturationFilter = [[GPUImageSaturationFilter alloc] init];
-        _saturationFilter.saturation = 0.9;
+    if (!_brightnessFilter) {
+        _brightnessFilter = [[GPUImageBrightnessFilter alloc] init];
+        _brightnessFilter.brightness = 0;
     }
-    return _saturationFilter;
-}
-
--(GPUImageHighlightShadowFilter*)highlightShadowFilter
-{
-    if (!_highlightShadowFilter) {
-        _highlightShadowFilter = [[GPUImageHighlightShadowFilter alloc] init];
-        _highlightShadowFilter.shadows = 0;
-        _highlightShadowFilter.highlights = 1;
-    }
-    return _highlightShadowFilter;
+    return _brightnessFilter;
 }
 
 #pragma mark - 添加滤镜
 
--(void)addFilter
+-(void)bk_addFilter:(GPUImageFilter*)filter
 {
-    [self addTarget:self.beautyFilter];
-    [self addTarget:self.saturationFilter];
-    [self addTarget:self.highlightShadowFilter];
+    if ([self.groupTargets containsObject:filter] || !filter) {
+        return;
+    }
     
-    [self.beautyFilter addTarget:self.saturationFilter];
-    [self.saturationFilter addTarget:self.highlightShadowFilter];
+    if ([self.groupTargets count] == 0) {
+
+        [self addTarget:filter];
+        
+        self.initialFilters = @[filter];
+        self.terminalFilter = filter;
+    }else if ([self.groupTargets count] > 0) {
+        
+        GPUImageFilter * lastFilter = [self.groupTargets lastObject];
+        
+        [self addTarget:filter];
+        
+        [lastFilter addTarget:filter];
+        
+        self.initialFilters = @[[self.groupTargets firstObject]];
+        self.terminalFilter = filter;
+    }
     
-    self.initialFilters = @[self.beautyFilter];
-    self.terminalFilter = self.highlightShadowFilter;
+    [self.groupTargets addObject:filter];
 }
 
 #pragma mark - 删除滤镜
 
--(void)removeFilter
+-(void)bk_removeFilter:(GPUImageFilter*)filter
 {
-    [self removeAllTargets];
+    if (![self.groupTargets containsObject:filter] || !filter) {
+        return;
+    }
     
-    [self.beautyFilter removeAllTargets];
-    [self.saturationFilter removeAllTargets];
-    [self.highlightShadowFilter removeAllTargets];
-    
-    self.initialFilters = nil;
-    self.terminalFilter = nil;
-    
-    self.beautyFilter = nil;
-    self.saturationFilter = nil;
-    self.highlightShadowFilter = nil;
+    if ([self.groupTargets count] == 1) {
+        
+        [self.groupTargets removeAllObjects];
+        [self removeAllTargets];
+        
+        self.initialFilters = @[];
+        self.terminalFilter = nil;
+        
+    }else if ([self.groupTargets count] > 1) {
+        
+        [self.groupTargets removeLastObject];
+        [self removeTarget:filter];
+        
+        GPUImageFilter * lastFilter = [self.groupTargets lastObject];
+        [lastFilter removeTarget:filter];
+        
+        self.initialFilters = @[[self.groupTargets firstObject]];
+        self.terminalFilter = lastFilter;
+    }
 }
 
 @end

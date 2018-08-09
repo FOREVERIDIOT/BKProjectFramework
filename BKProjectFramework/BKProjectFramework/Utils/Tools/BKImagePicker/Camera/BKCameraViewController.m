@@ -8,8 +8,9 @@
 
 #import "BKCameraViewController.h"
 #import "BKCameraShutterBtn.h"
-#import "BKImagePickerMacro.h"
 #import "BKCameraRecordProgress.h"
+#import "BKCameraFilterView.h"
+#import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
 
@@ -17,11 +18,14 @@
 
 @property (nonatomic,strong) BKCameraManager * cameraManager;
 
-@property (nonatomic,strong) BKCameraShutterBtn * shutterBtn;//快门按钮
 @property (nonatomic,strong) BKCameraRecordProgress * recordProgress;//记录进度
 @property (nonatomic,strong) UIButton * closeBtn;//关闭按钮
 @property (nonatomic,strong) UIButton * flashBtn;//闪光按钮
 @property (nonatomic,strong) UIButton * switchShotBtn;//镜头按钮
+@property (nonatomic,strong) UIButton * filterBtn;//滤镜按钮
+@property (nonatomic,strong) BKCameraFilterView * filterView;//滤镜界面
+
+@property (nonatomic,strong) BKCameraShutterBtn * shutterBtn;//快门按钮
 
 @end
 
@@ -38,10 +42,15 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    [self.view addSubview:self.shutterBtn];
+    [self.view addSubview:self.recordProgress];
+    
     [self.view addSubview:self.closeBtn];
     [self.view addSubview:self.switchShotBtn];
+    [self.view addSubview:self.filterBtn];
     [self.view addSubview:self.flashBtn];
+    
+    [self.view addSubview:self.shutterBtn];
+    [self.view addSubview:self.filterView];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -118,26 +127,14 @@
     }
 }
 
-#pragma mark - 快门按钮
+#pragma mark - 录像进度
 
--(BKCameraShutterBtn*)shutterBtn
+-(BKCameraRecordProgress*)recordProgress
 {
-    if (!_shutterBtn) {
-        _shutterBtn = [[BKCameraShutterBtn alloc]initWithFrame:CGRectMake((self.view.bk_width - 75)/2, self.view.bk_height - 75 - 40, 75, 75)];
-        _shutterBtn.cameraType = _cameraType;
-        BK_WEAK_SELF(self);
-        [_shutterBtn setTakePictureAction:^{
-           
-        }];
-        [_shutterBtn setRecordVideoAction:^(BKRecordState state) {
-            if (state == BKRecordStateRecording) {
-                [weakSelf.cameraManager startRecordVideo];
-            }else if (state == BKRecordStatePause) {
-                [weakSelf.cameraManager pauseRecordVideo];
-            }
-        }];
+    if (!_recordProgress) {
+        _recordProgress = [[BKCameraRecordProgress alloc] initWithFrame:CGRectMake(0, BK_SYSTEM_STATUSBAR_HEIGHT - 3, self.view.bk_width, 3)];
     }
-    return _shutterBtn;
+    return _recordProgress;
 }
 
 #pragma mark - 关闭按钮
@@ -198,14 +195,69 @@
     }];
 }
 
+#pragma mark - 滤镜
+
+-(UIButton*)filterBtn
+{
+    if (!_filterBtn) {
+        _filterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _filterBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.switchShotBtn.frame), 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        [_filterBtn addTarget:self action:@selector(filterBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImageView * switchShotImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_filterBtn.bk_width - 25)/2, (_filterBtn.bk_height - 25)/2, 25, 25)];
+        switchShotImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_filter"];
+        [_filterBtn addSubview:switchShotImageView];
+    }
+    return _filterBtn;
+}
+
+-(void)filterBtnClick:(UIButton*)button
+{
+    UIWindow * window = [UIApplication sharedApplication].keyWindow;
+    if (!window.userInteractionEnabled) {
+        return;
+    }
+    window.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.shutterBtn.alpha == 1) {
+            self.shutterBtn.alpha = 0;
+            self.filterView.alpha = 1;
+            self.filterView.bk_y = self.view.bk_height - self.filterView.bk_height;
+        }else{
+            self.shutterBtn.alpha = 1;
+            self.filterView.alpha = 0;
+            self.filterView.bk_y = self.view.bk_height;
+        }
+    } completion:^(BOOL finished) {
+        window.userInteractionEnabled = YES;
+    }];
+}
+
+#pragma mark - BKCameraFilterView
+
+-(BKCameraFilterView*)filterView
+{
+    if (!_filterView) {
+        _filterView = [[BKCameraFilterView alloc] initWithFrame:CGRectMake(0, self.view.bk_height, self.view.bk_width, 80+75)];
+        BK_WEAK_SELF(self);
+        [_filterView setSwitchBeautyFilterLevelAction:^(NSInteger level) {
+            [weakSelf.cameraManager switchBeautyFilterLevel:(BKBeautyLevel)level];
+        }];
+    }
+    return _filterView;
+}
+
 #pragma mark - 闪光灯
 
 -(UIButton*)flashBtn
 {
     if (!_flashBtn) {
         _flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _flashBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.switchShotBtn.frame), 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        _flashBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.filterBtn.frame), 64, BK_SYSTEM_NAV_UI_HEIGHT);
         [_flashBtn addTarget:self action:@selector(flashBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        if ([self.cameraManager getCurrentCaptureDevicePosition] == AVCaptureDevicePositionFront) {
+            _flashBtn.hidden = YES;
+        }
         
         UIImageView * flashImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_flashBtn.bk_width - 25)/2, (_flashBtn.bk_height - 25)/2, 25, 25)];
         flashImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_close_flash"];
@@ -233,5 +285,34 @@
         }
     }];
 }
+
+#pragma mark - 快门按钮
+
+-(BKCameraShutterBtn*)shutterBtn
+{
+    if (!_shutterBtn) {
+        _shutterBtn = [[BKCameraShutterBtn alloc]initWithFrame:CGRectMake((self.view.bk_width - 75)/2, self.view.bk_height - 40 - 75, 75, 75)];
+        _shutterBtn.cameraType = _cameraType;
+        BK_WEAK_SELF(self);
+        [_shutterBtn setTakePictureAction:^{
+            
+        }];
+        [_shutterBtn setRecordVideoAction:^(BKRecordState state) {
+            if (state == BKRecordStateRecording) {
+                
+            }else if (state == BKRecordStatePause) {
+                [weakSelf.recordProgress pauseRecord];
+            }
+        }];
+        [_shutterBtn setChangeRecordTimeAction:^(CGFloat currentTime) {
+            weakSelf.recordProgress.currentTime = currentTime;
+        }];
+        [_shutterBtn setChangeCaptureDeviceFactorPAction:^(CGFloat factorP) {
+            [weakSelf.cameraManager addFactorP:factorP];
+        }];
+    }
+    return _shutterBtn;
+}
+
 
 @end

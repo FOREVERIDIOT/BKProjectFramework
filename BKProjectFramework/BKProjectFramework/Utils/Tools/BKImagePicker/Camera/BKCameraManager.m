@@ -7,13 +7,12 @@
 //
 
 #import "BKCameraManager.h"
-#import <AVFoundation/AVFoundation.h>
+#import "BKFocusRectangle.h"
+#import "BKTimer.h"
+#import "GPUImage.h"
 #import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
-#import "GPUImage.h"
-#import "BKGPUImageBeautyFilter.h"
-#import "BKTimer.h"
 
 @interface BKCameraManager()<GPUImageVideoCameraDelegate,GPUImageMovieWriterDelegate>
 
@@ -30,8 +29,7 @@
 @property (nonatomic,copy) NSString * writeFilePath;//当前写入路径
 @property (nonatomic,strong) NSMutableArray * videoUrlArr;//录制所有片段路径数组
 
-@property (nonatomic,assign) CGPoint lastCameraPoint;//上一次聚焦point(默认屏幕中间)
-@property (nonatomic,strong) UIImageView * focusImageView;//聚焦框
+@property (nonatomic,strong) BKFocusRectangle * focusView;//聚焦框
 @property (nonatomic,strong) dispatch_source_t focusCursorTimer;//聚焦框消失定时器
 
 @end
@@ -46,7 +44,7 @@
 -(void)captureSessionStartRunning
 {
     [self.videoCamera startCameraCapture];
-    [self addNotificationToCaptureDevice:self.videoCamera.inputCamera];
+    [self setOriginalFocus];
 }
 
 /**
@@ -55,7 +53,6 @@
 -(void)captureSessionStopRunning
 {
     [self.videoCamera stopCameraCapture];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /**
@@ -74,6 +71,14 @@
     }else {
         return currentImage;
     }
+}
+
+/**
+ 获取当前摄像头方向
+ */
+-(AVCaptureDevicePosition)getCurrentCaptureDevicePosition
+{
+    return [self.videoCamera cameraPosition];
 }
 
 /**
@@ -105,8 +110,6 @@
  */
 -(void)switchCaptureDeviceComplete:(void (^)(BOOL flag, AVCaptureDevicePosition position))complete
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:self.videoCamera.inputCamera];
-    
     //之前的镜头
     AVCaptureDevicePosition oldPosition = [_videoCamera cameraPosition];
     [self.videoCamera rotateCamera];//切换镜头
@@ -123,7 +126,7 @@
         }
     }
     
-    [self addNotificationToCaptureDevice:self.videoCamera.inputCamera];
+    [self setOriginalFocus];
 }
 
 /**
@@ -151,6 +154,55 @@
     }];
 }
 
+/**
+ 增加焦距比例
+ 
+ @param factorP 焦距比例 (焦距范围1~2 默认1)
+ */
+-(void)addFactorP:(CGFloat)factorP
+{
+    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
+        
+        CGFloat minFactor = 1;
+        CGFloat maxFactor = 6;
+        if (@available(iOS 11.0, *)) {
+            if (maxFactor > captureDevice.maxAvailableVideoZoomFactor) {
+                maxFactor = captureDevice.maxAvailableVideoZoomFactor;
+            }
+        } else {
+            if (maxFactor > captureDevice.activeFormat.videoMaxZoomFactor) {
+                maxFactor = captureDevice.activeFormat.videoMaxZoomFactor;
+            }
+        }
+        CGFloat factor_max_min_gap = maxFactor - minFactor;
+        CGFloat resultFactor = captureDevice.videoZoomFactor + factorP * factor_max_min_gap;
+        if (resultFactor > maxFactor) {
+            resultFactor = maxFactor;
+        }else if (resultFactor < minFactor) {
+            resultFactor = minFactor;
+        }
+        captureDevice.videoZoomFactor = resultFactor;
+        
+    }];
+}
+
+/**
+ 修改美颜等级
+ 
+ @param level 等级 0~5
+ */
+-(void)switchBeautyFilterLevel:(BKBeautyLevel)level
+{
+    //美颜最高等级5
+    if (level > BKBeautyLevelFive) {
+        level = BKBeautyLevelFive;
+    }else if (level < BKBeautyLevelZero) {//美颜最低等级0
+        level = BKBeautyLevelZero;
+    }
+    
+    self.beautyFilter.beautyLevel = level;
+}
+
 #pragma mark - 初始方法
 
 -(instancetype)initWithCurrentVC:(UIViewController*)currentVC
@@ -158,8 +210,12 @@
     self = [super init];
     if (self) {
         self.currentVC = currentVC;
+        //添加预览界面
         [self.currentVC.view insertSubview:self.previewView atIndex:0];
-        [self addBeautyFilter];
+        //录制设备添加滤镜
+        [self.videoCamera addTarget:self.beautyFilter];
+        //把添加完成滤镜的图像添加在预览界面
+        [self.beautyFilter addTarget:self.previewView];
     }
     return self;
 }
@@ -189,8 +245,12 @@
     [self setFocusCursorWithPoint:point];
     
     //将UI坐标转化为摄像头坐标
-    CGPoint cameraPoint = CGPointMake(point.y / self.previewView.bk_height, 1 - (point.x / self.previewView.bk_width));
-    self.lastCameraPoint = cameraPoint;
+    CGPoint cameraPoint = CGPointZero;
+    if ([_videoCamera cameraPosition] == AVCaptureDevicePositionBack) {
+        cameraPoint = CGPointMake(point.y / self.previewView.bk_height, 1 - (point.x / self.previewView.bk_width));
+    }else if ([_videoCamera cameraPosition] == AVCaptureDevicePositionFront) {
+        cameraPoint = CGPointMake(point.y / self.previewView.bk_height, point.x / self.previewView.bk_width);
+    }
     //聚焦一次效果不佳 第二次连续聚焦
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
@@ -200,28 +260,9 @@
 {
     CGPoint point = [panGesture translationInView:self.previewView];
     
-    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
-        
-        CGFloat minFactor = 1;
-        CGFloat maxFactor = 4;
-        if (@available(iOS 11.0, *)) {
-            maxFactor = captureDevice.maxAvailableVideoZoomFactor / 2;
-        } else {
-            maxFactor = captureDevice.activeFormat.videoMaxZoomFactor / 2;
-        }
-        CGFloat factor_max_min_gap = maxFactor - minFactor;
-        CGFloat totalHeight = self.previewView.bk_height - 200;
-        CGFloat addFactor = -point.y / totalHeight * factor_max_min_gap;
-        
-        CGFloat resultFactor = captureDevice.videoZoomFactor + addFactor;
-        if (resultFactor > maxFactor) {
-            resultFactor = maxFactor;
-        }else if (resultFactor < minFactor) {
-            resultFactor = minFactor;
-        }
-        captureDevice.videoZoomFactor = resultFactor;
-        
-    }];
+    CGFloat totalHeight = self.previewView.bk_height - 200;
+    CGFloat addFactorP = -point.y / totalHeight;
+    [self addFactorP:addFactorP];
     
     [panGesture setTranslation:CGPointZero inView:self.previewView];
 }
@@ -409,32 +450,8 @@
 {
     if (!_beautyFilter) {
         _beautyFilter = [[BKGPUImageBeautyFilter alloc] init];
-        _beautyFilter.beautyLevel = BKBeautyLevelFive;
     }
     return _beautyFilter;
-}
-
-/**
- 添加滤镜
- */
--(void)addBeautyFilter
-{
-    if (self.beautyFilter.beautyLevel == BKBeautyLevelZero) {
-        [self removeBeautyFilter];
-        return;
-    }
-    
-    [self.videoCamera addTarget:self.beautyFilter];
-    [self.beautyFilter addTarget:self.previewView];
-}
-
-/**
- 删除滤镜
- */
--(void)removeBeautyFilter
-{
-    [self.videoCamera removeAllTargets];
-    [self.videoCamera addTarget:self.previewView];
 }
 
 #pragma mark - GPUImageMovieWriter
@@ -680,37 +697,20 @@
     return image;
 }
 
-#pragma mark - 镜头捕捉区域改变
-
-/**
- *  给输入设备添加通知
- */
--(void)addNotificationToCaptureDevice:(AVCaptureDevice *)captureDevice
-{
-    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
-        captureDevice.subjectAreaChangeMonitoringEnabled = YES;
-    }];
-    //捕获区域发生改变
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(areaChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:captureDevice];
-    [self areaChange:nil];
-}
+#pragma mark - 设置最初焦距捕捉点
 
 /**
  捕获区域发生改变
-
- @param notification notification
  */
--(void)areaChange:(NSNotification*)notification
+-(void)setOriginalFocus
 {
     //取摄像头坐标中心
     CGPoint cameraPoint = CGPointMake(0.5, 0.5);
-    if (!CGPointEqualToPoint(self.lastCameraPoint, cameraPoint)) {
-        self.lastCameraPoint = cameraPoint;
-        [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * self.lastCameraPoint.x, self.previewView.bk_height * self.lastCameraPoint.y)];
-        //聚焦一次效果不佳 第二次连续聚焦
-        [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:self.lastCameraPoint];
-        [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:self.lastCameraPoint];
-    }
+
+    [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * cameraPoint.x, self.previewView.bk_height * cameraPoint.y)];
+    //聚焦一次效果不佳 第二次连续聚焦
+    [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
+    [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
 }
 
 #pragma mark - 改变录制属性
@@ -725,21 +725,20 @@
     if (_focusCursorTimer) {
         [[BKTimer sharedManager] bk_removeTimer:self.focusCursorTimer];
 
-        [self.focusImageView removeFromSuperview];
-        self.focusImageView = nil;
+        [self.focusView removeFromSuperview];
+        self.focusView = nil;
     }
 
-    self.focusImageView.center = point;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.focusImageView.transform = CGAffineTransformMakeScale(0.6, 0.6);
+    self.focusView = [[BKFocusRectangle alloc]initWithPoint:point isDisplaySun:YES];
+    [self.currentVC.view insertSubview:self.focusView aboveSubview:_previewView];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.focusView.transform = CGAffineTransformMakeScale(0.6, 0.6);
     }];
 
-    self.focusCursorTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:1 totalTime:1 handler:^(BKTimerModel *timerModel) {
+    self.focusCursorTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:1 totalTime:2 handler:^(BKTimerModel *timerModel) {
         if (timerModel.lastTime == 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.focusImageView removeFromSuperview];
-                self.focusImageView = nil;
-            });
+            [self.focusView removeFromSuperview];
+            self.focusView = nil;
         }
     }];
 }
@@ -786,20 +785,6 @@
     }else{
         [self.currentVC.view bk_showRemind:@"设置设备属性过程发生错误,请重试"];
     }
-}
-
-#pragma mark - 聚焦框
-
--(UIImageView*)focusImageView
-{
-    if (!_focusImageView) {
-        _focusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, BK_SCREENW/3, BK_SCREENW/3)];
-        _focusImageView.clipsToBounds = YES;
-        _focusImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _focusImageView.image = [UIImage bk_takePhotoImageWithImageName:@"takephoto_focus"];
-        [self.currentVC.view insertSubview:_focusImageView aboveSubview:_previewView];
-    }
-    return _focusImageView;
 }
 
 @end

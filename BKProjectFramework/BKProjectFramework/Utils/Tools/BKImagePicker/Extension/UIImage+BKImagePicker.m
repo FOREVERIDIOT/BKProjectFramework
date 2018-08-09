@@ -252,5 +252,4 @@
     return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/TakePhoto/%@",imagePath,imageName]];
 }
 
-
 @end

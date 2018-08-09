@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FSKGPUImageBeautyFilter.h"
+#import "GPUImageBeautifyFilter.h"
 
 typedef NS_ENUM(NSUInteger, BKBeautyLevel) {
     BKBeautyLevelZero = 0,      //美颜关
@@ -24,5 +24,10 @@ typedef NS_ENUM(NSUInteger, BKBeautyLevel) {
  美颜等级
  */
 @property (nonatomic,assign) BKBeautyLevel beautyLevel;
+
+/**
+ 亮度等级 -1~1 默认0
+ */
+@property (nonatomic,assign) CGFloat brightnessLevel;
 
 @end

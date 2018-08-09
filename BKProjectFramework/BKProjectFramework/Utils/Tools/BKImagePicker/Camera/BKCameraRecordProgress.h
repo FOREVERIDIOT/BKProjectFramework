@@ -10,4 +10,19 @@
 
 @interface BKCameraRecordProgress : UIView
 
+/**
+ 当前进度时间
+ */
+@property (nonatomic,assign) CGFloat currentTime;
+
+/**
+ 暂停录制
+ */
+-(void)pauseRecord;
+
+/**
+ 删除最后一次录制
+ */
+-(void)deleteLastRecord;
+
 @end

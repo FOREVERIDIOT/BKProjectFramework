@@ -53,4 +53,5 @@
  */
 +(UIImage*)bk_takePhotoImageWithImageName:(NSString*)imageName;
 
+
 @end

@@ -10,7 +10,6 @@
 #import "BKCameraViewController.h"
 
 typedef NS_ENUM(NSUInteger, BKRecordState) {
-//    BKRecordStateNone = 0,      //未录制
     BKRecordStatePrepare = 0,   //准备录制
     BKRecordStateRecording,     //录制中
     BKRecordStatePause,         //录制暂停
@@ -23,15 +22,21 @@ typedef NS_ENUM(NSUInteger, BKRecordState) {
  开启类型
  */
 @property (nonatomic,assign) BKCameraType cameraType;
-
 /**
  拍照快门回调
  */
 @property (nonatomic,copy) void (^takePictureAction)(void);
-
 /**
  录像快门回调
  */
 @property (nonatomic,copy) void (^recordVideoAction)(BKRecordState state);
+/**
+ 录像时间回调
+ */
+@property (nonatomic,copy) void (^changeRecordTimeAction)(CGFloat currentTime);
+/**
+ 修改焦距比例回调
+ */
+@property (nonatomic,copy) void (^changeCaptureDeviceFactorPAction)(CGFloat factorP);
 
 @end

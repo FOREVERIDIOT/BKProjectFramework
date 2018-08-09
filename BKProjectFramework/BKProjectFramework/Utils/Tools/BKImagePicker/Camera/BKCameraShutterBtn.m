@@ -10,7 +10,6 @@
 #import "BKImagePickerMacro.h"
 #import "BKImagePickerConstant.h"
 #import "UIView+BKImagePicker.h"
-#import "BKCameraRecordVideoModel.h"
 #import "BKTimer.h"
 
 typedef NS_ENUM(NSUInteger, BKShutterState) {
@@ -22,6 +21,7 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 @interface BKCameraShutterBtn()
 
+@property (nonatomic,strong) UILongPressGestureRecognizer * longPress;//长按手势
 @property (nonatomic,assign) CGPoint startPoint;//记录开始手势的位置
 @property (nonatomic,assign) CGPoint blurView_startCenterPoint;
 @property (nonatomic,assign) CGPoint middleCircleView_startCenterPoint;
@@ -33,8 +33,6 @@ float const kTimerInterval = 0.01;//定时器执行间距
 @property (nonatomic,assign) BKRecordState recordState;//录像状态
 
 @property (nonatomic,assign) CGFloat recordTime;//录制时间
-@property (nonatomic,strong) CAShapeLayer * progressLayer;//进度layer
-@property (nonatomic,strong) NSMutableArray<BKCameraRecordVideoModel*> * recordVideos;//记录视频暂停model的数组
 @property (nonatomic,strong) dispatch_source_t recordTimer;//录制视频倒计时定时器
 
 @end
@@ -53,12 +51,19 @@ float const kTimerInterval = 0.01;//定时器执行间距
         
         [self addSubview:self.blurView];
         [self addSubview:self.middleCircleView];
-        
-        UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(selfLongPress:)];
-        longPress.minimumPressDuration = 0.01;
-        [self addGestureRecognizer:longPress];
+    
+        [self addGestureRecognizer:self.longPress];
     }
     return self;
+}
+
+-(UILongPressGestureRecognizer*)longPress
+{
+    if (!_longPress) {
+        _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(selfLongPress:)];
+        _longPress.minimumPressDuration = 0.01;
+    }
+    return _longPress;
 }
 
 -(UIView*)blurView
@@ -171,12 +176,13 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 #pragma mark - 录制模式
 
--(NSMutableArray<BKCameraRecordVideoModel *> *)recordVideos
+-(void)reachMaxRecordTime
 {
-    if (!_recordVideos) {
-        _recordVideos = [NSMutableArray array];
-    }
-    return _recordVideos;
+    [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
+    self.longPress.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.longPress.enabled = YES;
+    });
 }
 
 -(void)recordVideoLongPress:(UILongPressGestureRecognizer*)longPress
@@ -189,14 +195,12 @@ float const kTimerInterval = 0.01;//定时器执行间距
                 self.startPoint = [longPress locationInView:self];
                 self.blurView_startCenterPoint = self.blurView.center;
                 self.middleCircleView_startCenterPoint = self.middleCircleView.center;
-                [self setRecordState:BKRecordStateRecording];
+                
+                self.recordState = BKRecordStateRecording;
+                [self changeRecordAction];
                 
             }else if (self.recordState == BKRecordStateEnd) {
-                [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
-                longPress.enabled = NO;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    longPress.enabled = YES;
-                });
+                [self reachMaxRecordTime];
             }
         }
             break;
@@ -207,8 +211,16 @@ float const kTimerInterval = 0.01;//定时器执行间距
                 CGFloat tranX = point.x - _startPoint.x;
                 CGFloat tranY = point.y - _startPoint.y;
                 
+                if (self.changeCaptureDeviceFactorPAction) {
+                    CGFloat totalHeight = BK_SCREENH - 200;
+                    CGFloat addFactorP = -(self.middleCircleView_startCenterPoint.y + tranY - self.middleCircleView.centerY) / totalHeight;
+                    self.changeCaptureDeviceFactorPAction(addFactorP);
+                }
+                
                 self.blurView.center = CGPointMake(self.blurView_startCenterPoint.x + tranX, self.blurView_startCenterPoint.y + tranY);
                 self.middleCircleView.center = CGPointMake(self.middleCircleView_startCenterPoint.x + tranX, self.middleCircleView_startCenterPoint.y + tranY);
+                
+                
             }
         }
             break;
@@ -217,7 +229,12 @@ float const kTimerInterval = 0.01;//定时器执行间距
         case UIGestureRecognizerStateFailed:
         {
             if (self.recordState == BKRecordStateRecording) {
-                [self setRecordState:BKRecordStatePause];
+                if (self.recordTime == BKRecordVideoMaxTime) {
+                    self.recordState = BKRecordStateEnd;
+                }else{
+                    self.recordState = BKRecordStatePause;
+                }
+                [self changeRecordAction];
             }
         }
             break;
@@ -232,46 +249,13 @@ float const kTimerInterval = 0.01;//定时器执行间距
 -(void)setRecordState:(BKRecordState)recordState
 {
     _recordState = recordState;
-    
-//    if (oldRecordState == BKRecordStateNone && recordState == BKRecordStatePrepare) {
-//
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.blurView.transform = CGAffineTransformMakeScale(1.2, 1.2);
-//            self.middleCircleView.transform = CGAffineTransformMakeScale(0.8, 0.8);
-//        } completion:^(BOOL finished) {
-//
-//            if (self.recordState == BKRecordStateNone) {
-//                return;
-//            }
-//
-//            self.recordState = BKRecordStateRecording;
-//
-//            [self changeRecordAction];
-//
-//            [self.layer addSublayer:self.progressLayer];
-//            if ([self.progressLayer.animationKeys containsObject:@"progressAnimate"]) {
-//                [self.progressLayer removeAnimationForKey:@"progressAnimate"];
-//            }
-////            [self addProgressAnimate];
-//            [self setupTimer];
-//        }];
-//    }else if (oldRecordState == BKRecordStatePrepare && recordState == BKRecordStateNone) {
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.blurView.transform = CGAffineTransformIdentity;
-//            self.middleCircleView.transform = CGAffineTransformIdentity;
-//        }];
-//    }else
-    
         
     if (_recordState == BKRecordStateRecording) {
-//        [self changeRecordAction];
-//        [self continueRecord];
-//        [self setupTimer];
         [self unfoldAnimate:0];
-    }else if (_recordState == BKRecordStatePause) {
-//        [self pauseRecord];
-//        [self changeRecordAction];
+        [self setupTimer];
+    }else if (_recordState == BKRecordStatePause || _recordState == BKRecordStateEnd) {
         [self closeAnimate];
+        [self removeTimer];
     }
 }
 
@@ -301,6 +285,9 @@ float const kTimerInterval = 0.01;//定时器执行间距
     }
 }
 
+/**
+ 关闭动画
+ */
 -(void)closeAnimate
 {
     [UIView animateWithDuration:0.2 animations:^{
@@ -313,119 +300,46 @@ float const kTimerInterval = 0.01;//定时器执行间距
     }];
 }
 
-///**
-// 进度条
-// */
-//-(CAShapeLayer*)progressLayer
-//{
-//    if (!_progressLayer) {
-//        UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:-M_PI_2 endAngle:M_PI_2+M_PI clockwise:YES];
-//
-//        _progressLayer = [CAShapeLayer layer];
-//        _progressLayer.path = path.CGPath;
-//        _progressLayer.bounds = self.blurView.bounds;
-//        _progressLayer.position = self.blurView.center;
-//        _progressLayer.lineWidth = 4;
-//        _progressLayer.fillColor = [UIColor clearColor].CGColor;
-//        _progressLayer.strokeColor = [UIColor redColor].CGColor;
-//    }
-//    return _progressLayer;
-//}
-
-///**
-// 进度条动画
-// */
-//-(void)addProgressAnimate
-//{
-//    CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-//    animation.removedOnCompletion = NO;
-//    animation.fillMode = kCAFillModeForwards;
-//    animation.repeatCount = 1;
-//    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-//    animation.duration = BKRecordVideoMaxTime;
-//    animation.autoreverses = NO;
-//    animation.fromValue = @(0);
-//    animation.toValue = @(1);
-//    [self.progressLayer addAnimation:animation forKey:@"progressAnimate"];
-//}
-
 /**
  进度定时器
  */
 -(void)setupTimer
 {
     /*
+     CABasicAnimation动画已废弃(删除)
      貌似CABasicAnimation动画比定时以kTimerInterval(即0.01)执行一次速度快一个kTimerInterval(即0.01)
      所以全部时间 - 一次间隔 才会和停止的线相对齐
      */
-    CGFloat totalTime = BKRecordVideoMaxTime - self.recordTime - kTimerInterval;
+    
+    
+    CGFloat totalTime = BKRecordVideoMaxTime - self.recordTime;
     if (totalTime < 0) {//如果定时器时间小于0 return
         return;
     }
     self.recordTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:kTimerInterval totalTime:totalTime handler:^(BKTimerModel *timerModel) {
         self.recordTime = BKRecordVideoMaxTime - timerModel.lastTime;
+        if (self.changeRecordTimeAction) {
+            self.changeRecordTimeAction(self.recordTime);
+        }
+        if (self.recordTime == BKRecordVideoMaxTime) {
+            [self reachMaxRecordTime];
+        }
     }];
 }
 
 /**
- 暂停录制
+ 删除定时器
  */
--(void)pauseRecord
+-(void)removeTimer
 {
     [[BKTimer sharedManager] bk_removeTimer:self.recordTimer];
-    
-//    CFTimeInterval pauseTime = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil];
-//    self.progressLayer.timeOffset = pauseTime;
-//    self.progressLayer.speed = 0;
-//    
-//    CAShapeLayer * stopLayer = [self setupStopLayer];
-//    [self.layer addSublayer:stopLayer];
-//    
-//    BKCameraRecordVideoModel * model = [[BKCameraRecordVideoModel alloc] init];
-//    model.pauseTime = pauseTime;
-//    model.stopLayer = stopLayer;
-//    [self.recordVideos addObject:model];
 }
-
-/**
- 继续录制
- */
--(void)continueRecord
-{
-//    CFTimeInterval pauseTime = self.progressLayer.timeOffset;
-//    CFTimeInterval begin = CACurrentMediaTime() - pauseTime;
-//    self.progressLayer.timeOffset = 0;
-//    [self.progressLayer setBeginTime:begin];
-//    self.progressLayer.speed = 1;
-}
-
-///**
-// 暂停录制线
-// */
-//-(CAShapeLayer*)setupStopLayer
-//{
-//    CGFloat bai = self.recordTime / BKRecordVideoMaxTime;
-//    CGFloat startAngle = -M_PI_2;
-//    CGFloat totalAngle = M_PI*2;
-//
-//    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:self.blurView.center radius:self.blurView.bk_width/2-2 startAngle:startAngle+totalAngle*(bai-0.01) endAngle:startAngle+totalAngle*bai clockwise:YES];
-//
-//    CAShapeLayer * layer = [CAShapeLayer layer];
-//    layer.path = path.CGPath;
-//    layer.bounds = self.blurView.bounds;
-//    layer.position = self.blurView.center;
-//    layer.lineWidth = 4;
-//    layer.fillColor = [UIColor clearColor].CGColor;
-//    layer.strokeColor = [UIColor blueColor].CGColor;
-//
-//    return layer;
-//}
 
 -(void)changeRecordAction
 {
-//    if (self.recordVideoAction) {
-//        self.recordVideoAction(_recordState);
-//    }
+    if (self.recordVideoAction) {
+        self.recordVideoAction(self.recordState);
+    }
 }
 
 @end

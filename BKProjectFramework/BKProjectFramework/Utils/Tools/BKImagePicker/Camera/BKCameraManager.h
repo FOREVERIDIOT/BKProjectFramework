@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BKGPUImageBeautyFilter.h"
 
 typedef NS_ENUM(NSUInteger, BKCameraType) {
     BKCameraTypeTakePhoto = 0, //拍照
@@ -72,6 +73,11 @@ typedef NS_ENUM(NSUInteger, BKRecordVideoFailure) {
 -(UIImage*)getCurrentCaptureImage;
 
 /**
+ 获取当前摄像头方向
+ */
+-(AVCaptureDevicePosition)getCurrentCaptureDevicePosition;
+
+/**
  开始录制
  */
 -(void)startRecordVideo;
@@ -99,5 +105,19 @@ typedef NS_ENUM(NSUInteger, BKRecordVideoFailure) {
  @param complete flag切换结果是否成功 flashMode闪光灯状态
  */
 -(void)modifyFlashModeComplete:(void (^)(BOOL flag, AVCaptureFlashMode flashMode))complete;
+
+/**
+ 增加焦距比例
+
+ @param factorP 焦距比例 (焦距范围1~2 默认1)
+ */
+-(void)addFactorP:(CGFloat)factorP;
+
+/**
+ 修改美颜等级
+
+ @param level 等级 0~5
+ */
+-(void)switchBeautyFilterLevel:(BKBeautyLevel)level;
 
 @end

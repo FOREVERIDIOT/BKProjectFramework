@@ -56,32 +56,36 @@ CGFloat const kMinTimeInterval = 0.000001;
             NSString * lastTimeStr = [NSString stringWithFormat:@"%.6f",timerModel.lastTime];
             NSArray * array = [lastTimeStr componentsSeparatedByString:@"."];
             //检测剩余时间是否为kMinTimeInterval 即0.000000
-            BOOL flag = NO;
+            BOOL flag = YES;
             NSString * integer = [array firstObject];
             if ([integer isEqualToString:@"0"]) {//判断整数是否为0
                 NSString * decimal = [array lastObject];
                 for (int i = 0; i < [decimal length]; i++) {
                     NSString * range_string = [decimal substringWithRange:NSMakeRange(i, 1)];
                     if (![range_string isEqualToString:@"0"]) {//判断小数所有位数是否为0
-                        flag = YES;
+                        flag = NO;
                         break;
                     }
                 }
             }else{
-                flag = YES;
+                flag = NO;
             }
             
             if (flag) {
+                timerModel.lastTime = 0;
+                [self bk_removeTimer:timerModel.timer];
+            }else {
                 if (timerModel.lastTime <= 0) {
+                    timerModel.lastTime = 0;
                     [self bk_removeTimer:timerModel.timer];
                 }
-            }else{
-                [self bk_removeTimer:timerModel.timer];
             }
         }
         
         if (handler) {
-            handler(timerModel);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(timerModel);
+            });
         }
     });
     dispatch_resume(timer);
