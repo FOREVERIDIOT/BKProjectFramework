@@ -565,21 +565,20 @@
 
 -(void)initTopNav
 {
-//    self.rightLab.text = @"取消";
-    
-    
-    
     BKNavButton * rightNavBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKHighlightColor];
-    [rightNavBtn setClickMethod:^(BKNavButton *button) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    [rightNavBtn addTarget:self action:@selector(rightNavBtnClick)];
     self.rightNavBtns = @[rightNavBtn];
 }
 
-//-(void)rightNavBtnAction:(UIButton *)button
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
+-(void)rightNavBtnClick
+{
+    id observer = [[BKImagePicker sharedManager] valueForKey:@"observer"];
+    if (observer) {
+        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - initBottomNav
 

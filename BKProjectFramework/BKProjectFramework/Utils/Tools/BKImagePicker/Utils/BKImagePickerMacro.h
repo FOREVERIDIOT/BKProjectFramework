@@ -37,6 +37,8 @@
 #define BKCameraFilterTitleSelectColor BK_HEX_RGB(0x2D96FA)
 //相机界面滤镜选择界面等级按钮的颜色
 #define BKCameraFilterLevelBtnBackgroundColor [UIColor blackColor]
+//聚焦框颜色
+#define BKCameraFocusBackgroundColor BK_HEX_RGB(0xF3D33D)
 
 /********************************** 常用宏定义 **********************************/
 

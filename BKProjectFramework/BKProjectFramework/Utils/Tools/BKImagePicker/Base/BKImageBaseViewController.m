@@ -29,20 +29,23 @@
     
     if ([self.navigationController.viewControllers count] != 1 && self != [self.navigationController.viewControllers firstObject]) {
         BKNavButton * backBtn = [[BKNavButton alloc] initWithImage:[UIImage bk_imageWithImageName:@"blue_back"] imageSize:CGSizeMake(20, 20)];
-        [backBtn setClickMethod:^(BKNavButton *button) {
-            if (self.navigationController) {
-                if ([self.navigationController.viewControllers count] != 1) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }else{
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-        }];
+        [backBtn addTarget:self action:@selector(backBtnClick:) object:backBtn];
         self.leftNavBtns = @[backBtn];
     }
     
     self.bottomNavView.backgroundColor = BKNavBackgroundColor;
     self.bottomLine.backgroundColor = BKLineColor;
+}
+
+-(void)backBtnClick:(BKNavButton*)backBtn
+{
+    if (self.navigationController) {
+        if ([self.navigationController.viewControllers count] != 1) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

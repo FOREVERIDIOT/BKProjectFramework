@@ -48,6 +48,13 @@
  */
 -(void)takePhotoWithImageClipSizeWidthToHeightRatio:(CGFloat)ratio complete:(void (^)(UIImage * image, NSData * data))complete;
 
+/**
+ 录制视频 最大时间设置在常量文件里
+
+ @param complete 录制完成
+ */
+-(void)recordVideoComplete:(void (^)(UIImage * image, NSData * data, NSURL * url))complete;
+
 #pragma mark - 相册
 
 /**

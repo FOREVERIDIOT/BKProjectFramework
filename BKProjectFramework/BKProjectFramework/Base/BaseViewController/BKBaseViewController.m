@@ -71,15 +71,7 @@
         
         if ([self.navigationController.viewControllers count] != 1 && self != [self.navigationController.viewControllers firstObject]) {
             BKNavButton * backBtn = [[BKNavButton alloc] initWithImage:[UIImage imageNamed:@"back"]];
-            [backBtn setClickMethod:^(BKNavButton *button) {
-                if (self.navigationController) {
-                    if ([self.navigationController.viewControllers count] != 1) {
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                }else{
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }
-            }];
+            [backBtn addTarget:self action:@selector(backBtnClick)];
             self.leftNavBtns = @[backBtn];
         }
         
@@ -88,6 +80,17 @@
         [_topNavView addSubview:_topLine];
     }
     return _topNavView;
+}
+
+-(void)backBtnClick
+{
+    if (self.navigationController) {
+        if ([self.navigationController.viewControllers count] != 1) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)setTopNavViewHeight:(CGFloat)topNavViewHeight

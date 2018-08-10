@@ -10,10 +10,11 @@
 #import "BKCameraViewController.h"
 
 typedef NS_ENUM(NSUInteger, BKRecordState) {
-    BKRecordStatePrepare = 0,   //准备录制
-    BKRecordStateRecording,     //录制中
-    BKRecordStatePause,         //录制暂停
-    BKRecordStateEnd            //录制结束
+    BKRecordStatePrepare = 0,         //准备录制
+    BKRecordStateRecording,           //录制中
+    BKRecordStatePause,               //录制暂停
+    BKRecordStateEnd,                 //录制结束
+    BKRecordStateRecordingFailure     //录制失败
 };
 
 @interface BKCameraShutterBtn : UIView
@@ -38,5 +39,10 @@ typedef NS_ENUM(NSUInteger, BKRecordState) {
  修改焦距比例回调
  */
 @property (nonatomic,copy) void (^changeCaptureDeviceFactorPAction)(CGFloat factorP);
+
+/**
+ 录制失败调用 停止动画
+ */
+-(void)recordingFailure;
 
 @end

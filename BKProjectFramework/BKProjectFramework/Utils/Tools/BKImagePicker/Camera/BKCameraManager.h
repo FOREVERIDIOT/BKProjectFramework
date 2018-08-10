@@ -14,25 +14,26 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
     BKCameraTypeRecordVideo,   //录视频
 };
 
-typedef NS_ENUM(NSUInteger, BKRecordVideoFailure) {
-    BKRecordVideoFailureCaptureDeviceError = 0,        //初始化设备失败
-    BKRecordVideoFailureVideoInputError,               //初始化视频输入设备失败
-    BKRecordVideoFailureAudioInputError,               //初始化音频输入设备失败
-    BKRecordVideoFailureWriteVideoInputError,          //初始化写入视频失败
-    BKRecordVideoFailureWriteAudioInputError,          //初始化写入音频失败
-};
-
 @protocol BKCameraManagerDelegate <NSObject>
 
 @required
 
 /**
+ 调用录制完成返回的代理
+ 
+ @param videoUrl 视频路径
+ @param imageUrl 第一帧图片路径
+ */
+-(void)finishRecorded:(NSString*)videoUrl firstFrameImageUrl:(NSString*)imageUrl;
+
+@optional
+
+/**
  录制视频失败代理
 
  @param failure 失败原因
- @return 返回YES 录制视频方法return , 返回NO 录制视频方法继续
  */
--(BOOL)recordingFailure:(BKRecordVideoFailure)failure;
+-(void)recordingFailure:(NSError*)failure;
 
 @optional
 
@@ -70,7 +71,7 @@ typedef NS_ENUM(NSUInteger, BKRecordVideoFailure) {
 /**
  获取当前捕捉的图像
  */
--(UIImage*)getCurrentCaptureImage;
+-(void)getCurrentCaptureImageComplete:(void (^)(UIImage * currentImage))complete;
 
 /**
  获取当前摄像头方向

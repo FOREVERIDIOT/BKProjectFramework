@@ -29,11 +29,6 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
  默认frame = CGRectMake(自动排列间距0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)
  ***************************************************************************************************/
 
-/**
- 点击回调
- */
-@property (nonatomic,copy) void (^clickMethod)(BKNavButton * button);
-
 #pragma mark - 图片init
 
 -(instancetype)initWithImage:(UIImage *)image;
@@ -53,5 +48,24 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title;
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title imagePosition:(BKImagePosition)imagePosition;
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title font:(UIFont*)font titleColor:(UIColor*)titleColor imagePosition:(BKImagePosition)imagePosition;
+
+#pragma mark - 点击方法
+
+/**
+ 点击方法
+
+ @param target 对象
+ @param action 方法
+ */
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action;
+
+/**
+ 点击方法
+
+ @param target 对象
+ @param action 方法
+ @param object 参数
+ */
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action object:(id)object;
 
 @end

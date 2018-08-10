@@ -10,84 +10,154 @@
 #import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 
-const float kLineW = 2;//线长
-const float kHalfLineW = 1;//线的一半长
-const float kTrebleLineW = 6;//线的三倍长
-const float kSunSpace = 3;//太阳线与其他的间距
-const float kSunLightW = 6;//太阳光线长
-const float kSunCircleR = 16;//太阳圆半径
+const float kLineW = 2;//线宽
+const float kHalfLineW = 1;//线宽的一半长
+const float kTrebleLineW = 6;//线宽的三倍长
+const float kSpaceOfFocusAndSun = 6;//聚焦框和太阳之间的距离
+const float kSunTotalL = 50;//太阳总长 = (kSunSpace + kSunLightL + kSunCircleR)*2
+const float kSunSpace = 6;//太阳线与其他的间距
+const float kSunLightL = 9;//太阳光线长
+const float kSunCircleR = 10;//太阳圆半径
 
 @interface BKFocusRectangle()
 
-@property (nonatomic,assign) CGFloat kFocusW;
-@property (nonatomic,assign) CGFloat kFocusH;
-@property (nonatomic,assign) CGFloat kSunW;
-@property (nonatomic,assign) CGFloat kSunH;
+@property (nonatomic,assign) CGFloat focusW;
+@property (nonatomic,assign) CGFloat focusH;
+@property (nonatomic,assign) CGFloat sunW;
+@property (nonatomic,assign) CGFloat sunH;
+@property (nonatomic,assign) CGFloat spaceOfFocusAndSun;//聚焦框和太阳之间的距离
+@property (nonatomic,assign) CGFloat sunTotalL;//太阳总长 = (sunSpace + sunLightL + sunCircleR)*2
+@property (nonatomic,assign) CGFloat sunSpace;//太阳线与其他的间距
+@property (nonatomic,assign) CGFloat sunLightL;//太阳光线长
+@property (nonatomic,assign) CGFloat sunCircleR;//太阳圆半径
 
 @property (nonatomic,assign) CGPoint initPoint;
-@property (nonatomic,assign) BOOL isDisplaySun;
 @property (nonatomic,assign) CGFloat drawFocus_x_increment;//画聚焦框时x的增量
 @property (nonatomic,assign) CGFloat drawSun_x_increment;//画聚焦框时x的增量
 
 @end
 
 @implementation BKFocusRectangle
+@synthesize isDisplaySun = _isDisplaySun;
+
+#pragma mark - sunLevel
+
+-(void)setSunLevel:(CGFloat)sunLevel
+{
+    _sunLevel = sunLevel;
+    [self setNeedsDisplay];
+}
 
 #pragma mark - get
 
--(CGFloat)kFocusW
+-(CGFloat)focusW
 {
-    if (_kFocusW == 0) {
-        _kFocusW = BK_SCREENW/3;
+    if (_focusW == 0) {
+        _focusW = BK_SCREENW/3;
     }
-    return _kFocusW;
+    return _focusW;
 }
 
--(CGFloat)kFocusH
+-(CGFloat)focusH
 {
-    if (_kFocusH == 0) {
-        _kFocusH = BK_SCREENW/3;
+    if (_focusH == 0) {
+        _focusH = BK_SCREENW/3;
     }
-    return _kFocusH;
+    return _focusH;
 }
 
--(CGFloat)kSunW
+-(CGFloat)sunW
 {
-    if (_kSunW == 0) {
-        _kSunW = 50 * BK_SCREENW / 375.0f;
+    if (_sunW == 0) {
+        _sunW = self.sunTotalL;
     }
-    return _kSunW;
+    return _sunW;
 }
 
--(CGFloat)kSunH
+-(CGFloat)sunH
 {
-    if (_kSunH == 0) {
-        _kSunH = self.kSunW;
+    if (_sunH == 0) {
+        _sunH = self.sunW;
     }
-    return _kSunH;
+    return _sunH;
 }
 
-#pragma mark - initWithPoint:isDisplaySun:
-
--(instancetype)initWithPoint:(CGPoint)point isDisplaySun:(BOOL)isDisplaySun
+-(CGFloat)spaceOfFocusAndSun
 {
-    self = [super initWithFrame:CGRectMake(0, 0, self.kFocusW + self.kSunW, self.kFocusH + self.kSunH * 2)];
+    if (_spaceOfFocusAndSun == 0) {
+        _spaceOfFocusAndSun = kSpaceOfFocusAndSun * BK_SCREENW / 375.0f;
+    }
+    return _spaceOfFocusAndSun;
+}
+
+-(CGFloat)sunTotalL
+{
+    if (_sunTotalL == 0) {
+        _sunTotalL = kSunTotalL * BK_SCREENW / 375.0f;
+    }
+    return _sunTotalL;
+}
+
+-(CGFloat)sunSpace
+{
+    if (_sunSpace == 0) {
+        _sunSpace = kSunSpace * BK_SCREENW / 375.0f;
+    }
+    return _sunSpace;
+}
+
+-(CGFloat)sunLightL
+{
+    if (_sunLightL == 0) {
+        _sunLightL = kSunLightL * BK_SCREENW / 375.0f;
+    }
+    return _sunLightL;
+}
+
+-(CGFloat)sunCircleR
+{
+    if (_sunCircleR == 0) {
+        _sunCircleR = kSunCircleR * BK_SCREENW / 375.0f;
+    }
+    return _sunCircleR;
+}
+
+#pragma mark - init
+
+-(instancetype)initWithPoint:(CGPoint)point
+{
+    self = [super initWithFrame:CGRectMake(0, 0, self.focusW, self.focusH)];
     if (self) {
         
         self.initPoint = point;
-        self.isDisplaySun = isDisplaySun;
-        if (self.isDisplaySun) {
-            if (point.x <= BK_SCREENW/2) {
-                self.centerX = point.x + self.kSunW/2;
-                self.drawFocus_x_increment = 0;
-                self.drawSun_x_increment = self.kFocusW;
-            }else{
-                self.centerX = point.x - self.kSunW/2;
-                self.drawFocus_x_increment = self.kSunW;
-                self.drawSun_x_increment = 0;
-            }
+        _isDisplaySun = NO;
+       
+        self.center = point;
+        
+        self.userInteractionEnabled = NO;
+        self.clipsToBounds = NO;
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+-(instancetype)initWithPoint:(CGPoint)point sunLevel:(CGFloat)sunLevel
+{
+    self = [super initWithFrame:CGRectMake(0, 0, self.focusW + self.sunW + self.spaceOfFocusAndSun, self.focusH + self.sunH * 2)];
+    if (self) {
+        
+        self.initPoint = point;
+        _isDisplaySun = YES;
+        self.sunLevel = sunLevel;
+        
+        if (point.x <= BK_SCREENW/2) {
+            self.centerX = point.x + self.sunW/2 + self.spaceOfFocusAndSun/2;
+            self.drawFocus_x_increment = 0;
+            self.drawSun_x_increment = self.focusW + self.spaceOfFocusAndSun;
         }else{
-            self.centerX = point.x;
+            self.centerX = point.x - self.sunW/2 - self.spaceOfFocusAndSun/2;
+            self.drawFocus_x_increment = self.sunW + self.spaceOfFocusAndSun;
+            self.drawSun_x_increment = 0;
         }
         self.centerY = point.y;
         
@@ -106,30 +176,30 @@ const float kSunCircleR = 16;//太阳圆半径
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, kLineW);
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, BKCameraFocusBackgroundColor.CGColor);
     
     //聚焦框
     NSArray * focusLineArr = @[@[@(CGPointMake(kHalfLineW, kHalfLineW)),
-                            @(CGPointMake(self.kFocusW - kHalfLineW, kHalfLineW)),
-                            @(CGPointMake(self.kFocusW - kHalfLineW, self.kFocusH - kHalfLineW)),
-                            @(CGPointMake(kHalfLineW, self.kFocusH - kHalfLineW)),
-                            @(CGPointMake(kHalfLineW, kHalfLineW))],
-                          @[@(CGPointMake(self.kFocusW/2, kLineW)),
-                            @(CGPointMake(self.kFocusW/2, kLineW + kTrebleLineW))],
-                          @[@(CGPointMake(self.kFocusW - kLineW, self.kFocusH/2)),
-                            @(CGPointMake(self.kFocusW - kLineW - kTrebleLineW, self.kFocusH/2))],
-                          @[@(CGPointMake(self.kFocusW/2, self.kFocusH - kLineW)),
-                            @(CGPointMake(self.kFocusW/2, self.kFocusH - kLineW - kTrebleLineW))],
-                          @[@(CGPointMake(kLineW, self.kFocusH/2)),
-                            @(CGPointMake(kLineW + kTrebleLineW, self.kFocusH/2))]];
+                                 @(CGPointMake(self.focusW - kHalfLineW, kHalfLineW)),
+                                 @(CGPointMake(self.focusW - kHalfLineW, self.focusH - kHalfLineW)),
+                                 @(CGPointMake(kHalfLineW, self.focusH - kHalfLineW)),
+                                 @(CGPointMake(kHalfLineW, kHalfLineW))],
+                               @[@(CGPointMake(self.focusW/2, kLineW)),
+                                 @(CGPointMake(self.focusW/2, kLineW + kTrebleLineW))],
+                               @[@(CGPointMake(self.focusW - kLineW, self.focusH/2)),
+                                 @(CGPointMake(self.focusW - kLineW - kTrebleLineW, self.focusH/2))],
+                               @[@(CGPointMake(self.focusW/2, self.focusH - kLineW)),
+                                 @(CGPointMake(self.focusW/2, self.focusH - kLineW - kTrebleLineW))],
+                               @[@(CGPointMake(kLineW, self.focusH/2)),
+                                 @(CGPointMake(kLineW + kTrebleLineW, self.focusH/2))]];
     for (NSArray * arr in focusLineArr) {
         [self context:context drawFocusLineArr:arr];
     }
     
     if (self.isDisplaySun) {
         //太阳
-        CGFloat totalH = self.kFocusH + self.kSunH*2;
-        CGFloat normalL = (totalH - (self.kSunH + kSunSpace*2 + kHalfLineW*2))/2;
+        CGFloat totalH = self.focusH + self.sunH*2;
+        CGFloat normalL = (totalH - (self.sunH + self.sunSpace*2 + kHalfLineW*2))/2;
         CGFloat topL = 0;
         CGFloat bottomL = 0;
         if (self.sunLevel > 0) {
@@ -143,38 +213,38 @@ const float kSunCircleR = 16;//太阳圆半径
             bottomL = normalL;
         }
         
-        CGPoint originalPoint = CGPointMake(self.kSunW/2, kHalfLineW + topL + kSunSpace + kSunLightW + kSunSpace + kSunCircleR);
-        CGFloat start_hypotenuseL = kSunLightW + kSunSpace + kSunCircleR;//开始点斜边长
-        CGFloat end_hypotenuseL = kSunSpace + kSunCircleR;//结束点斜边长
+        CGPoint originalPoint = CGPointMake(self.sunW/2, kHalfLineW + topL + self.sunSpace + self.sunLightL + self.sunSpace + self.sunCircleR);
+        CGFloat start_hypotenuseL = self.sunLightL + self.sunSpace + self.sunCircleR;//开始点斜边长
+        CGFloat end_hypotenuseL = self.sunSpace + self.sunCircleR;//结束点斜边长
         
-        CGPoint point1_start = CGPointMake(originalPoint.x, originalPoint.y - kSunCircleR - kSunSpace - kSunLightW);
-        CGPoint point1_end = CGPointMake(originalPoint.x, originalPoint.y - kSunCircleR - kSunSpace);
+        CGPoint point1_start = CGPointMake(originalPoint.x, originalPoint.y - self.sunCircleR - self.sunSpace - self.sunLightL);
+        CGPoint point1_end = CGPointMake(originalPoint.x, originalPoint.y - self.sunCircleR - self.sunSpace);
         
         CGPoint point2_start = CGPointMake(originalPoint.x + cos(M_PI_4)*start_hypotenuseL, originalPoint.y + sin(M_PI_4)*start_hypotenuseL);
         CGPoint point2_end = CGPointMake(originalPoint.x + cos(M_PI_4)*end_hypotenuseL, originalPoint.y + sin(M_PI_4)*end_hypotenuseL);
         
-        CGPoint point3_start = CGPointMake(originalPoint.x + kSunCircleR + kSunSpace + kSunLightW, originalPoint.y);
-        CGPoint point3_end = CGPointMake(originalPoint.x + kSunCircleR + kSunSpace, originalPoint.y);
+        CGPoint point3_start = CGPointMake(originalPoint.x + self.sunCircleR + self.sunSpace + self.sunLightL, originalPoint.y);
+        CGPoint point3_end = CGPointMake(originalPoint.x + self.sunCircleR + self.sunSpace, originalPoint.y);
         
         CGPoint point4_start = CGPointMake(originalPoint.x + cos(M_PI_4)*start_hypotenuseL, originalPoint.y - sin(M_PI_4)*start_hypotenuseL);
         CGPoint point4_end = CGPointMake(originalPoint.x + cos(M_PI_4)*end_hypotenuseL, originalPoint.y - sin(M_PI_4)*end_hypotenuseL);
         
-        CGPoint point5_start = CGPointMake(originalPoint.x, originalPoint.y + kSunCircleR + kSunSpace + kSunLightW);
-        CGPoint point5_end = CGPointMake(originalPoint.x, originalPoint.y + kSunCircleR + kSunSpace);
+        CGPoint point5_start = CGPointMake(originalPoint.x, originalPoint.y + self.sunCircleR + self.sunSpace + self.sunLightL);
+        CGPoint point5_end = CGPointMake(originalPoint.x, originalPoint.y + self.sunCircleR + self.sunSpace);
         
         CGPoint point6_start = CGPointMake(originalPoint.x - cos(M_PI_4)*start_hypotenuseL, originalPoint.y - sin(M_PI_4)*start_hypotenuseL);
         CGPoint point6_end = CGPointMake(originalPoint.x - cos(M_PI_4)*end_hypotenuseL, originalPoint.y - sin(M_PI_4)*end_hypotenuseL);
         
-        CGPoint point7_start = CGPointMake(originalPoint.x - kSunCircleR - kSunSpace - kSunLightW, originalPoint.y);
-        CGPoint point7_end = CGPointMake(originalPoint.x - kSunCircleR - kSunSpace, originalPoint.y);
+        CGPoint point7_start = CGPointMake(originalPoint.x - self.sunCircleR - self.sunSpace - self.sunLightL, originalPoint.y);
+        CGPoint point7_end = CGPointMake(originalPoint.x - self.sunCircleR - self.sunSpace, originalPoint.y);
         
         CGPoint point8_start = CGPointMake(originalPoint.x - cos(M_PI_4)*start_hypotenuseL, originalPoint.y + sin(M_PI_4)*start_hypotenuseL);
         CGPoint point8_end = CGPointMake(originalPoint.x - cos(M_PI_4)*end_hypotenuseL, originalPoint.y + sin(M_PI_4)*end_hypotenuseL);
         
-        NSArray * sunLineArr = @[@[@(CGPointMake(self.kSunW/2, kHalfLineW)),
-                                   @(CGPointMake(self.kSunW/2, kHalfLineW + topL))],
-                                 @[@(CGPointMake(self.kSunW/2, totalH - kHalfLineW - bottomL)),
-                                   @(CGPointMake(self.kSunW/2, totalH - kHalfLineW))],
+        NSArray * sunLineArr = @[@[@(CGPointMake(self.sunW/2, kHalfLineW)),
+                                   @(CGPointMake(self.sunW/2, kHalfLineW + topL))],
+                                 @[@(CGPointMake(self.sunW/2, totalH - kHalfLineW - bottomL)),
+                                   @(CGPointMake(self.sunW/2, totalH - kHalfLineW))],
                                  @[@(point1_start),
                                    @(point1_end)],
                                  @[@(point2_start),
@@ -196,8 +266,8 @@ const float kSunCircleR = 16;//太阳圆半径
             [self context:context drawSunLineArr:arr];
         }
         
-        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-        CGContextAddArc(context, self.drawSun_x_increment + originalPoint.x, originalPoint.y, kSunCircleR, 0, M_PI*2, YES);
+        CGContextSetFillColorWithColor(context, BKCameraFocusBackgroundColor.CGColor);
+        CGContextAddArc(context, self.drawSun_x_increment + originalPoint.x, originalPoint.y, self.sunCircleR, 0, M_PI*2, YES);
         CGContextFillPath(context);
     }
 }
@@ -207,7 +277,11 @@ const float kSunCircleR = 16;//太阳圆半径
  */
 -(CGPoint)resetDrawFocusPoint:(CGPoint)point
 {
-    return CGPointMake(self.drawFocus_x_increment + point.x, self.kSunH + point.y);
+    if (self.isDisplaySun) {
+        return CGPointMake(self.drawFocus_x_increment + point.x, self.sunH + point.y);
+    }else{
+        return point;
+    }
 }
 
 /**

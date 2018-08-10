@@ -16,12 +16,25 @@
 @property (nonatomic,assign) CGFloat sunLevel;
 
 /**
+ 是否显示太阳
+ */
+@property (nonatomic,assign,readonly) BOOL isDisplaySun;
+
+/**
  创建方法
 
  @param point 手指点的位置
- @param isDisplaySun 是否显示太阳
  @return 聚焦框
  */
--(instancetype)initWithPoint:(CGPoint)point isDisplaySun:(BOOL)isDisplaySun;
+-(instancetype)initWithPoint:(CGPoint)point;
+
+/**
+ 创建方法
+
+ @param point 手指点的位置
+ @param sunLevel 太阳级别 -1~1
+ @return 聚焦框+太阳
+ */
+-(instancetype)initWithPoint:(CGPoint)point sunLevel:(CGFloat)sunLevel;
 
 @end

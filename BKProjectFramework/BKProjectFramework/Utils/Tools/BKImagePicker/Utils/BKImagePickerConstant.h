@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 UIKIT_EXTERN NSString * const BKFinishTakePhotoNotification;
+UIKIT_EXTERN NSString * const BKFinishRecordVideoNotification;
 UIKIT_EXTERN NSString * const BKFinishSelectImageNotification;
 
 UIKIT_EXTERN NSString * const BKRecordVideoMaxTimeRemind;

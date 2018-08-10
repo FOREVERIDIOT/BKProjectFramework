@@ -6,10 +6,10 @@
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKBaseViewController.h"
+#import "BKImageBaseViewController.h"
 #import "BKCameraManager.h"
 
-@interface BKCameraViewController : BKBaseViewController
+@interface BKCameraViewController : BKImageBaseViewController
 
 /**
  开启类型

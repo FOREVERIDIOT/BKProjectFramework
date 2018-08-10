@@ -31,6 +31,7 @@
 
 @property (nonatomic,strong) BKFocusRectangle * focusView;//聚焦框
 @property (nonatomic,strong) dispatch_source_t focusCursorTimer;//聚焦框消失定时器
+@property (nonatomic,assign) CGFloat sunLevel;//太阳级别(亮度) -1~1 默认0
 
 @end
 
@@ -58,18 +59,44 @@
 /**
  获取当前捕捉的图像
  */
--(UIImage*)getCurrentCaptureImage
+-(void)getCurrentCaptureImageComplete:(void (^)(UIImage * currentImage))complete
 {
     UIImage * currentImage = [self imageFromCIImage:self.currentCIImage];
     
     if ([self.videoCamera.targets containsObject:self.beautyFilter]) {
-        GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
-        [imageSource addTarget:self.beautyFilter];
-        [self.beautyFilter useNextFrameForImageCapture];
-        [imageSource processImage];
-        return [self.beautyFilter imageFromCurrentFramebuffer];
+
+        /*
+         报错 Assertion failure in -[GPUImageFramebuffer unlock]
+         Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?
+         */
+//        GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
+//        [imageSource addTarget:self.beautyFilter];
+//        [imageSource processImage];
+//        UIImage * resultImage = [imageSource imageFromCurrentFramebuffer];
+//        [imageSource useNextFrameForImageCapture];
+//
+//        return resultImage;
+        
+//        setFrameProcessingCompletionBlock有弊端会一直调用
+        __block BOOL next = YES;
+        [self.beautyFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+            if (next) {
+                next = NO;
+                UIImage * resultImage = [output imageFromCurrentFramebuffer];
+                [output useNextFrameForImageCapture];
+                if (complete) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        complete(resultImage);
+                    });
+                }
+            }
+        }];
+        
     }else {
-        return currentImage;
+//        return currentImage;
+        if (complete) {
+            complete(currentImage);
+        }
     }
 }
 
@@ -242,7 +269,7 @@
 {
     //获取点击坐标
     CGPoint point = [tapGesture locationInView:self.previewView];
-    [self setFocusCursorWithPoint:point];
+    [self setFocusCursorWithPoint:point isDisPlaySun:YES];
     
     //将UI坐标转化为摄像头坐标
     CGPoint cameraPoint = CGPointZero;
@@ -261,8 +288,26 @@
     CGPoint point = [panGesture translationInView:self.previewView];
     
     CGFloat totalHeight = self.previewView.bk_height - 200;
-    CGFloat addFactorP = -point.y / totalHeight;
-    [self addFactorP:addFactorP];
+    CGFloat addY = -point.y / totalHeight;
+    
+    //如果聚焦框不存在 滑动手势调整焦距大小
+    if (!self.focusView) {
+        [self addFactorP:addY];
+    }else {
+        //如果聚焦框存在 & 显示太阳 滑动手势调整亮度
+        if (self.focusView.isDisplaySun) {
+            self.sunLevel += addY;
+            if (self.sunLevel > 1) {
+                self.sunLevel = 1;
+            }else if (self.sunLevel < -1) {
+                self.sunLevel = -1;
+            }
+            self.focusView.sunLevel = self.sunLevel;
+            self.beautyFilter.brightnessLevel = self.sunLevel*0.7;
+            
+            [self resetFocusCursorTimer];
+        }
+    }
     
     [panGesture setTranslation:CGPointZero inView:self.previewView];
 }
@@ -559,12 +604,16 @@
 {
     [self synthesisVideoComplete:^(NSString *videoUrlPath) {
         NSInteger dateSp = [[NSDate date] timeIntervalSince1970];
-        NSString * lastFilePath = [NSTemporaryDirectory() stringByAppendingString:[NSString stringWithFormat:@"BKImagePicker_Result%ld.jpg",dateSp]];
-        BOOL flag = [UIImageJPEGRepresentation(self.firstWriteMovieImage, 1) writeToFile:lastFilePath atomically:YES];
+        NSString * imagePath = [NSTemporaryDirectory() stringByAppendingString:[NSString stringWithFormat:@"BKImagePicker_Result_FirstFrame%ld.jpg",dateSp]];
+        BOOL flag = [UIImageJPEGRepresentation(self.firstWriteMovieImage, 1) writeToFile:imagePath atomically:YES];
         if (flag) {
-            NSLog(@"第一帧图片保存成功 路径%@",lastFilePath);
+            NSLog(@"第一帧图片保存成功 路径%@",imagePath);
         }else{
             NSLog(@"第一帧图片保存失败");
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(finishRecorded:firstFrameImageUrl:)]) {
+            [self.delegate finishRecorded:videoUrlPath firstFrameImageUrl:imagePath];
         }
     }];
 }
@@ -574,6 +623,10 @@
 - (void)movieRecordingFailedWithError:(NSError*)error
 {
     NSLog(@"视频写入失败:%@",error.description);
+    
+    if ([self.delegate respondsToSelector:@selector(recordingFailure:)]) {
+        [self.delegate recordingFailure:error];
+    }
 }
 
 #pragma mark - 视频合成
@@ -707,7 +760,7 @@
     //取摄像头坐标中心
     CGPoint cameraPoint = CGPointMake(0.5, 0.5);
 
-    [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * cameraPoint.x, self.previewView.bk_height * cameraPoint.y)];
+    [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * cameraPoint.x, self.previewView.bk_height * cameraPoint.y) isDisPlaySun:NO];
     //聚焦一次效果不佳 第二次连续聚焦
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
@@ -716,25 +769,39 @@
 #pragma mark - 改变录制属性
 
 /**
- *  设置聚焦光标位置
- *
- *  @param point 光标位置
+ 设置聚焦光标位置
+
+ @param point 光标位置
+ @param isDisPlaySun 是否显示太阳
  */
--(void)setFocusCursorWithPoint:(CGPoint)point
+-(void)setFocusCursorWithPoint:(CGPoint)point isDisPlaySun:(BOOL)isDisPlaySun
 {
-    if (_focusCursorTimer) {
+    if (self.focusCursorTimer) {
         [[BKTimer sharedManager] bk_removeTimer:self.focusCursorTimer];
 
         [self.focusView removeFromSuperview];
         self.focusView = nil;
     }
 
-    self.focusView = [[BKFocusRectangle alloc]initWithPoint:point isDisplaySun:YES];
+    if (isDisPlaySun) {
+        self.focusView = [[BKFocusRectangle alloc]initWithPoint:point sunLevel:self.sunLevel];
+    }else{
+        self.focusView = [[BKFocusRectangle alloc]initWithPoint:point];
+    }
     [self.currentVC.view insertSubview:self.focusView aboveSubview:_previewView];
     [UIView animateWithDuration:0.3 animations:^{
         self.focusView.transform = CGAffineTransformMakeScale(0.6, 0.6);
     }];
 
+    [self resetFocusCursorTimer];
+}
+
+-(void)resetFocusCursorTimer
+{
+    if (self.focusCursorTimer) {
+        [[BKTimer sharedManager] bk_removeTimer:self.focusCursorTimer];
+    }
+    
     self.focusCursorTimer = [[BKTimer sharedManager] bk_setupTimerWithTimeInterval:1 totalTime:2 handler:^(BKTimerModel *timerModel) {
         if (timerModel.lastTime == 0) {
             [self.focusView removeFromSuperview];

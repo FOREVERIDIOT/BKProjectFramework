@@ -13,6 +13,7 @@
 #import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
+#import "BKEditImageViewController.h"
 
 @interface BKCameraViewController ()<BKCameraManagerDelegate>
 
@@ -53,6 +54,12 @@
     [self.view addSubview:self.filterView];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarHidden = YES;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -67,6 +74,7 @@
     [super viewWillDisappear:animated];
     
     [self.cameraManager captureSessionStopRunning];
+    [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -88,43 +96,15 @@
 
 #pragma mark - BKCameraManagerDelegate
 
--(BOOL)recordingFailure:(BKRecordVideoFailure)failure
+-(void)recordingFailure:(NSError *)failure
 {
-    switch (failure) {
-        case BKRecordVideoFailureCaptureDeviceError:
-        {
-            [self.view bk_showRemind:@"取得摄像头时出现问题!"];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return YES;
-        }
-            break;
-        case BKRecordVideoFailureWriteVideoInputError:
-        {
-            [self.view bk_showRemind:@"初始化录像设备出错!"];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return YES;
-        }
-            break;
-        case BKRecordVideoFailureWriteAudioInputError:
-        {
-            [self.view bk_showRemind:@"初始化音频设备出错!"];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return NO;
-        }
-            break;
-        case BKRecordVideoFailureVideoInputError:
-        {
-            [self.view bk_showRemind:@"写入视频失败!"];
-            return YES;
-        }
-            break;
-        case BKRecordVideoFailureAudioInputError:
-        {
-            [self.view bk_showRemind:@"写入音频失败!"];
-            return NO;
-        }
-            break;
-    }
+    //录制失败 停止快门动画 停止进度条 删除录制失败那一段进度
+    [self.shutterBtn recordingFailure];
+}
+
+-(void)finishRecorded:(NSString *)videoUrl firstFrameImageUrl:(NSString *)imageUrl
+{
+    
 }
 
 #pragma mark - 录像进度
@@ -155,6 +135,11 @@
 
 -(void)closeBtnClick:(UIButton*)button
 {
+    id observer = [[BKImagePicker sharedManager] valueForKey:@"observer"];
+    if (observer) {
+        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -295,13 +280,22 @@
         _shutterBtn.cameraType = _cameraType;
         BK_WEAK_SELF(self);
         [_shutterBtn setTakePictureAction:^{
-            
+            BK_STRONG_SELF(self);
+            [strongSelf.cameraManager getCurrentCaptureImageComplete:^(UIImage *currentImage) {
+                BKEditImageViewController * vc = [[BKEditImageViewController alloc]init];
+                vc.editImageArr = @[currentImage];
+                vc.fromModule = BKEditImageFromModuleTakePhoto;
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }];
         }];
         [_shutterBtn setRecordVideoAction:^(BKRecordState state) {
             if (state == BKRecordStateRecording) {
                 
             }else if (state == BKRecordStatePause) {
                 [weakSelf.recordProgress pauseRecord];
+            }else if (state == BKRecordStateRecordingFailure) {
+                [weakSelf.recordProgress pauseRecord];
+                [weakSelf.recordProgress deleteLastRecord];
             }
         }];
         [_shutterBtn setChangeRecordTimeAction:^(CGFloat currentTime) {

@@ -98,33 +98,24 @@
 -(void)initTopNav
 {
     BKNavButton * leftBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKHighlightColor];
-    [leftBtn setClickMethod:^(BKNavButton *button) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+    [leftBtn addTarget:self action:@selector(leftNavBtnAction)];
     self.leftNavBtns = @[leftBtn];
     
     BKNavButton * rightBtn = [[BKNavButton alloc] initWithImage:[UIImage bk_editImageWithImageName:@"save"] imageSize:CGSizeMake(20, 20)];
-    [rightBtn setClickMethod:^(BKNavButton *button) {
-        [self rightNavBtnAction:button];
-    }];
+    [rightBtn addTarget:self action:@selector(rightNavBtnAction)];
     self.rightNavBtns = @[rightBtn];
-    
-//    self.leftImageView.image = nil;
-//    self.leftLab.text = @"取消";
-    
-//    self.rightImageView.image = [UIImage bk_editImageWithImageName:@"save"];
     
     if ([_editImageArr count] > 1) {
         [self.topNavView addSubview:self.previewCollectionView];
     }
 }
 
-//-(void)leftNavBtnAction:(UIButton *)button
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+-(void)leftNavBtnAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
--(void)rightNavBtnAction:(BKNavButton *)button
+-(void)rightNavBtnAction
 {
     UIWindow * window = [[UIApplication sharedApplication].delegate window];
     

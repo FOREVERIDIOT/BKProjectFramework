@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 NSString * const BKFinishTakePhotoNotification = @"BKFinishTakePhotoNotification";//拍照完成通知
+NSString * const BKFinishRecordVideoNotification = @"BKFinishRecordVideoNotification";//拍视频完成通知
 NSString * const BKFinishSelectImageNotification = @"BKFinishSelectImageNotification";//选择完成通知
 
 NSString * const BKRecordVideoMaxTimeRemind = @"录制时间已达上限";//录制到最大时间提示

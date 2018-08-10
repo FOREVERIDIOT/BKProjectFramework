@@ -7,6 +7,7 @@
 //
 
 #import "BKDemoViewController.h"
+#import "BKImagePickerViewController.h"
 
 NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 
@@ -93,7 +94,8 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
             break;
         case 2:
         {
-            
+            BKImagePickerViewController * imageVC = [[BKImagePickerViewController alloc]init];
+            [self presentViewController:imageVC animated:YES completion:nil];
         }
             break;
         default:

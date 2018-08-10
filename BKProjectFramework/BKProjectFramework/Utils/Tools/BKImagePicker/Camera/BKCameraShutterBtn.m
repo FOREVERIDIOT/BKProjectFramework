@@ -39,6 +39,15 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 @implementation BKCameraShutterBtn
 
+/**
+ 录制失败调用 停止动画
+ */
+-(void)recordingFailure
+{
+    self.recordState = BKRecordStateRecordingFailure;
+    [self removeLongPress];
+}
+
 #pragma mark - init
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -176,13 +185,18 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 #pragma mark - 录制模式
 
--(void)reachMaxRecordTime
+-(void)removeLongPress
 {
-    [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
     self.longPress.enabled = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.longPress.enabled = YES;
     });
+}
+
+-(void)reachMaxRecordTime
+{
+    [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
+    [self removeLongPress];
 }
 
 -(void)recordVideoLongPress:(UILongPressGestureRecognizer*)longPress
@@ -235,6 +249,9 @@ float const kTimerInterval = 0.01;//定时器执行间距
                     self.recordState = BKRecordStatePause;
                 }
                 [self changeRecordAction];
+            }else if (self.recordState == BKRecordStateRecordingFailure) {
+                [self changeRecordAction];
+                self.recordState = BKRecordStatePause;
             }
         }
             break;

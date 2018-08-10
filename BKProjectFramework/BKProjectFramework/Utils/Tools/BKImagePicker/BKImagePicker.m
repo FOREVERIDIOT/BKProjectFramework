@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) PHCachingImageManager * cachingImageManager;//图片缓存管理者
 
+@property (nonatomic,strong) id observer;//通知观察者
+
 @end
 
 @implementation BKImagePicker
@@ -103,11 +105,11 @@
             UIViewController * lastVC = [self getCurrentVC];
             
             BKCameraViewController * vc = [[BKCameraViewController alloc]init];
-            vc.cameraType = BKCameraTypeRecordVideo;
+            vc.cameraType = BKCameraTypeTakePhoto;
             BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:vc];
             [lastVC presentViewController:nav animated:YES completion:nil];
             
-            __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishTakePhotoNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+            self.observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishTakePhotoNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
                 
                 for (BKImageModel * model in self.imageManageModel.selectImageArray) {
                     if (complete) {
@@ -119,7 +121,33 @@
                     }
                 }
                 
-                [[NSNotificationCenter defaultCenter] removeObserver:observer];
+                [[NSNotificationCenter defaultCenter] removeObserver:self.observer];
+            }];
+        }
+    }];
+}
+
+/**
+ 录制视频 最大时间设置在常量文件里
+ 
+ @param complete 录制完成
+ */
+-(void)recordVideoComplete:(void (^)(UIImage * image, NSData * data, NSURL * url))complete
+{
+    [self checkAllowVisitCameraHandler:^(BOOL handleFlag) {
+        if (handleFlag) {
+            
+            UIViewController * lastVC = [self getCurrentVC];
+            
+            BKCameraViewController * vc = [[BKCameraViewController alloc]init];
+            vc.cameraType = BKCameraTypeRecordVideo;
+            BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:vc];
+            [lastVC presentViewController:nav animated:YES completion:nil];
+            
+            self.observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishRecordVideoNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+                
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:self.observer];
             }];
         }
     }];
@@ -282,7 +310,7 @@
             imageClassVC.title = @"相册";
             imageVC.title = albumName;
             
-            __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishSelectImageNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+            self.observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishSelectImageNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
                 
                 if ([self.imageManageModel.selectImageArray count] == 1) {
                     BKImageModel * model = [self.imageManageModel.selectImageArray firstObject];
@@ -311,7 +339,7 @@
                     }
                 }
                 
-                [[NSNotificationCenter defaultCenter] removeObserver:observer];
+                [[NSNotificationCenter defaultCenter] removeObserver:self.observer];
             }];
             
             BKNavViewController * nav = [[BKNavViewController alloc]initWithRootViewController:imageClassVC];

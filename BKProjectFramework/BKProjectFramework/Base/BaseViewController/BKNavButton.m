@@ -51,6 +51,11 @@ float const kTitleInsets = 8;//文本内边距
  */
 @property (nonatomic,strong) NSAttributedString * titleStr;
 
+/**
+ 调用方法
+ */
+@property (nonatomic,strong) NSInvocation * invocation;
+
 @end
 
 @implementation BKNavButton
@@ -209,12 +214,35 @@ float const kTitleInsets = 8;//文本内边距
     return self;
 }
 
-#pragma mark - 点击手势
+#pragma mark - 点击方法
 
--(void)selfTapGestureRecognizer
+-(void)selfTapGestureRecognizer:(UITapGestureRecognizer*)recognizer
 {
-    if (self.clickMethod) {
-        self.clickMethod(self);
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self.invocation invoke];
+    }
+}
+
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action
+{
+    [self addTarget:target action:action object:nil];
+}
+
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action object:(id)object
+{
+    Class appearanceClass = NSClassFromString(@"_UIAppearance");
+    if ([target isMemberOfClass:appearanceClass]) {
+        return;
+    }
+    
+    NSMethodSignature * signature = [[target class] instanceMethodSignatureForSelector:action];
+    
+    self.invocation = [NSInvocation invocationWithMethodSignature:signature];
+    self.invocation.target = target;
+    self.invocation.selector = action;
+    if (object) {
+        //   0已经被self占用 1已经被_cmd占用
+        [self.invocation setArgument:&object atIndex:2];
     }
 }
 
@@ -230,7 +258,7 @@ float const kTitleInsets = 8;//文本内边距
     
     [self setupRect];
     
-    UITapGestureRecognizer * selfTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selfTapGestureRecognizer)];
+    UITapGestureRecognizer * selfTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selfTapGestureRecognizer:)];
     [self addGestureRecognizer:selfTap];
     
     [self setNeedsDisplay];
