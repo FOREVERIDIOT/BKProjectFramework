@@ -36,14 +36,14 @@
 8. GPUImage录制视频 GPUImageVideoCamera创建的对象必须调用- (BOOL)addAudioInputsAndOutputs方法 避免录制显示闪屏bug
 9. GPUImage录像捕捉当前显示图像 以以下方法获取报错
    ```objc
-   方法
+   //    方法
    GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
    [imageSource addTarget:self.beautyFilter];
    [imageSource processImage];
    UIImage * resultImage = [imageSource imageFromCurrentFramebuffer];
    [imageSource useNextFrameForImageCapture];
 
-   报错
+   //    报错
    Assertion failure in -[GPUImageFramebuffer unlock]
    Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?
    ```
@@ -70,10 +70,10 @@
       ```objc
       -(void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
       {
-      //用此方法把CMSampleBufferRef转CIImage再转UIImage此时image方向不对 调整方向需要UIImage转CGImageRef这时转的CGImageRef为空
-      //需要提前把CIImage转成CGImageRef调整方向 最后转成UIImage
-      CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)CMSampleBufferGetImageBuffer(sampleBuffer);
-      self.currentCIImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+      //    用此方法把CMSampleBufferRef转CIImage再转UIImage此时image方向不对 调整方向需要UIImage转CGImageRef这时转的CGImageRef为空
+      //    需要提前把CIImage转成CGImageRef调整方向 最后转成UIImage
+            CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)CMSampleBufferGetImageBuffer(sampleBuffer);
+            self.currentCIImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
       
       //    用GPUImage录像下面方法报错 [Unknown process name] CGBitmapContextCreate: invalid data bytes/row: should be at least 7680 for 8 integer bits/component, 3 components, kCGImageAlphaPremultipliedFirst
       //    自己写的录像代理方法中下面方法没错
