@@ -57,7 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    self.statusBarHidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -74,12 +74,7 @@
     [super viewWillDisappear:animated];
     
     [self.cameraManager captureSessionStopRunning];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-}
-
--(BOOL)prefersStatusBarHidden
-{
-    return YES;
+    self.statusBarHidden = NO;
 }
 
 #pragma mark - BKCameraManager

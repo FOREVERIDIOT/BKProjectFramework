@@ -167,6 +167,55 @@
     _bottomNavView.y = self.view.height - _bottomNavView.height;
 }
 
+#pragma mark - 状态栏
+
+-(void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle
+{
+    _statusBarStyle = statusBarStyle;
+    
+    [UIApplication sharedApplication].statusBarStyle = _statusBarStyle;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    
+    [UIApplication sharedApplication].statusBarHidden = _statusBarHidden;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(void)setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation
+{
+    _statusBarHidden = hidden;
+    _statusBarUpdateAnimation = animation;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:_statusBarHidden withAnimation:_statusBarUpdateAnimation];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(void)setStatusBarUpdateAnimation:(UIStatusBarAnimation)statusBarUpdateAnimation
+{
+    _statusBarUpdateAnimation = statusBarUpdateAnimation;
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return self.statusBarStyle;
+}
+
+-(BOOL)prefersStatusBarHidden
+{
+    return self.statusBarHidden;
+}
+
+-(UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return self.statusBarUpdateAnimation;
+}
+
 //#pragma iPhoneX黑条隐藏
 //
 //-(BOOL)prefersHomeIndicatorAutoHidden

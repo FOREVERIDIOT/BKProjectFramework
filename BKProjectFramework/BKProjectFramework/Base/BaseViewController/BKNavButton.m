@@ -225,10 +225,15 @@ float const kTitleInsets = 8;//文本内边距
 
 -(void)addTarget:(nullable id)target action:(nonnull SEL)action
 {
-    [self addTarget:target action:action object:nil];
+    [self addTarget:target action:action objects:nil];
 }
 
 -(void)addTarget:(nullable id)target action:(nonnull SEL)action object:(id)object
+{
+    [self addTarget:target action:action objects:@[object]];
+}
+
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action objects:(NSArray*)objects
 {
     Class appearanceClass = NSClassFromString(@"_UIAppearance");
     if ([target isMemberOfClass:appearanceClass]) {
@@ -240,9 +245,15 @@ float const kTitleInsets = 8;//文本内边距
     self.invocation = [NSInvocation invocationWithMethodSignature:signature];
     self.invocation.target = target;
     self.invocation.selector = action;
-    if (object) {
-        //   0已经被self占用 1已经被_cmd占用
-        [self.invocation setArgument:&object atIndex:2];
+    //   0已经被self占用 1已经被_cmd占用
+    if ([objects count] == 1) {
+        id param = [objects firstObject];
+        [self.invocation setArgument:&param atIndex:2];
+    }else if ([objects count] > 1) {
+        [objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            id param = obj;
+            [self.invocation setArgument:&param atIndex:2+idx];
+        }];
     }
 }
 

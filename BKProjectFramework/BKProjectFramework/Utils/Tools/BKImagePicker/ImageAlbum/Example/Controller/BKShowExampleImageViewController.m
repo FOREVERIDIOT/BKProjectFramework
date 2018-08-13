@@ -627,8 +627,8 @@
 
 -(void)exampleImageCollectionViewTapRecognizer
 {
-    [UIApplication sharedApplication].statusBarHidden = ![UIApplication sharedApplication].statusBarHidden;
-    if ([UIApplication sharedApplication].statusBarHidden) {
+    self.statusBarHidden = !self.statusBarHidden;
+    if (self.statusBarHidden) {
         self.topNavView.alpha = 0;
         self.bottomNavView.alpha = 0;
         

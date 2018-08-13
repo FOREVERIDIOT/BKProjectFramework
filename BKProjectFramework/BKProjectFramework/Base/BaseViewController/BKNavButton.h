@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
 #pragma mark - 点击方法
 
 /**
- 点击方法
+ 点击方法(无参数)
 
  @param target 对象
  @param action 方法
@@ -60,12 +60,21 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
 -(void)addTarget:(nullable id)target action:(nonnull SEL)action;
 
 /**
- 点击方法
+ 点击方法(单参数)
 
  @param target 对象
  @param action 方法
- @param object 参数
+ @param object 单参数
  */
 -(void)addTarget:(nullable id)target action:(nonnull SEL)action object:(id)object;
+
+/**
+ 点击方法(多参数)
+ 
+ @param target 对象
+ @param action 方法
+ @param objects 多参数
+ */
+-(void)addTarget:(nullable id)target action:(nonnull SEL)action objects:(NSArray*)objects;
 
 @end

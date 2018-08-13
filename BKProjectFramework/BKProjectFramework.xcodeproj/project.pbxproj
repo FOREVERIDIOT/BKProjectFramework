@@ -479,22 +479,22 @@
 		1D45CA6A20FC6892003C7BA4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1D45CA6B20FC6892003C7BA4 /* BKEditImageWriteView.h */,
-				1D45CA6C20FC6892003C7BA4 /* BKEditImageBgView.h */,
-				1D45CA6D20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.m */,
-				1D45CA6E20FC6892003C7BA4 /* BKEditImageBottomView.h */,
-				1D45CA6F20FC6892003C7BA4 /* BKEditImageClipFrameView.m */,
-				1D45CA7020FC6892003C7BA4 /* BKEditImagePreviewCollectionViewCell.h */,
-				1D45CA7120FC6892003C7BA4 /* BKEditImageClipView.m */,
-				1D45CA7220FC6892003C7BA4 /* BKEditImageDrawView.m */,
-				1D45CA7320FC6892003C7BA4 /* BKEditImageWriteView.m */,
-				1D45CA7420FC6892003C7BA4 /* BKEditImageBottomView.m */,
 				1D45CA7520FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.h */,
-				1D45CA7620FC6892003C7BA4 /* BKEditImageBgView.m */,
-				1D45CA7720FC6892003C7BA4 /* BKEditImageClipFrameView.h */,
-				1D45CA7820FC6892003C7BA4 /* BKEditImageDrawView.h */,
-				1D45CA7920FC6892003C7BA4 /* BKEditImageClipView.h */,
+				1D45CA6D20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.m */,
+				1D45CA7020FC6892003C7BA4 /* BKEditImagePreviewCollectionViewCell.h */,
 				1D45CA7A20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewCell.m */,
+				1D45CA6C20FC6892003C7BA4 /* BKEditImageBgView.h */,
+				1D45CA7620FC6892003C7BA4 /* BKEditImageBgView.m */,
+				1D45CA6E20FC6892003C7BA4 /* BKEditImageBottomView.h */,
+				1D45CA7420FC6892003C7BA4 /* BKEditImageBottomView.m */,
+				1D45CA7820FC6892003C7BA4 /* BKEditImageDrawView.h */,
+				1D45CA7220FC6892003C7BA4 /* BKEditImageDrawView.m */,
+				1D45CA6B20FC6892003C7BA4 /* BKEditImageWriteView.h */,
+				1D45CA7320FC6892003C7BA4 /* BKEditImageWriteView.m */,
+				1D45CA7920FC6892003C7BA4 /* BKEditImageClipView.h */,
+				1D45CA7120FC6892003C7BA4 /* BKEditImageClipView.m */,
+				1D45CA7720FC6892003C7BA4 /* BKEditImageClipFrameView.h */,
+				1D45CA6F20FC6892003C7BA4 /* BKEditImageClipFrameView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";

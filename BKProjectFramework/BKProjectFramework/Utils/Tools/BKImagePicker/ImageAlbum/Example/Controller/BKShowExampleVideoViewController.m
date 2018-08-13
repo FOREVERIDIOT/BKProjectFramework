@@ -68,7 +68,7 @@
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -79,7 +79,7 @@
         [_player removeTimeObserver:_timeObserver];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     self.isLeaveFlag = YES;
     [[PHImageManager defaultManager] cancelImageRequest:self.currentImageRequestID];

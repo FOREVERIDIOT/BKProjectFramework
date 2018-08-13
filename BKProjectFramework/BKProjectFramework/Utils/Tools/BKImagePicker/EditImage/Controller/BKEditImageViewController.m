@@ -594,7 +594,7 @@
                     
                     strongSelf.topNavView.alpha = 0;
                     strongSelf.bottomNavView.alpha = 0;
-                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+                    strongSelf.statusBarStyle = UIStatusBarStyleLightContent;
                     
                     [strongSelf.clipView showClipView];
                 }
@@ -684,13 +684,13 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.topNavView.alpha = 0;
             self.bottomNavView.alpha = 0;
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
     }else{
         [UIView animateWithDuration:0.2 animations:^{
             self.topNavView.alpha = 1;
             self.bottomNavView.alpha = 1;
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         }];
     }
 }
@@ -803,7 +803,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.topNavView.alpha = 1;
             self.bottomNavView.alpha = 1;
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         }];
         
         [_drawTimer invalidate];
@@ -812,7 +812,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.topNavView.alpha = 0;
             self.bottomNavView.alpha = 0;
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
     }
 }
@@ -1064,7 +1064,7 @@ static BOOL writeDeleteFlag = NO;
                     strongSelf.bottomNavView.alpha = 1;
                     [UIView animateWithDuration:0.2 animations:^{
                         strongSelf.topNavView.alpha = 1;
-                        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                        [strongSelf setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                     }];
                     
                     [strongSelf.bottomView reeditWriteWithWriteStringColor:strongSelf.writeView.writeColor];
@@ -1085,7 +1085,7 @@ static BOOL writeDeleteFlag = NO;
             switch (panGesture.state) {
                 case UIGestureRecognizerStateBegan:
                 {
-                    [UIApplication sharedApplication].statusBarHidden = YES;
+                    strongSelf.statusBarHidden = YES;
                     strongSelf.topNavView.alpha = 0;
                     strongSelf.bottomNavView.alpha = 0;
                     
@@ -1112,7 +1112,7 @@ static BOOL writeDeleteFlag = NO;
                 case UIGestureRecognizerStateCancelled:
                 case UIGestureRecognizerStateFailed:
                 {
-                    [UIApplication sharedApplication].statusBarHidden = NO;
+                    strongSelf.statusBarHidden = NO;
                     strongSelf.topNavView.alpha = 1;
                     strongSelf.bottomNavView.alpha = 1;
                     
@@ -1188,7 +1188,7 @@ static BOOL writeDeleteFlag = NO;
             if ([BKImagePicker sharedManager].imageManageModel.clipSize_width_height_ratio != 0) {
                 
                 [strongSelf.clipView removeSelfAuxiliaryUI];
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+                [strongSelf setStatusBarStyle:UIStatusBarStyleDefault];
                 
                 [strongSelf.navigationController popViewControllerAnimated:YES];
                 
@@ -1238,7 +1238,7 @@ static BOOL writeDeleteFlag = NO;
     
     self.topNavView.alpha = 1;
     self.bottomNavView.alpha = 1;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 -(void)removeEditImageTemplate
@@ -1277,7 +1277,7 @@ static BOOL writeDeleteFlag = NO;
             
             [self sendClipPhotoWithImage:resultImage successBlock:^{
                 [self.clipView removeSelfAuxiliaryUI];
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+                [self setStatusBarStyle:UIStatusBarStyleDefault];
             }];
             
             self.view.userInteractionEnabled = YES;

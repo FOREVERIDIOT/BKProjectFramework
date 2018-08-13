@@ -77,7 +77,7 @@
             }];
             
             if (_isNavHidden) {
-                [UIApplication sharedApplication].statusBarHidden = NO;
+                self.vc.statusBarHidden = NO;
             }
             
             self.original_lastVCSupperView = [lastVC.view superview];
@@ -181,9 +181,9 @@
             [obj setHidden:NO];
         }];
         if (self.isNavHidden) {
-            [UIApplication sharedApplication].statusBarHidden = YES;
+            self.vc.statusBarHidden = YES;
         }else{
-            [UIApplication sharedApplication].statusBarHidden = NO;
+            self.vc.statusBarHidden = NO;
         }
     }];
 }

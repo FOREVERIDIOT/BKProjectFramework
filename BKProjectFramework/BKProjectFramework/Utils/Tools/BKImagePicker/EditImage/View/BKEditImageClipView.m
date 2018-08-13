@@ -424,7 +424,8 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
         
         if (self.editImageBgView.contentView.bk_height > self.editImageBgView.contentView.bk_width) {
             CGFloat editImageBgViewHeight = self.editImageBgView.contentView.bk_height/self.editImageBgView.zoomScale;
-            if (editImageBgViewHeight > self.editImageBgView.bk_height && editImageBgViewHeight < self.bk_height) {
+            //小数点精度不准 CGFloat类型0.8 = 0.80000000000000004
+            if (editImageBgViewHeight > self.editImageBgView.bk_height && floor(editImageBgViewHeight) <= self.bk_height) {
                 
                 CGFloat contentOffsetY = (editImageBgViewHeight - self.editImageBgView.bk_height)*0.8/2;
                 self.editImageBgView.contentOffset = CGPointMake(0, -contentOffsetY);

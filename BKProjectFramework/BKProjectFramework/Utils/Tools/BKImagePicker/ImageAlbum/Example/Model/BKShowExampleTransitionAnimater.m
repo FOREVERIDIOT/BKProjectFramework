@@ -8,6 +8,7 @@
 
 #import "BKShowExampleTransitionAnimater.h"
 #import "BKShowExampleImageViewController.h"
+#import "BKImageBaseViewController.h"
 
 @interface BKShowExampleTransitionAnimater()
 
@@ -104,7 +105,7 @@
     }];
     real_fromVC.view.backgroundColor = [UIColor colorWithWhite:0 alpha:self.alphaPercentage];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [real_fromVC setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     UIView * containerView = [transitionContext containerView];
     [containerView addSubview:toVC.view];

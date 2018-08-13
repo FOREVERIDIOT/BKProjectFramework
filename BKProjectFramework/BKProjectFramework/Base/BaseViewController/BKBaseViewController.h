@@ -26,4 +26,18 @@
 @property (nonatomic,strong) BKImageView * bottomLine;
 @property (nonatomic,assign) CGFloat bottomNavViewHeight;//bottomNavView的高度 默认高度为 0
 
+#pragma mark - 状态栏
+
+@property (nonatomic,assign) UIStatusBarStyle statusBarStyle;//状态栏样式
+@property (nonatomic,assign) BOOL statusBarHidden;//状态栏是否隐藏
+@property (nonatomic,assign) UIStatusBarAnimation statusBarUpdateAnimation;//状态栏更新动画
+
+/**
+ 状态栏是否隐藏(带动画)
+
+ @param hidden 是否隐藏
+ @param animation 动画类型
+ */
+-(void)setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation;
+
 @end

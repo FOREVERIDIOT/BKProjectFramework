@@ -370,7 +370,7 @@
     return image;
 
 //    用GPUImage录像下面方法报错 [Unknown process name] CGBitmapContextCreate: invalid data bytes/row: should be at least 7680 for 8 integer bits/component, 3 components, kCGImageAlphaPremultipliedFirst
-//    自己写的录像下面方法没错  自己在此记录一下
+//    自己写的录像代理方法中下面方法没错 自己在此记录一下
 //    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 //    CVPixelBufferLockBaseAddress(imageBuffer, 0);
 //    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
@@ -753,14 +753,14 @@
 #pragma mark - 设置最初焦距捕捉点
 
 /**
- 捕获区域发生改变
+ 切换摄像头聚焦点切为中心点
  */
 -(void)setOriginalFocus
 {
     //取摄像头坐标中心
     CGPoint cameraPoint = CGPointMake(0.5, 0.5);
-
-    [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * cameraPoint.x, self.previewView.bk_height * cameraPoint.y) isDisPlaySun:NO];
+//    切换摄像头默认不限聚焦框 若想显示解开下一行注释
+//    [self setFocusCursorWithPoint:CGPointMake(self.previewView.bk_width * cameraPoint.x, self.previewView.bk_height * cameraPoint.y) isDisPlaySun:NO];
     //聚焦一次效果不佳 第二次连续聚焦
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
