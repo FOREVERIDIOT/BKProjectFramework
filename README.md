@@ -40,8 +40,8 @@
    GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
    [imageSource addTarget:self.beautyFilter];
    [imageSource processImage];
-   UIImage * resultImage = [imageSource imageFromCurrentFramebuffer];
-   [imageSource useNextFrameForImageCapture];
+   UIImage * resultImage = [self.beautyFilter imageFromCurrentFramebuffer];
+   [self.beautyFilter useNextFrameForImageCapture];
 
    //    报错
    Assertion failure in -[GPUImageFramebuffer unlock]
@@ -63,7 +63,27 @@
        }
    }];
    ```
-   该方法有弊端会一直调用 需在外部加一判断
+   该方法有弊端会一直调用 需在外部加一判断 经测试该方法暂时不会报错 时间长了也会报同样的错 需要在GPUImage中GPUImageFrameburrer.m文件中 -(void)unlock方法修改成如下
+   ```objc
+   - (void)unlock;
+   {
+       if (referenceCountingDisabled)
+       {
+           return;
+       }
+   
+       if (framebufferReferenceCount < 1) {
+           return;
+       }
+   
+       NSAssert(framebufferReferenceCount > 0, @"Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?");
+       framebufferReferenceCount--;
+       if (framebufferReferenceCount < 1)
+       {
+           [[GPUImageContext sharedFramebufferCache] returnFramebufferToCache:self];
+       }
+   }
+   ```
 10. GPUImage录制视频时第一帧和最后一帧有时候是黑屏 所以把视频的第一帧和最后一帧删除
     为了多视频合成看起来更顺滑 所以删除每个视频的前两帧和最后两帧
 11. GPUImageVideoCameraDelegate代理方法 备注+代码如下

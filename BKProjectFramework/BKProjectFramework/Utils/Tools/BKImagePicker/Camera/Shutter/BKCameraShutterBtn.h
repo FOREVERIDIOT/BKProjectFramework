@@ -45,4 +45,11 @@ typedef NS_ENUM(NSUInteger, BKRecordState) {
  */
 -(void)recordingFailure;
 
+/**
+ 修改录制时间(当调用删除一段视频方法等等)
+
+ @param time 时间
+ */
+-(void)modifyRecordTime:(CGFloat)time;
+
 @end

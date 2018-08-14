@@ -1,16 +1,16 @@
 //
-//  BKShowExampleImageCollectionViewFlowLayout.m
+//  BKImagePreviewCollectionViewFlowLayout.m
 //  BKImagePicker
 //
 //  Created by BIKE on 16/10/15.
 //  Copyright © 2016年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleImageCollectionViewFlowLayout.h"
+#import "BKImagePreviewCollectionViewFlowLayout.h"
 #import "BKImagePickerMacro.h"
 #import "BKImagePickerConstant.h"
 
-@implementation BKShowExampleImageCollectionViewFlowLayout
+@implementation BKImagePreviewCollectionViewFlowLayout
 
 -(void)prepareLayout
 {

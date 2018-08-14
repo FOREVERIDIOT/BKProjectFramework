@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger,BKSelectPhotoType) {
 
 @interface BKImageManageModel : NSObject
 
+#pragma mark - 图库+拍照
+
 /**
  是否有原图按钮
  */
@@ -47,5 +49,9 @@ typedef NS_ENUM(NSInteger,BKSelectPhotoType) {
  预定裁剪大小宽高比
  */
 @property (nonatomic,assign) CGFloat clipSize_width_height_ratio;
+
+#pragma mark - 录制视频
+
+
 
 @end

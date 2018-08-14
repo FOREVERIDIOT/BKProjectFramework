@@ -87,15 +87,17 @@
     [self.progressDataArr addObject:model];
 }
 
--(void)deleteLastRecord
+-(void)removeLastRecord
 {
     if ([self.progressDataArr count] > 0) {
         BKCameraRecordProgressModel * model = [self.progressDataArr lastObject];
         [model.currentPauseView removeFromSuperview];
-        if ([self.progressDataArr count] == 1) {
+        [self.progressDataArr removeLastObject];
+        BKCameraRecordProgressModel * lastModel = [self.progressDataArr lastObject];
+        if ([self.progressDataArr count] == 0) {
             self.currentTime = 0;
         }else{
-            self.currentTime = model.currentTime;
+            self.currentTime = lastModel.currentTime;
         }
     }
 }

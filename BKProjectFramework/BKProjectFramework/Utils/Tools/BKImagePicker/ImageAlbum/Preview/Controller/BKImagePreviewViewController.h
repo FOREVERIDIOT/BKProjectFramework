@@ -1,5 +1,5 @@
 //
-//  BKShowExampleImageViewController.h
+//  BKImagePreviewViewController.h
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/6.
@@ -11,7 +11,7 @@
 #import "BKImagePicker.h"
 #import "BKImageModel.h"
 
-@protocol BKShowExampleImageViewControllerDelegate <NSObject>
+@protocol BKImagePreviewViewControllerDelegate <NSObject>
 
 @optional
 
@@ -31,9 +31,9 @@
 
 @end
 
-@interface BKShowExampleImageViewController : BKImageBaseViewController
+@interface BKImagePreviewViewController : BKImageBaseViewController
 
-@property (nonatomic,assign) id<BKShowExampleImageViewControllerDelegate> delegate;
+@property (nonatomic,assign) id<BKImagePreviewViewControllerDelegate> delegate;
 
 /**
  点击的那张图片

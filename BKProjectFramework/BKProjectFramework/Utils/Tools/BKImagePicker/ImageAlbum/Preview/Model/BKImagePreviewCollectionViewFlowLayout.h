@@ -1,5 +1,5 @@
 //
-//  BKShowExampleImageCollectionViewFlowLayout.h
+//  BKImagePreviewCollectionViewFlowLayout.h
 //  BKImagePicker
 //
 //  Created by BIKE on 16/10/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BKShowExampleImageCollectionViewFlowLayout : UICollectionViewFlowLayout
+@interface BKImagePreviewCollectionViewFlowLayout : UICollectionViewFlowLayout
 
 @property (nonatomic,assign) NSInteger allImageCount;
 

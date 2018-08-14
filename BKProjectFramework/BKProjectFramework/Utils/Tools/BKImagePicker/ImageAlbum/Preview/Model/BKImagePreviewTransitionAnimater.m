@@ -1,22 +1,22 @@
 //
-//  BKShowExampleTransitionAnimater.m
+//  BKImagePreviewTransitionAnimater.m
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/5.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleTransitionAnimater.h"
-#import "BKShowExampleImageViewController.h"
+#import "BKImagePreviewTransitionAnimater.h"
+#import "BKImagePreviewViewController.h"
 #import "BKImageBaseViewController.h"
 
-@interface BKShowExampleTransitionAnimater()
+@interface BKImagePreviewTransitionAnimater()
 
 @property (nonatomic,assign) BKShowExampleTransition type;
 
 @end
 
-@implementation BKShowExampleTransitionAnimater
+@implementation BKImagePreviewTransitionAnimater
 
 -(instancetype)initWithTransitionType:(BKShowExampleTransition)type
 {
@@ -52,7 +52,7 @@
 - (void)pushAnimation:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     UIViewController * fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    BKShowExampleImageViewController * toVC = (BKShowExampleImageViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    BKImagePreviewViewController * toVC = (BKImagePreviewViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     toVC.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
     UIView * containerView = [transitionContext containerView];
@@ -84,12 +84,12 @@
     UIViewController * fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController * toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    BKShowExampleImageViewController * real_fromVC = nil;
+    BKImagePreviewViewController * real_fromVC = nil;
     if ([fromVC isKindOfClass:[UINavigationController class]]) {
-        real_fromVC = (BKShowExampleImageViewController*)[((UINavigationController*)fromVC).viewControllers firstObject];
+        real_fromVC = (BKImagePreviewViewController*)[((UINavigationController*)fromVC).viewControllers firstObject];
         fromVC.view.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     }else{
-        real_fromVC = (BKShowExampleImageViewController*)fromVC;
+        real_fromVC = (BKImagePreviewViewController*)fromVC;
     }
     
     if (![[real_fromVC.view subviews] containsObject:self.startImageView]) {

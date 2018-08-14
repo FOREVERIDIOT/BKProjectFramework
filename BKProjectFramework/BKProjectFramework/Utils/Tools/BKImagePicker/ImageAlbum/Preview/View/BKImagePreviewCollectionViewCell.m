@@ -1,20 +1,20 @@
 //
-//  BKShowExampleImageCollectionViewCell.m
+//  BKImagePreviewCollectionViewCell.m
 //  BKImagePicker
 //
 //  Created by BIKE on 16/10/15.
 //  Copyright © 2016年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleImageCollectionViewCell.h"
+#import "BKImagePreviewCollectionViewCell.h"
 #import "BKImagePickerConstant.h"
 #import "UIView+BKImagePicker.h"
 
-@interface BKShowExampleImageCollectionViewCell()<UIScrollViewDelegate>
+@interface BKImagePreviewCollectionViewCell()<UIScrollViewDelegate>
 
 @end
 
-@implementation BKShowExampleImageCollectionViewCell
+@implementation BKImagePreviewCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

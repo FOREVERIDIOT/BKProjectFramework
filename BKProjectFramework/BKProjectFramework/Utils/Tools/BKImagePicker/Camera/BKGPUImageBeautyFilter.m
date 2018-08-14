@@ -107,7 +107,7 @@
     self = [super init];
     if (self) {
         [self bk_addFilter:(GPUImageFilter*)self.beautyFilter];
-        [self addFilter:self.brightnessFilter];
+        [self bk_addFilter:self.brightnessFilter];
     }
     return self;
 }

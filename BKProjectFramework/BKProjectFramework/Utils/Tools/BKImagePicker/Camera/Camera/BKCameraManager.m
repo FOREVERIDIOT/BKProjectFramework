@@ -7,7 +7,7 @@
 //
 
 #import "BKCameraManager.h"
-#import "BKFocusRectangle.h"
+#import "BKCameraFocusRectangle.h"
 #import "BKTimer.h"
 #import "GPUImage.h"
 #import "BKImagePickerMacro.h"
@@ -27,9 +27,10 @@
 @property (nonatomic,strong) GPUImageMovieWriter * movieWriter;//视频写入者
 @property (nonatomic,strong) UIImage * firstWriteMovieImage;//录制视频第一帧图片
 @property (nonatomic,copy) NSString * writeFilePath;//当前写入路径
-@property (nonatomic,strong) NSMutableArray * videoUrlArr;//录制所有片段路径数组
+@property (nonatomic,strong) NSMutableArray * videoPathArr;//录制所有片段路径数组
+@property (nonatomic,copy) NSString * previewVideoPath;//预览视频路径
 
-@property (nonatomic,strong) BKFocusRectangle * focusView;//聚焦框
+@property (nonatomic,strong) BKCameraFocusRectangle * focusView;//聚焦框
 @property (nonatomic,strong) dispatch_source_t focusCursorTimer;//聚焦框消失定时器
 @property (nonatomic,assign) CGFloat sunLevel;//太阳级别(亮度) -1~1 默认0
 
@@ -58,8 +59,10 @@
 
 /**
  获取当前捕捉的图像
+
+ @return 当前捕捉图像
  */
--(void)getCurrentCaptureImageComplete:(void (^)(UIImage * currentImage))complete
+-(UIImage *)getCurrentCaptureImage
 {
     UIImage * currentImage = [self imageFromCIImage:self.currentCIImage];
     
@@ -72,31 +75,69 @@
 //        GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
 //        [imageSource addTarget:self.beautyFilter];
 //        [imageSource processImage];
-//        UIImage * resultImage = [imageSource imageFromCurrentFramebuffer];
-//        [imageSource useNextFrameForImageCapture];
+//        UIImage * resultImage = [self.beautyFilter imageFromCurrentFramebuffer];
+//        [self.beautyFilter useNextFrameForImageCapture];
 //
 //        return resultImage;
-        
+       
+        /*
+         调用以下方法获得当前图片暂时不会报错 时间长了也会报错 Assertion failure in -[GPUImageFramebuffer unlock]
+         Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?
+         */
 //        setFrameProcessingCompletionBlock有弊端会一直调用
-        __block BOOL next = YES;
-        [self.beautyFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
-            if (next) {
-                next = NO;
-                UIImage * resultImage = [output imageFromCurrentFramebuffer];
-                [output useNextFrameForImageCapture];
-                if (complete) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        complete(resultImage);
-                    });
-                }
-            }
-        }];
+//        __block BOOL next = YES;
+//        [self.beautyFilter setFrameProcessingCompletionBlock:^(GPUImageOutput * output, CMTime time) {
+//            if (next) {
+//                next = NO;
+//                UIImage * resultImage = [output imageFromCurrentFramebuffer];
+//                [output useNextFrameForImageCapture];
+//                if (complete) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        complete(resultImage);
+//                    });
+//                }
+//            }
+//        }];
         
-    }else {
-//        return currentImage;
-        if (complete) {
-            complete(currentImage);
+        /*
+         GPUImage中GPUImageFrameburrer.m文件中 -(void)unlock方法修改成如下
+         - (void)unlock;
+         {
+            if (referenceCountingDisabled)
+            {
+                return;
+            }
+         
+            if (framebufferReferenceCount < 1) {
+                return;
+            }
+         
+            NSAssert(framebufferReferenceCount > 0, @"Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?");
+            framebufferReferenceCount--;
+            if (framebufferReferenceCount < 1)
+            {
+                [[GPUImageContext sharedFramebufferCache] returnFramebufferToCache:self];
+            }
+         }
+         */
+        //给while语句加个上限
+        NSInteger count = 100;
+        GPUImagePicture * imageSource = [[GPUImagePicture alloc] initWithImage:currentImage];
+        [imageSource addTarget:self.beautyFilter];
+        [imageSource processImage];
+        UIImage * resultImage = nil;
+        //获取一次图片有可能为nil 多获取几次就有了
+        while (!resultImage) {
+            if (count < 0) {
+                break;
+            }
+            resultImage = [self.beautyFilter imageFromCurrentFramebuffer];
+            [self.beautyFilter useNextFrameForImageCapture];
+            count--;
         }
+        return resultImage;
+    }else {
+        return currentImage;
     }
 }
 
@@ -130,6 +171,58 @@
 -(void)finishRecordVideo
 {
     [self finishWriteMovie];
+}
+
+/**
+ 视频预览
+ */
+-(void)previewRecordVideo
+{
+    if ([self.delegate respondsToSelector:@selector(previewRecordVideo:)]) {
+        if ([self.previewVideoPath length] > 0) {
+            [self.delegate previewRecordVideo:self.previewVideoPath];
+        }else {
+            [self synthesisVideoComplete:^(NSString *videoUrlPath) {
+                self.previewVideoPath = videoUrlPath;
+                [self.delegate previewRecordVideo:self.previewVideoPath];
+            }];
+        }
+    }
+}
+
+/**
+ 删除上一段录制视频
+
+ @return 是否删除成功
+ */
+-(BOOL)removeLastRecordVideo
+{
+    if ([self.videoPathArr count] == 0) {
+        return NO;
+    }
+    
+    self.previewVideoPath = nil;
+    
+    NSString * lastVideoPath = [self.videoPathArr lastObject];
+    
+    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:lastVideoPath];
+    if (!isExist) {
+//        NSLog(@"文件不存在");
+        return NO;
+    }
+    
+    NSError * error = nil;
+    BOOL flag = [[NSFileManager defaultManager] removeItemAtPath:lastVideoPath error:&error];
+    if (!flag) {
+//        NSLog(@"%@",error.description);
+        return NO;
+    }
+    [self.videoPathArr removeLastObject];
+    if ([self.videoPathArr count] == 0) {
+        self.firstWriteMovieImage = nil;
+    }
+    
+    return YES;
 }
 
 /**
@@ -230,6 +323,23 @@
     self.beautyFilter.beautyLevel = level;
 }
 
+/**
+ 删除文件目录
+
+ @return 是否删除成功
+ */
+-(BOOL)removeSaveFileDirectory
+{
+    NSString * fileDir = [self checkSaveFileDirectory];
+    NSError * error = nil;
+    BOOL flag = [[NSFileManager defaultManager] removeItemAtPath:fileDir error:&error];
+    if (!flag) {
+        //        NSLog(@"%@",error.description);
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - 初始方法
 
 -(instancetype)initWithCurrentVC:(UIViewController*)currentVC
@@ -281,6 +391,10 @@
     //聚焦一次效果不佳 第二次连续聚焦
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposureMode:AVCaptureExposureModeContinuousAutoExposure atPoint:cameraPoint];
+    
+    if ([self.delegate respondsToSelector:@selector(recordViewTapGestureRecognizer)]) {
+        [self.delegate recordViewTapGestureRecognizer];
+    }
 }
 
 -(void)previewViewPan:(UIPanGestureRecognizer*)panGesture
@@ -501,19 +615,31 @@
 
 #pragma mark - GPUImageMovieWriter
 
--(NSMutableArray*)videoUrlArr
+-(NSMutableArray*)videoPathArr
 {
-    if (!_videoUrlArr) {
-        _videoUrlArr = [[NSMutableArray alloc] init];
+    if (!_videoPathArr) {
+        _videoPathArr = [[NSMutableArray alloc] init];
     }
-    return _videoUrlArr;
+    return _videoPathArr;
+}
+
+-(NSString *)checkSaveFileDirectory
+{
+    NSString * directory = [NSTemporaryDirectory() stringByAppendingString:@"BKImagePicker"];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    BOOL exist = [fileManager fileExistsAtPath:directory isDirectory:&isDir];
+    if (!(isDir && exist)) {
+        [fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return directory;
 }
 
 -(NSString*)writeFilePath
 {
     if (!_writeFilePath) {
         NSInteger dateSp = [[NSDate date] timeIntervalSince1970];
-        _writeFilePath = [NSTemporaryDirectory() stringByAppendingString:[NSString stringWithFormat:@"BKImagePicker_Temp%ld.mp4",dateSp]];
+        _writeFilePath = [NSString stringWithFormat:@"%@/Temp%ld.mp4",[self checkSaveFileDirectory],dateSp];
     }
     return _writeFilePath;
 }
@@ -571,6 +697,8 @@
 
 -(void)startWriteMovie
 {
+    self.previewVideoPath = nil;
+    
     if ([self.videoCamera.targets containsObject:self.beautyFilter]) {
         [self.beautyFilter addTarget:self.movieWriter];
     }else {
@@ -590,10 +718,10 @@
         }
         self.videoCamera.audioEncodingTarget = nil;
         
-        if ([self.videoUrlArr count] == 0) {
+        if ([self.videoPathArr count] == 0) {
             self.firstWriteMovieImage = [self firstImageForVideo:[NSURL fileURLWithPath:self.writeFilePath]];
         }
-        [self.videoUrlArr addObject:self.writeFilePath];
+        [self.videoPathArr addObject:self.writeFilePath];
         
         self.writeFilePath = nil;
         self.movieWriter = nil;
@@ -602,27 +730,33 @@
 
 -(void)finishWriteMovie
 {
-    [self synthesisVideoComplete:^(NSString *videoUrlPath) {
-        NSInteger dateSp = [[NSDate date] timeIntervalSince1970];
-        NSString * imagePath = [NSTemporaryDirectory() stringByAppendingString:[NSString stringWithFormat:@"BKImagePicker_Result_FirstFrame%ld.jpg",dateSp]];
-        BOOL flag = [UIImageJPEGRepresentation(self.firstWriteMovieImage, 1) writeToFile:imagePath atomically:YES];
-        if (flag) {
-            NSLog(@"第一帧图片保存成功 路径%@",imagePath);
-        }else{
-            NSLog(@"第一帧图片保存失败");
+    if ([self.previewVideoPath length] > 0) {
+        if ([self.delegate respondsToSelector:@selector(finishRecordedVideo:firstFrameImage:)]) {
+            [self.delegate finishRecordedVideo:self.previewVideoPath firstFrameImage:self.firstWriteMovieImage];
         }
-        
-        if ([self.delegate respondsToSelector:@selector(finishRecorded:firstFrameImageUrl:)]) {
-            [self.delegate finishRecorded:videoUrlPath firstFrameImageUrl:imagePath];
-        }
-    }];
+    }else{
+        [self synthesisVideoComplete:^(NSString *videoUrlPath) {
+            if ([self.delegate respondsToSelector:@selector(finishRecordedVideo:firstFrameImage:)]) {
+                [self.delegate finishRecordedVideo:videoUrlPath firstFrameImage:self.firstWriteMovieImage];
+            }
+        }];
+    }
 }
 
 #pragma mark - GPUImageMovieWriterDelegate
 
 - (void)movieRecordingFailedWithError:(NSError*)error
 {
-    NSLog(@"视频写入失败:%@",error.description);
+//    NSLog(@"视频写入失败:%@",error.description);
+    
+    if ([self.videoCamera.targets containsObject:self.beautyFilter]) {
+        [self.beautyFilter removeTarget:self.movieWriter];
+    }else {
+        [self.videoCamera removeTarget:self.movieWriter];
+    }
+    self.videoCamera.audioEncodingTarget = nil;
+    self.writeFilePath = nil;
+    self.movieWriter = nil;
     
     if ([self.delegate respondsToSelector:@selector(recordingFailure:)]) {
         [self.delegate recordingFailure:error];
@@ -636,7 +770,7 @@
     [self.currentVC.view bk_showLoadLayer];
     
     NSMutableArray * assertArr = [NSMutableArray array];
-    for (NSString * fileURLStr in self.videoUrlArr) {
+    for (NSString * fileURLStr in self.videoPathArr) {
         AVAsset * asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:fileURLStr]];
         if (!asset) {
             continue;
@@ -706,8 +840,7 @@
     }
     
     NSInteger dateSp = [[NSDate date] timeIntervalSince1970];
-    
-    NSString * lastFilePath = [NSTemporaryDirectory() stringByAppendingString:[NSString stringWithFormat:@"BKImagePicker_Result%ld.mp4",dateSp]];
+    NSString * lastFilePath = [NSString stringWithFormat:@"%@/Result%ld.mp4",[self checkSaveFileDirectory],dateSp];
     
     //合成 并且压缩 质量AVAssetExportPresetMediumQuality//质量AVAssetExportPresetMediumQuality
     AVAssetExportSession * session = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
@@ -784,9 +917,9 @@
     }
 
     if (isDisPlaySun) {
-        self.focusView = [[BKFocusRectangle alloc]initWithPoint:point sunLevel:self.sunLevel];
+        self.focusView = [[BKCameraFocusRectangle alloc]initWithPoint:point sunLevel:self.sunLevel];
     }else{
-        self.focusView = [[BKFocusRectangle alloc]initWithPoint:point];
+        self.focusView = [[BKCameraFocusRectangle alloc]initWithPoint:point];
     }
     [self.currentVC.view insertSubview:self.focusView aboveSubview:_previewView];
     [UIView animateWithDuration:0.3 animations:^{

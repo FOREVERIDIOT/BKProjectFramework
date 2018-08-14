@@ -39,6 +39,8 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 @implementation BKCameraShutterBtn
 
+#pragma mark - 外部调用方法
+
 /**
  录制失败调用 停止动画
  */
@@ -46,6 +48,16 @@ float const kTimerInterval = 0.01;//定时器执行间距
 {
     self.recordState = BKRecordStateRecordingFailure;
     [self removeLongPress];
+}
+
+/**
+ 修改录制时间(当调用删除一段视频方法等等)
+ 
+ @param time 时间
+ */
+-(void)modifyRecordTime:(CGFloat)time
+{
+    self.recordTime = time;
 }
 
 #pragma mark - init
@@ -233,8 +245,6 @@ float const kTimerInterval = 0.01;//定时器执行间距
                 
                 self.blurView.center = CGPointMake(self.blurView_startCenterPoint.x + tranX, self.blurView_startCenterPoint.y + tranY);
                 self.middleCircleView.center = CGPointMake(self.middleCircleView_startCenterPoint.x + tranX, self.middleCircleView_startCenterPoint.y + tranY);
-                
-                
             }
         }
             break;

@@ -23,6 +23,6 @@
 /**
  删除最后一次录制
  */
--(void)deleteLastRecord;
+-(void)removeLastRecord;
 
 @end

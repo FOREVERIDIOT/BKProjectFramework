@@ -12,15 +12,15 @@
 #import "BKImagePickerCollectionViewCell.h"
 #import "BKImagePickerFooterCollectionReusableView.h"
 #import "BKImageAlbumItemSelectButton.h"
-#import "BKShowExampleImageViewController.h"
-#import "BKShowExampleVideoViewController.h"
+#import "BKImagePreviewViewController.h"
+#import "BKVideoPreviewViewController.h"
 #import "BKImageOriginalButton.h"
 #import "BKEditImageViewController.h"
 #import "UIView+BKImagePicker.h"
 #import "BKImagePickerConstant.h"
 #import "BKImagePickerMacro.h"
 
-@interface BKImagePickerViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,BKImagePickerCollectionViewCellDelegate,BKShowExampleImageViewControllerDelegate>
+@interface BKImagePickerViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,BKImagePickerCollectionViewCellDelegate,BKImagePreviewViewControllerDelegate>
 
 @property (nonatomic,assign) BOOL isFirstEnterIntoVC;//是否第一次进入vc
 
@@ -395,7 +395,7 @@
             return;
         }
         
-        BKShowExampleVideoViewController * vc = [[BKShowExampleVideoViewController alloc]init];
+        BKVideoPreviewViewController * vc = [[BKVideoPreviewViewController alloc]init];
         vc.tapVideoModel = model;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -407,7 +407,7 @@
         return;
     }
     
-    BKShowExampleImageViewController * vc = [[BKShowExampleImageViewController alloc]init];
+    BKImagePreviewViewController * vc = [[BKImagePreviewViewController alloc]init];
     vc.delegate = self;
     vc.tapImageView = cell.photoImageView;
     vc.imageListArray = [imageListArray copy];
@@ -415,7 +415,7 @@
     [vc showInNav:self.navigationController];
 }
 
-#pragma mark - BKShowExampleImageViewControllerDelegate
+#pragma mark - BKImagePreviewViewControllerDelegate
 
 -(void)refreshLookLocationActionWithImageModel:(BKImageModel*)model
 {

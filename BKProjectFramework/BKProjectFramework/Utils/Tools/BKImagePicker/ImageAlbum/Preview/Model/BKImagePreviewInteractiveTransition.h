@@ -1,5 +1,5 @@
 //
-//  BKShowExampleInteractiveTransition.h
+//  BKImagePreviewInteractiveTransition.h
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/5.
@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BKShowExampleImageViewController.h"
+#import "BKImagePreviewViewController.h"
 #import "FLAnimatedImage.h"
 
-@interface BKShowExampleInteractiveTransition : UIPercentDrivenInteractiveTransition
+@interface BKImagePreviewInteractiveTransition : UIPercentDrivenInteractiveTransition
 
 /**
  导航是否隐藏
@@ -34,7 +34,7 @@
  
  @param viewController 控制器
  */
-- (void)addPanGestureForViewController:(BKShowExampleImageViewController *)viewController;
+- (void)addPanGestureForViewController:(BKImagePreviewViewController *)viewController;
 /**
  获取当前显示view的透明百分比
  

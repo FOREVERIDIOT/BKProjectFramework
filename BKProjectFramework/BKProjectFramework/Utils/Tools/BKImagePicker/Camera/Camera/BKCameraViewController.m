@@ -14,6 +14,7 @@
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
 #import "BKEditImageViewController.h"
+#import "BKCameraRecordVideoPreviewViewController.h"
 
 @interface BKCameraViewController ()<BKCameraManagerDelegate>
 
@@ -26,7 +27,10 @@
 @property (nonatomic,strong) UIButton * filterBtn;//滤镜按钮
 @property (nonatomic,strong) BKCameraFilterView * filterView;//滤镜界面
 
+@property (nonatomic,strong) UIButton * previewBtn;//预览界面
 @property (nonatomic,strong) BKCameraShutterBtn * shutterBtn;//快门按钮
+@property (nonatomic,strong) UIButton * deleteBtn;//删除按钮
+@property (nonatomic,strong) UIButton * finishBtn;//完成按钮
 
 @end
 
@@ -50,7 +54,10 @@
     [self.view addSubview:self.filterBtn];
     [self.view addSubview:self.flashBtn];
     
+    [self.view addSubview:self.previewBtn];
     [self.view addSubview:self.shutterBtn];
+    [self.view addSubview:self.deleteBtn];
+    [self.view addSubview:self.finishBtn];
     [self.view addSubview:self.filterView];
 }
 
@@ -77,6 +84,14 @@
     self.statusBarHidden = NO;
 }
 
+-(void)dealloc
+{
+    if (self.cameraType == BKCameraTypeRecordVideo) {
+        //删除保存的视频
+        [self.cameraManager removeSaveFileDirectory];
+    }
+}
+
 #pragma mark - BKCameraManager
 
 -(BKCameraManager*)cameraManager
@@ -93,13 +108,28 @@
 
 -(void)recordingFailure:(NSError *)failure
 {
+    [self.view bk_showRemind:@"录制失败"];
     //录制失败 停止快门动画 停止进度条 删除录制失败那一段进度
     [self.shutterBtn recordingFailure];
 }
 
--(void)finishRecorded:(NSString *)videoUrl firstFrameImageUrl:(NSString *)imageUrl
+-(void)finishRecordedVideo:(NSString*)videoPath firstFrameImage:(UIImage*)image
 {
     
+}
+
+-(void)previewRecordVideo:(NSString*)videoPath
+{
+    BKCameraRecordVideoPreviewViewController * vc = [[BKCameraRecordVideoPreviewViewController alloc] init];
+    vc.videoPath = videoPath;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)recordViewTapGestureRecognizer
+{
+    if (self.filterView.alpha == 1) {
+        [self filterBtnClick:nil];
+    }
 }
 
 #pragma mark - 录像进度
@@ -110,6 +140,19 @@
         _recordProgress = [[BKCameraRecordProgress alloc] initWithFrame:CGRectMake(0, BK_SYSTEM_STATUSBAR_HEIGHT - 3, self.view.bk_width, 3)];
     }
     return _recordProgress;
+}
+
+-(void)switchFinishBtnAlpha
+{
+    if (self.recordProgress.currentTime > 0) {
+        self.previewBtn.alpha = 1;
+        self.deleteBtn.alpha = 1;
+        self.finishBtn.alpha = 1;
+    }else{
+        self.previewBtn.alpha = 0;
+        self.deleteBtn.alpha = 0;
+        self.finishBtn.alpha = 0;
+    }
 }
 
 #pragma mark - 关闭按钮
@@ -130,6 +173,10 @@
 
 -(void)closeBtnClick:(UIButton*)button
 {
+    if (self.filterView.alpha == 1) {
+        [self filterBtnClick:nil];
+    }
+    
     id observer = [[BKImagePicker sharedManager] valueForKey:@"observer"];
     if (observer) {
         [[NSNotificationCenter defaultCenter] removeObserver:observer];
@@ -156,6 +203,10 @@
 
 -(void)switchShotBtnClick:(UIButton*)button
 {
+    if (self.filterView.alpha == 1) {
+        [self filterBtnClick:nil];
+    }
+    
     [self.cameraManager switchCaptureDeviceComplete:^(BOOL flag, AVCaptureDevicePosition position) {
         if (!flag) {
             [self.view bk_showRemind:@"镜头转换失败"];
@@ -249,6 +300,10 @@
 
 -(void)flashBtnClick:(UIButton*)button
 {
+    if (self.filterView.alpha == 1) {
+        [self filterBtnClick:nil];
+    }
+    
     [self.cameraManager modifyFlashModeComplete:^(BOOL flag, AVCaptureFlashMode flashMode) {
         if (!flag) {
             [self.view bk_showRemind:@"闪光灯转换失败"];
@@ -266,6 +321,28 @@
     }];
 }
 
+#pragma mark - 预览按钮
+
+-(UIButton*)previewBtn
+{
+    if (!_previewBtn) {
+        _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _previewBtn.frame = CGRectMake((self.shutterBtn.x - 40)/2, 0, 40, 40);
+        _previewBtn.centerY = self.shutterBtn.centerY;
+        _previewBtn.alpha = 0;
+        [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
+        [_previewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _previewBtn;
+}
+
+-(void)previewBtnClick:(UIButton*)button
+{
+    [self.cameraManager previewRecordVideo];
+}
+
 #pragma mark - 快门按钮
 
 -(BKCameraShutterBtn*)shutterBtn
@@ -275,23 +352,30 @@
         _shutterBtn.cameraType = _cameraType;
         BK_WEAK_SELF(self);
         [_shutterBtn setTakePictureAction:^{
-            BK_STRONG_SELF(self);
-            [strongSelf.cameraManager getCurrentCaptureImageComplete:^(UIImage *currentImage) {
-                BKEditImageViewController * vc = [[BKEditImageViewController alloc]init];
-                vc.editImageArr = @[currentImage];
-                vc.fromModule = BKEditImageFromModuleTakePhoto;
-                [weakSelf.navigationController pushViewController:vc animated:YES];
-            }];
+            
+            UIImage * currentImage = [weakSelf.cameraManager getCurrentCaptureImage];
+            if (!currentImage) {
+                [weakSelf.view bk_showRemind:@"图片获取失败"];
+                return;
+            }
+            
+            BKEditImageViewController * vc = [[BKEditImageViewController alloc]init];
+            vc.editImageArr = @[currentImage];
+            vc.fromModule = BKEditImageFromModuleTakePhoto;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+            
         }];
         [_shutterBtn setRecordVideoAction:^(BKRecordState state) {
             if (state == BKRecordStateRecording) {
-                
-            }else if (state == BKRecordStatePause) {
+                [weakSelf.cameraManager startRecordVideo];
+            }else if (state == BKRecordStatePause || state == BKRecordStateEnd) {
+                [weakSelf.cameraManager pauseRecordVideo];
                 [weakSelf.recordProgress pauseRecord];
             }else if (state == BKRecordStateRecordingFailure) {
                 [weakSelf.recordProgress pauseRecord];
-                [weakSelf.recordProgress deleteLastRecord];
+                [weakSelf.recordProgress removeLastRecord];
             }
+            [weakSelf switchFinishBtnAlpha];
         }];
         [_shutterBtn setChangeRecordTimeAction:^(CGFloat currentTime) {
             weakSelf.recordProgress.currentTime = currentTime;
@@ -303,5 +387,58 @@
     return _shutterBtn;
 }
 
+#pragma mark - 删除按钮
+
+-(UIButton*)deleteBtn
+{
+    if (!_deleteBtn) {
+        _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGFloat x = CGRectGetMaxX(self.shutterBtn.frame) + (self.view.bk_width - CGRectGetMaxX(self.shutterBtn.frame) - 40 *2) / 3;
+        _deleteBtn.frame = CGRectMake(x, 0, 40, 40);
+        _deleteBtn.centerY = self.shutterBtn.centerY;
+        _deleteBtn.alpha = 0;
+        [_deleteBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _deleteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _deleteBtn;
+}
+
+-(void)deleteBtnClick:(UIButton*)button
+{
+    BOOL flag = [self.cameraManager removeLastRecordVideo];
+    if (!flag) {
+        [self.view bk_showRemind:@"删除失败"];
+        return;
+    }
+    [self.recordProgress removeLastRecord];
+    [self.shutterBtn modifyRecordTime:self.recordProgress.currentTime];
+    
+    [self switchFinishBtnAlpha];
+}
+
+#pragma mark - 完成按钮
+
+-(UIButton*)finishBtn
+{
+    if (!_finishBtn) {
+        _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGFloat x = CGRectGetMaxX(self.deleteBtn.frame) + (self.view.bk_width - CGRectGetMaxX(self.shutterBtn.frame) - 40 *2) / 3;
+        _finishBtn.frame = CGRectMake(x, 0, 40, 40);
+        _finishBtn.centerY = self.shutterBtn.centerY;
+        _finishBtn.alpha = 0;
+        [_finishBtn addTarget:self action:@selector(finishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _finishBtn;
+}
+
+-(void)finishBtnClick:(UIButton*)button
+{
+    
+}
 
 @end

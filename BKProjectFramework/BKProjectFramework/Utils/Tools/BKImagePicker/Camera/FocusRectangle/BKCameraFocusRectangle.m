@@ -1,12 +1,12 @@
 //
-//  BKFocusRectangle.m
+//  BKCameraFocusRectangle.m
 //  BKProjectFramework
 //
 //  Created by zhaolin on 2018/8/9.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKFocusRectangle.h"
+#import "BKCameraFocusRectangle.h"
 #import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 
@@ -19,7 +19,7 @@ const float kSunSpace = 6;//太阳线与其他的间距
 const float kSunLightL = 9;//太阳光线长
 const float kSunCircleR = 10;//太阳圆半径
 
-@interface BKFocusRectangle()
+@interface BKCameraFocusRectangle()
 
 @property (nonatomic,assign) CGFloat focusW;
 @property (nonatomic,assign) CGFloat focusH;
@@ -37,7 +37,7 @@ const float kSunCircleR = 10;//太阳圆半径
 
 @end
 
-@implementation BKFocusRectangle
+@implementation BKCameraFocusRectangle
 @synthesize isDisplaySun = _isDisplaySun;
 
 #pragma mark - sunLevel

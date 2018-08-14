@@ -1,5 +1,5 @@
 //
-//  BKShowExampleVideoViewController.h
+//  BKVideoPreviewViewController.h
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/6.
@@ -11,7 +11,7 @@
 #import "BKImagePicker.h"
 #import "BKImageModel.h"
 
-@interface BKShowExampleVideoViewController : BKImageBaseViewController
+@interface BKVideoPreviewViewController : BKImageBaseViewController
 
 /**
  选取的Video model

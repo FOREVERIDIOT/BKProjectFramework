@@ -1,20 +1,20 @@
 //
-//  BKShowExampleVideoViewController.m
+//  BKVideoPreviewViewController.m
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/6.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleVideoViewController.h"
+#import "BKVideoPreviewViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+BKImagePicker.h"
 #import "BKImagePickerMacro.h"
-#import "UIView+BKImagePicker.h"
 #import "BKImagePickerConstant.h"
+#import "UIView+BKImagePicker.h"
 #import "BKImagePicker.h"
 
-@interface BKShowExampleVideoViewController ()
+@interface BKVideoPreviewViewController ()
 
 @property (nonatomic,assign) BOOL isInCloud;//是否在云盘里 需要下载
 @property (nonatomic,assign) PHImageRequestID currentImageRequestID;//当前下载的ID
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation BKShowExampleVideoViewController
+@implementation BKVideoPreviewViewController
 
 #pragma mark - viewDidLoad
 
@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor blackColor];
-    self.topNavView.hidden = YES;
+    [self.topNavView removeFromSuperview];
     
     [self initBottomNav];
     
@@ -75,11 +75,17 @@
 {
     [super viewWillDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
+    [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
     if (_timeObserver) {
         [_player removeTimeObserver:_timeObserver];
     }
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     self.isLeaveFlag = YES;
     [[PHImageManager defaultManager] cancelImageRequest:self.currentImageRequestID];
@@ -241,6 +247,7 @@
             
             [self addProgressObserver];
             
+            self.downloadProgress = 1;
             self.isDownloadError = NO;
             
             if (self.isLeaveFlag) {

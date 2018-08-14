@@ -1,17 +1,17 @@
 //
-//  BKShowExampleImageViewController.m
+//  BKImagePreviewViewController.m
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/6.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleImageViewController.h"
-#import "BKShowExampleImageCollectionViewFlowLayout.h"
-#import "BKShowExampleImageCollectionViewCell.h"
+#import "BKImagePreviewViewController.h"
+#import "BKImagePreviewCollectionViewFlowLayout.h"
+#import "BKImagePreviewCollectionViewCell.h"
 #import "BKImageAlbumItemSelectButton.h"
-#import "BKShowExampleInteractiveTransition.h"
-#import "BKShowExampleTransitionAnimater.h"
+#import "BKImagePreviewInteractiveTransition.h"
+#import "BKImagePreviewTransitionAnimater.h"
 #import "BKEditImageViewController.h"
 #import "BKImageOriginalButton.h"
 #import "BKImagePickerMacro.h"
@@ -19,7 +19,7 @@
 #import "UIView+BKImagePicker.h"
 #import "BKImagePicker.h"
 
-@interface BKShowExampleImageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UINavigationControllerDelegate>
+@interface BKImagePreviewViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UINavigationControllerDelegate>
 
 @property (nonatomic,assign) BOOL isFirstEnterIntoVC;//是否第一次进入vc
 
@@ -36,11 +36,11 @@
 @property (nonatomic,strong) UICollectionView * exampleImageCollectionView;
 
 @property (nonatomic,strong) UINavigationController * nav;//导航
-@property (nonatomic,strong) BKShowExampleInteractiveTransition * interactiveTransition;//交互方法
+@property (nonatomic,strong) BKImagePreviewInteractiveTransition * interactiveTransition;//交互方法
 
 @end
 
-@implementation BKShowExampleImageViewController
+@implementation BKImagePreviewViewController
 
 #pragma mark - 显示方法
 
@@ -51,12 +51,12 @@
     [_nav pushViewController:self animated:YES];
 }
 
-#pragma mark - BKShowExampleInteractiveTransition
+#pragma mark - BKImagePreviewInteractiveTransition
 
--(BKShowExampleInteractiveTransition*)interactiveTransition
+-(BKImagePreviewInteractiveTransition*)interactiveTransition
 {
     if (!_interactiveTransition) {
-        _interactiveTransition = [[BKShowExampleInteractiveTransition alloc] init];
+        _interactiveTransition = [[BKImagePreviewInteractiveTransition alloc] init];
         [_interactiveTransition addPanGestureForViewController:self];
     }
     return _interactiveTransition;
@@ -70,7 +70,7 @@
         
         UIImageView * imageView = [self getTapImageView];
         
-        BKShowExampleTransitionAnimater * transitionAnimater = [[BKShowExampleTransitionAnimater alloc] initWithTransitionType:BKShowExampleTransitionPush];
+        BKImagePreviewTransitionAnimater * transitionAnimater = [[BKImagePreviewTransitionAnimater alloc] initWithTransitionType:BKShowExampleTransitionPush];
         transitionAnimater.startImageView = imageView;
         transitionAnimater.endRect = [self calculateTargetFrameWithImageView:imageView];
         BK_WEAK_SELF(self);
@@ -84,7 +84,7 @@
         
         CGRect endRect = [self.delegate getFrameOfCurrentImageInListVCWithImageModel:self.imageListArray[_currentImageIndex]];
         
-        BKShowExampleTransitionAnimater * transitionAnimater = [[BKShowExampleTransitionAnimater alloc] initWithTransitionType:BKShowExampleTransitionPop];
+        BKImagePreviewTransitionAnimater * transitionAnimater = [[BKImagePreviewTransitionAnimater alloc] initWithTransitionType:BKShowExampleTransitionPop];
         transitionAnimater.startImageView = self.interactiveTransition.startImageView;
         transitionAnimater.endRect = endRect;
         transitionAnimater.alphaPercentage = self.interactiveTransition.interation?[self.interactiveTransition getCurrentViewAlphaPercentage]:1;
@@ -249,7 +249,7 @@
     }
     
     NSIndexPath * indexPath = [NSIndexPath indexPathForItem:_currentImageIndex inSection:0];
-    BKShowExampleImageCollectionViewCell * cell = (BKShowExampleImageCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:indexPath];
+    BKImagePreviewCollectionViewCell * cell = (BKImagePreviewCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:indexPath];
     
     if (isHave) {
         
@@ -598,7 +598,7 @@
 {
     if (!_exampleImageCollectionView) {
         
-        BKShowExampleImageCollectionViewFlowLayout * flowLayout = [[BKShowExampleImageCollectionViewFlowLayout alloc]init];
+        BKImagePreviewCollectionViewFlowLayout * flowLayout = [[BKImagePreviewCollectionViewFlowLayout alloc]init];
         flowLayout.allImageCount = [self.imageListArray count];
         
         _exampleImageCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
@@ -613,7 +613,7 @@
             _exampleImageCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        [_exampleImageCollectionView registerClass:[BKShowExampleImageCollectionViewCell class] forCellWithReuseIdentifier:@"BKShowExampleImageCollectionViewCell"];
+        [_exampleImageCollectionView registerClass:[BKImagePreviewCollectionViewCell class] forCellWithReuseIdentifier:@"BKImagePreviewCollectionViewCell"];
         
         UITapGestureRecognizer * exampleImageCollectionViewTapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(exampleImageCollectionViewTapRecognizer)];
         [_exampleImageCollectionView addGestureRecognizer:exampleImageCollectionViewTapRecognizer];
@@ -648,14 +648,14 @@
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BKShowExampleImageCollectionViewCell * cell = (BKShowExampleImageCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"BKShowExampleImageCollectionViewCell" forIndexPath:indexPath];
+    BKImagePreviewCollectionViewCell * cell = (BKImagePreviewCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"BKImagePreviewCollectionViewCell" forIndexPath:indexPath];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BKShowExampleImageCollectionViewCell * currentCell = (BKShowExampleImageCollectionViewCell*)cell;
+    BKImagePreviewCollectionViewCell * currentCell = (BKImagePreviewCollectionViewCell*)cell;
     
     currentCell.imageScrollView.zoomScale = 1;
     currentCell.imageScrollView.contentSize = CGSizeMake(currentCell.bk_width-BKExampleImagesSpacing*2, currentCell.bk_height);
@@ -716,7 +716,7 @@
         return;
     }
     
-    BKShowExampleImageCollectionViewCell * currentCell = (BKShowExampleImageCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:currentIndexPath];
+    BKImagePreviewCollectionViewCell * currentCell = (BKImagePreviewCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:currentIndexPath];
     
     self.interactiveTransition.startImageView = currentCell.showImageView;
     self.interactiveTransition.supperScrollView = currentCell.imageScrollView;
@@ -839,7 +839,7 @@
             
             BOOL flag = [_exampleImageCollectionView.indexPathsForVisibleItems containsObject:currentIndexPath];
             if (flag) {
-                BKShowExampleImageCollectionViewCell * currentCell = (BKShowExampleImageCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:currentIndexPath];
+                BKImagePreviewCollectionViewCell * currentCell = (BKImagePreviewCollectionViewCell*)[_exampleImageCollectionView cellForItemAtIndexPath:currentIndexPath];
                 
                 self.interactiveTransition.startImageView = currentCell.showImageView;
                 self.interactiveTransition.supperScrollView = currentCell.imageScrollView;

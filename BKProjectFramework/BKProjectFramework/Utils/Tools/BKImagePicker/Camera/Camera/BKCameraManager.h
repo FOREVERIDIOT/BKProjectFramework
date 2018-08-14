@@ -21,12 +21,19 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
 /**
  调用录制完成返回的代理
  
- @param videoUrl 视频路径
- @param imageUrl 第一帧图片路径
+ @param videoPath 视频路径
+ @param image 第一帧图片
  */
--(void)finishRecorded:(NSString*)videoUrl firstFrameImageUrl:(NSString*)imageUrl;
+-(void)finishRecordedVideo:(NSString*)videoPath firstFrameImage:(UIImage*)image;
 
 @optional
+
+/**
+ 调用视频预览返回的代理
+
+ @param videoPath 视频地址
+ */
+-(void)previewRecordVideo:(NSString*)videoPath;
 
 /**
  录制视频失败代理
@@ -34,6 +41,11 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
  @param failure 失败原因
  */
 -(void)recordingFailure:(NSError*)failure;
+
+/**
+ 点击录制界面代理
+ */
+-(void)recordViewTapGestureRecognizer;
 
 @optional
 
@@ -70,8 +82,10 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
 
 /**
  获取当前捕捉的图像
+ 
+ @return 当前捕捉图像
  */
--(void)getCurrentCaptureImageComplete:(void (^)(UIImage * currentImage))complete;
+-(UIImage *)getCurrentCaptureImage;
 
 /**
  获取当前摄像头方向
@@ -92,6 +106,18 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
  完成录制
  */
 -(void)finishRecordVideo;
+
+/**
+ 视频预览
+ */
+-(void)previewRecordVideo;
+
+/**
+ 删除上一段录制视频
+ 
+ @return 是否删除成功
+ */
+-(BOOL)removeLastRecordVideo;
 
 /**
  切换镜头
@@ -120,5 +146,12 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
  @param level 等级 0~5
  */
 -(void)switchBeautyFilterLevel:(BKBeautyLevel)level;
+
+/**
+ 删除文件目录
+ 
+ @return 是否删除成功
+ */
+-(BOOL)removeSaveFileDirectory;
 
 @end

@@ -1,17 +1,17 @@
 //
-//  BKShowExampleInteractiveTransition.m
+//  BKImagePreviewInteractiveTransition.m
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/5.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
-#import "BKShowExampleInteractiveTransition.h"
+#import "BKImagePreviewInteractiveTransition.h"
 #import "UIView+BKImagePicker.h"
 
-@interface BKShowExampleInteractiveTransition()<UIGestureRecognizerDelegate>
+@interface BKImagePreviewInteractiveTransition()<UIGestureRecognizerDelegate>
 
-@property (nonatomic,weak) BKShowExampleImageViewController * vc;//添加手势的vc
+@property (nonatomic,weak) BKImagePreviewViewController * vc;//添加手势的vc
 @property (nonatomic,assign) CGFloat startZoomScale;//图片起始在scrollview中缩放大小
 @property (nonatomic,assign) CGPoint startContentOffset;//图片起始在scrollview中的偏移量
 @property (nonatomic,assign) CGRect startImageViewRect;//图片起始在scrollview中的大小
@@ -25,11 +25,11 @@
 
 @end
 
-@implementation BKShowExampleInteractiveTransition
+@implementation BKImagePreviewInteractiveTransition
 
 #pragma mark - 手势
 
-- (void)addPanGestureForViewController:(BKShowExampleImageViewController *)viewController
+- (void)addPanGestureForViewController:(BKImagePreviewViewController *)viewController
 {
     self.vc = viewController;
     

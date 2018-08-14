@@ -1,5 +1,5 @@
 //
-//  BKShowExampleTransitionAnimater.h
+//  BKImagePreviewTransitionAnimater.h
 //  BKImagePicker
 //
 //  Created by BIKE on 2018/2/5.
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, BKShowExampleTransition) {
     BKShowExampleTransitionPop,
 };
 
-@interface BKShowExampleTransitionAnimater : NSObject <UIViewControllerAnimatedTransitioning>
+@interface BKImagePreviewTransitionAnimater : NSObject <UIViewControllerAnimatedTransitioning>
 
 /**
  返回时背景透明百分比
