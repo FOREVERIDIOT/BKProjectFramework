@@ -11,10 +11,13 @@
 #import "BKCameraRecordProgress.h"
 #import "BKCameraFilterView.h"
 #import "BKImagePickerMacro.h"
+#import "BKImagePickerConstant.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
 #import "BKEditImageViewController.h"
 #import "BKCameraRecordVideoPreviewViewController.h"
+#import "BKImagePicker.h"
+#import "BKImageModel.h"
 
 @interface BKCameraViewController ()<BKCameraManagerDelegate>
 
@@ -115,7 +118,33 @@
 
 -(void)finishRecordedVideo:(NSString*)videoPath firstFrameImage:(UIImage*)image
 {
+    [self.view bk_showLoadLayer];
     
+    [[BKImagePicker sharedManager] saveVideo:videoPath complete:^(PHAsset *asset, BOOL success) {
+        if (!success) {
+            [self.view bk_hideLoadLayer];
+            [self.view bk_showRemind:@"视频发送失败"];
+            return;
+        }
+        
+        [[BKImagePicker sharedManager] getVideoDataWithAsset:asset progressHandler:^(double progress, NSError *error, PHImageRequestID imageRequestID) {
+            
+        } complete:^(AVPlayerItem *playerItem, PHImageRequestID imageRequestID) {
+            
+            [self.view bk_hideLoadLayer];
+            
+            BKImageModel * imageModel = [[BKImageModel alloc] init];
+            imageModel.asset = asset;
+            imageModel.url = ((AVURLAsset*)playerItem.asset).URL;
+            imageModel.originalImageData = UIImageJPEGRepresentation(image, 1);
+            
+            [[BKImagePicker sharedManager].imageManageModel.selectImageArray addObject:imageModel];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:BKFinishRecordVideoNotification object:nil userInfo:nil];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
 -(void)previewRecordVideo:(NSString*)videoPath
@@ -438,7 +467,7 @@
 
 -(void)finishBtnClick:(UIButton*)button
 {
-    
+    [self.cameraManager finishRecordVideo];
 }
 
 @end

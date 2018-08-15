@@ -134,6 +134,9 @@
  */
 -(void)recordVideoComplete:(void (^)(UIImage * image, NSData * data, NSURL * url))complete
 {
+    //初始化数据
+    [self resetOptionData];
+    
     [self checkAllowVisitCameraHandler:^(BOOL handleFlag) {
         if (handleFlag) {
             
@@ -146,6 +149,10 @@
             
             self.observer = [[NSNotificationCenter defaultCenter] addObserverForName:BKFinishRecordVideoNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
                 
+                BKImageModel * model = [self.imageManageModel.selectImageArray firstObject];
+                if (complete) {
+                    complete([UIImage imageWithData:model.originalImageData],[NSData dataWithContentsOfURL:model.url], model.url);
+                }
                 
                 [[NSNotificationCenter defaultCenter] removeObserver:self.observer];
             }];
@@ -438,7 +445,7 @@
         if (handleFlag) {
             
             __block NSString *assetId = nil;
-            // 存储图片到"相机胶卷"
+            //存储图片到"相机胶卷"
             [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
                 assetId = [PHAssetChangeRequest creationRequestForAssetFromImage:image].placeholderForCreatedAsset.localIdentifier;
             } completionHandler:^(BOOL success, NSError * _Nullable error) {
@@ -451,21 +458,16 @@
                     return;
                 }
                 
+                //把相机胶卷图片保存到自己创建的相册中
+                //图片
                 PHAsset * asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[assetId] options:nil].firstObject;
-                
-                // 把相机胶卷图片保存到自己创建的相册中
+                //自己的相册
                 PHAssetCollection *collection = [self collection];
-                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                    PHAssetCollectionChangeRequest * request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
-                    [request addAssets:@[asset]];
-                    
-                } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (complete) {
-                            complete(asset,success);
-                        }
-                    });
+                //转移
+                [self asset:asset transferToCsCollection:collection complete:^(PHAsset *asset, BOOL success) {
+                    if (complete) {
+                        complete(asset,success);
+                    }
                 }];
             }];
             
@@ -474,9 +476,71 @@
 }
 
 /**
- 获取保存图片相册
+ 保存视频
+
+ @param videoPath 本地视频路径
+ @param complete 保存完成方法
+ */
+-(void)saveVideo:(NSString*)videoPath complete:(void (^)(PHAsset * asset,BOOL success))complete
+{
+    [self checkAllowVisitPhotoAlbumHandler:^(BOOL handleFlag) {
+        if (handleFlag) {
+            
+            __block NSString *assetId = nil;
+            //存储视频到"相机胶卷"
+            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                assetId = [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:videoPath]].placeholderForCreatedAsset.localIdentifier;
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                if (error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (complete) {
+                            complete(nil,success);
+                        }
+                    });
+                    return;
+                }
+                
+                //把相机胶卷视频保存到自己创建的相册中
+                //视频
+                PHAsset * asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[assetId] options:nil].firstObject;
+                //自己的相册
+                PHAssetCollection * collection = [self collection];
+                //转移
+                [self asset:asset transferToCsCollection:collection complete:^(PHAsset *asset, BOOL success) {
+                    if (complete) {
+                        complete(asset,success);
+                    }
+                }];
+            }];
+        }
+    }];
+}
+
+/**
+ 把资源转移到特定的相册中
+
+ @param asset 资源
+ @param collection 相册
+ @param complete 完成方法
+ */
+-(void)asset:(PHAsset *)asset transferToCsCollection:(PHAssetCollection *)collection complete:(void (^)(PHAsset * asset,BOOL success))complete
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetCollectionChangeRequest * request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
+        [request addAssets:@[asset]];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (complete) {
+                complete(asset,success);
+            }
+        });
+    }];
+}
+
+/**
+ 获取保存图片、视频相册
  
- @return 保存图片相册
+ @return 保存图片、视频相册
  */
 - (PHAssetCollection *)collection
 {

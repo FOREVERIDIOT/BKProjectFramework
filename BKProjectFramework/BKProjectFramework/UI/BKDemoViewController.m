@@ -81,7 +81,7 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
         case 0:
         {
             [[BKImagePicker sharedManager] takePhotoWithComplete:^(UIImage *image, NSData *data) {
-                
+                NSLog(@"image:%@, dataLength:%ld",image, [data length]);
             }];
         }
             break;
@@ -95,7 +95,7 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
         case 2:
         {
             [[BKImagePicker sharedManager] recordVideoComplete:^(UIImage *image, NSData *data, NSURL *url) {
-                
+                NSLog(@"image:%@, dataLength:%ld, url:%@",image, [data length], url);
             }];
         }
             break;

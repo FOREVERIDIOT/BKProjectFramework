@@ -91,6 +91,14 @@
  */
 - (void)saveImage:(UIImage*)image complete:(void (^)(PHAsset * asset,BOOL success))complete;
 
+/**
+ 保存视频
+ 
+ @param videoPath 本地视频路径
+ @param complete 保存完成方法
+ */
+-(void)saveVideo:(NSString*)videoPath complete:(void (^)(PHAsset * asset,BOOL success))complete;
+
 #pragma mark - 获取图片
 
 /**
