@@ -97,7 +97,7 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         self.userInteractionEnabled = NO;
         
         [[UIApplication sharedApplication].keyWindow addSubview:self.bottomNav];
@@ -514,7 +514,7 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
         CAShapeLayer * shapeLayer = [CAShapeLayer layer];
         shapeLayer.path = path.CGPath;
         shapeLayer.fillRule = kCAFillRuleEvenOdd;
-        shapeLayer.fillColor = [UIColor colorWithWhite:0 alpha:0.6].CGColor;
+        shapeLayer.fillColor = BKEditImageClipShadowBackgroundColor.CGColor;
         [_shadowView.layer addSublayer:shapeLayer];
     }
     return _shadowView;

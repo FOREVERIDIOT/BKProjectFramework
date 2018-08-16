@@ -67,7 +67,7 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         [self addGesture];
     }
     return self;
@@ -77,7 +77,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         [self addGesture];
     }
     return self;
@@ -89,7 +89,7 @@
 {
     [super drawRect:rect];
     
-    NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:50],NSForegroundColorAttributeName:_writeColor?_writeColor:[UIColor redColor]};
+    NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:50],NSForegroundColorAttributeName:_writeColor?_writeColor:BKRedColor};
     [self.writeString drawWithRect:CGRectMake(10, 10, self.bk_width - 20, self.bk_height - 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     
     [self resetTransform];

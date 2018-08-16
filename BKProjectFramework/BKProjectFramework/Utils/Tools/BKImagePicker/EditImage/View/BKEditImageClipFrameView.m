@@ -67,8 +67,8 @@
     CAShapeLayer * border  = [[CAShapeLayer alloc] init];
     border.frame = self.bounds;
     [border setLineWidth:1];
-    [border setStrokeColor:[UIColor whiteColor].CGColor];
-    [border setFillColor:[UIColor clearColor].CGColor];
+    [border setStrokeColor:BKEditImageClipFrameColor.CGColor];
+    [border setFillColor:BKClearColor.CGColor];
     border.path = linePath.CGPath;
     [self.layer addSublayer:border];
     
@@ -93,8 +93,8 @@
     CAShapeLayer * angle  = [[CAShapeLayer alloc] init];
     angle.frame = self.bounds;
     [angle setLineWidth:2];
-    [angle setStrokeColor:[UIColor whiteColor].CGColor];
-    [angle setFillColor:[UIColor clearColor].CGColor];
+    [angle setStrokeColor:BKEditImageClipFrameColor.CGColor];
+    [angle setFillColor:BKClearColor.CGColor];
     angle.path = anglePath.CGPath;
     [self.layer addSublayer:angle];
 }

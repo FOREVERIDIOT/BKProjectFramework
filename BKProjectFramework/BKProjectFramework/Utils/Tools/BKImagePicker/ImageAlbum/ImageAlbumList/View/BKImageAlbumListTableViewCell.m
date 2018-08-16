@@ -7,6 +7,7 @@
 //
 
 #import "BKImageAlbumListTableViewCell.h"
+#import "BKImagePickerMacro.h"
 
 @implementation BKImageAlbumListTableViewCell
 
@@ -24,11 +25,11 @@
         [self addSubview:_exampleImageView];
         
         _titleLab = [[UILabel alloc]init];
-        _titleLab.textColor = [UIColor blackColor];
+        _titleLab.textColor = BKAlbumListAlbumTitleColor;
         [self addSubview:_titleLab];
         
         _countLab = [[UILabel alloc]init];
-        _countLab.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+        _countLab.textColor = BKAlbumListNumTitleColor;
         [self addSubview:_countLab];
     }
     return self;

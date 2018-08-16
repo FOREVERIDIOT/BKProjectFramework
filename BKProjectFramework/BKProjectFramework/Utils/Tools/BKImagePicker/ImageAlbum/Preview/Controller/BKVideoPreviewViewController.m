@@ -42,7 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = BKVideoPreviewBackgroundColor;
     [self.topNavView removeFromSuperview];
     
     [self initBottomNav];
@@ -108,13 +108,13 @@
     self.bottomLine.hidden = YES;
     self.bottomNavViewHeight = BK_IPONEX ? BK_SYSTEM_TABBAR_HEIGHT : 64;
     
-    self.bottomNavView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.bottomNavView.backgroundColor = BKVideoPreviewBottomNavBackgroundColor;
     
     UIButton * back = [UIButton buttonWithType:UIButtonTypeCustom];
     back.frame = CGRectMake(10, 0, 64, 64);
-    [back setBackgroundColor:[UIColor clearColor]];
+    [back setBackgroundColor:BKClearColor];
     [back setTitle:@"取消" forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [back setTitleColor:BKVideoPreviewBottomNavTitleColor forState:UIControlStateNormal];
     back.titleLabel.font = [UIFont systemFontOfSize:16];
     [back addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomNavView addSubview:back];
@@ -123,9 +123,9 @@
     
     UIButton * select = [UIButton buttonWithType:UIButtonTypeCustom];
     select.frame = CGRectMake(self.bottomNavView.bk_width - 64 - 10, 0, 64, 64);
-    [select setBackgroundColor:[UIColor clearColor]];
+    [select setBackgroundColor:BKClearColor];
     [select setTitle:@"选取" forState:UIControlStateNormal];
-    [select setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [select setTitleColor:BKVideoPreviewBottomNavTitleColor forState:UIControlStateNormal];
     select.titleLabel.font = [UIFont systemFontOfSize:16];
     [select addTarget:self action:@selector(selectBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomNavView addSubview:select];
@@ -162,7 +162,7 @@
     }
     
     if (self.downloadProgress != 1) {
-        [self.view bk_showRemind:@"视频正在加载中,请稍后再试"];
+        [self.view bk_showRemind:BKSelectVideoDownloadingRemind];
         return;
     }
     
@@ -183,7 +183,7 @@
     }
     
     if (self.downloadProgress != 1) {
-        [self.view bk_showRemind:@"视频正在加载中,请稍后再试"];
+        [self.view bk_showRemind:BKSelectVideoDownloadingRemind];
         return;
     }
     
@@ -209,7 +209,7 @@
 {
     if (!_playerView) {
         _playerView = [[UIView alloc]initWithFrame:self.view.bounds];
-        _playerView.backgroundColor = [UIColor blackColor];
+        _playerView.backgroundColor = BKVideoPreviewBackgroundColor;
         
         [self loadVideoDataComplete:nil];
     }
@@ -261,7 +261,7 @@
         }else{
             self.isDownloadError = YES;
             if (!self.isLeaveFlag) {
-                [self.view bk_showRemind:@"视频下载失败"];
+                [self.view bk_showRemind:BKVideoDownloadFailedRemind];
             }
         }
     }];
@@ -339,7 +339,7 @@
             self.coverImageView.image = originalImage;
         }else{
             self.tapVideoModel.loadingProgress = 0;
-            [self.view bk_showRemind:@"封面下载失败"];
+            [self.view bk_showRemind:BKVideoCoverDownloadFailedRemind];
         }
     }];
 }

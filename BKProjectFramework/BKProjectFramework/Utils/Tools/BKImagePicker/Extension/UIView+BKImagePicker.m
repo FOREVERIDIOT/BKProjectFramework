@@ -89,20 +89,20 @@
 -(void)bk_showRemind:(NSString*)text
 {
     UIView * bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
+    bgView.backgroundColor = BKRemindBackgroundColor;
     bgView.layer.cornerRadius = 8.0f;
     bgView.clipsToBounds = YES;
     bgView.userInteractionEnabled = NO;
     [self addSubview:bgView];
     
     UILabel * remindLab = [[UILabel alloc]init];
-    remindLab.textColor = [UIColor whiteColor];
+    remindLab.textColor = BKRemindTitleColor;
     CGFloat fontSize = 13.0 * self.bounds.size.width/320.0f;
     UIFont *font = [UIFont systemFontOfSize:fontSize];
     remindLab.font = font;
     remindLab.textAlignment = NSTextAlignmentCenter;
     remindLab.numberOfLines = 0;
-    remindLab.backgroundColor = [UIColor clearColor];
+    remindLab.backgroundColor = BKClearColor;
     remindLab.text = text;
     [bgView addSubview:remindLab];
     
@@ -162,7 +162,7 @@
     CALayer * loadLayer = [CALayer layer];
     loadLayer.bounds = CGRectMake(0, 0, loadLayer_width, loadLayer_width);
     loadLayer.position = CGPointMake(self.bk_width/2, self.bk_height/2);
-    loadLayer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.75f].CGColor;
+    loadLayer.backgroundColor = BKLoadingBackgroundColor.CGColor;
     loadLayer.cornerRadius = loadLayer.bounds.size.width/10.0f;
     loadLayer.masksToBounds = YES;
     loadLayer.name = @"loadLayer";
@@ -174,7 +174,7 @@
         CALayer * circle = [CALayer layer];
         circle.bounds = CGRectMake(0, 0, loadLayer.bounds.size.width/2.0f, loadLayer.bounds.size.height/2.0f);
         circle.position = CGPointMake(loadLayer.bounds.size.width/2.0f, loadLayer.bounds.size.height/2.0f);
-        circle.backgroundColor = [UIColor whiteColor].CGColor;
+        circle.backgroundColor = BKLoadingCircleBackgroundColor.CGColor;
         circle.opacity = 0.6;
         circle.cornerRadius = CGRectGetHeight(circle.bounds) * 0.5;
         circle.transform = CATransform3DMakeScale(0.0, 0.0, 0.0);
@@ -248,7 +248,7 @@
     textLayer.string = string;
     textLayer.wrapped = YES;
     textLayer.contentsScale = [UIScreen mainScreen].scale;
-    textLayer.foregroundColor = BKNavGrayTitleColor.CGColor;
+    textLayer.foregroundColor = BKLoadingTitleColor.CGColor;
     textLayer.alignmentMode = kCAAlignmentCenter;
     textLayer.name = @"loadTextLayer";
     [supperLayer addSublayer:textLayer];

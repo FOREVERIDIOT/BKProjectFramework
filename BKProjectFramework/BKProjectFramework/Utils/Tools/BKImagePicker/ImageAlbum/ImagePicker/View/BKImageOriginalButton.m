@@ -48,7 +48,7 @@
 {
     [super layoutSubviews];
     
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = BKClearColor;
     
     UITapGestureRecognizer * selfTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selfTap)];
     [self addGestureRecognizer:selfTap];
@@ -74,18 +74,18 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     if (_isSelect) {
-        CGContextSetFillColorWithColor(context, BKHighlightColor.CGColor);
+        CGContextSetFillColorWithColor(context, BKImagePickerSendHighlightedBackgroundColor.CGColor);
         CGContextAddArc(context, 12, self.bk_height/2, 10, 0, 2*M_PI, 0);
         CGContextDrawPath(context, kCGPathFill);
         
-        CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+        CGContextSetStrokeColorWithColor(context, BKImagePickerOriginalImageHookColor.CGColor);
         CGContextMoveToPoint(context, 12 - 6, self.bk_height/2);
         CGContextAddLineToPoint(context, 12 - 2, self.bk_height/2 + 4);
         CGContextAddLineToPoint(context, 12 + 6, self.bk_height/2 - 4);
         CGContextSetLineWidth(context, 1.5);
         CGContextDrawPath(context, kCGPathStroke);
     }else{
-        CGContextSetStrokeColorWithColor(context, [BKSelectNormalColor CGColor]);
+        CGContextSetStrokeColorWithColor(context, [BKImagePickerSelectImageNumberNormalBackgroundColor CGColor]);
         CGContextSetLineWidth(context, 1);
         CGContextAddArc(context, 12, self.bk_height/2, 10, 0, 2*M_PI, 0);
         CGContextDrawPath(context, kCGPathStroke);

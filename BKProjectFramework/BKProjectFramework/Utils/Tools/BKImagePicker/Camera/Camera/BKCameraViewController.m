@@ -48,7 +48,7 @@
     [self.topNavView removeFromSuperview];
     [self.bottomNavView removeFromSuperview];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = BKCameraBackgroundColor;
     
     [self.view addSubview:self.recordProgress];
     
@@ -111,7 +111,7 @@
 
 -(void)recordingFailure:(NSError *)failure
 {
-    [self.view bk_showRemind:@"录制失败"];
+    [self.view bk_showRemind:BKRecordVideoFailedRemind];
     //录制失败 停止快门动画 停止进度条 删除录制失败那一段进度
     [self.shutterBtn recordingFailure];
 }
@@ -123,7 +123,7 @@
     [[BKImagePicker sharedManager] saveVideo:videoPath complete:^(PHAsset *asset, BOOL success) {
         if (!success) {
             [self.view bk_hideLoadLayer];
-            [self.view bk_showRemind:@"视频发送失败"];
+            [self.view bk_showRemind:BKConfirmSelectVideoFailedRemind];
             return;
         }
         
@@ -238,7 +238,7 @@
     
     [self.cameraManager switchCaptureDeviceComplete:^(BOOL flag, AVCaptureDevicePosition position) {
         if (!flag) {
-            [self.view bk_showRemind:@"镜头转换失败"];
+            [self.view bk_showRemind:BKSwitchCaptureDeviceFailedRemind];
             return;
         }
         
@@ -335,7 +335,7 @@
     
     [self.cameraManager modifyFlashModeComplete:^(BOOL flag, AVCaptureFlashMode flashMode) {
         if (!flag) {
-            [self.view bk_showRemind:@"闪光灯转换失败"];
+            [self.view bk_showRemind:BKModifyFlashModeFailedRemind];
             return;
         }
         
@@ -361,7 +361,7 @@
         _previewBtn.alpha = 0;
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
-        [_previewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_previewBtn setTitleColor:BKCameraBottomTitleColor forState:UIControlStateNormal];
         _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _previewBtn;
@@ -384,7 +384,7 @@
             
             UIImage * currentImage = [weakSelf.cameraManager getCurrentCaptureImage];
             if (!currentImage) {
-                [weakSelf.view bk_showRemind:@"图片获取失败"];
+                [weakSelf.view bk_showRemind:BKGetImageFailedRemind];
                 return;
             }
             
@@ -428,7 +428,7 @@
         _deleteBtn.alpha = 0;
         [_deleteBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-        [_deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:BKCameraBottomTitleColor forState:UIControlStateNormal];
         _deleteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _deleteBtn;
@@ -438,7 +438,7 @@
 {
     BOOL flag = [self.cameraManager removeLastRecordVideo];
     if (!flag) {
-        [self.view bk_showRemind:@"删除失败"];
+        [self.view bk_showRemind:BKRemoveVideolipFailedRemind];
         return;
     }
     [self.recordProgress removeLastRecord];
@@ -459,7 +459,7 @@
         _finishBtn.alpha = 0;
         [_finishBtn addTarget:self action:@selector(finishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_finishBtn setTitleColor:BKCameraBottomTitleColor forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _finishBtn;

@@ -51,7 +51,7 @@
 {
     if (!_menuScrollView) {
         _menuScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bk_width, 60)];
-        _menuScrollView.backgroundColor = [UIColor clearColor];
+        _menuScrollView.backgroundColor = BKClearColor;
         _menuScrollView.showsVerticalScrollIndicator = NO;
         _menuScrollView.showsHorizontalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {

@@ -24,7 +24,7 @@
 {
     if ([title length] == 0) {
         self.showTitle = @"";
-        self.fillColor = BKSelectNormalColor;
+        self.fillColor = BKImagePickerSelectImageNumberNormalBackgroundColor;
     }else{
         self.showTitle = title;
         self.fillColor = BKHighlightColor;
@@ -51,7 +51,7 @@
 -(UIColor*)fillColor
 {
     if (!_fillColor) {
-        _fillColor = BKSelectNormalColor;
+        _fillColor = BKImagePickerSelectImageNumberNormalBackgroundColor;
     }
     return _fillColor;
 }
@@ -71,7 +71,7 @@
 {
     [super layoutSubviews];
     
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = BKClearColor;
     
     UITapGestureRecognizer * selfRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selfRecognizer)];
     [self addGestureRecognizer:selfRecognizer];
@@ -91,7 +91,7 @@
     [super drawRect:rect];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [BKImagePickerSelectImageNumberBorderColor CGColor]);
     CGContextSetLineWidth(context, 1.5);
     CGContextAddArc(context, self.selfRect.size.width/2.0f, self.selfRect.size.height/2.0f, self.selfRect.size.width/2.0f - 4, 0, 2*M_PI, 0);
     CGContextDrawPath(context, kCGPathStroke);
@@ -105,10 +105,10 @@
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
     if ([self.showTitle integerValue] > 99) {
-        NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:8],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
+        NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:8],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:BKImagePickerSelectImageNumberTitleColor};
         [self.showTitle drawWithRect:CGRectMake(5, 10, self.selfRect.size.width - 10, self.selfRect.size.height - 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     }else{
-        NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
+        NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:BKImagePickerSelectImageNumberTitleColor};
         [self.showTitle drawWithRect:CGRectMake(5, 7.5, self.selfRect.size.width - 10, self.selfRect.size.height - 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     }
 }
@@ -134,7 +134,7 @@
         [self setNeedsDisplay];
     }else{
         self.showTitle = @"";
-        self.fillColor = BKSelectNormalColor;
+        self.fillColor = BKImagePickerSelectImageNumberNormalBackgroundColor;
         [self setNeedsDisplay];
     }
 }
@@ -142,7 +142,7 @@
 -(void)cancelSelect
 {
     self.showTitle = @"";
-    self.fillColor = BKSelectNormalColor;
+    self.fillColor = BKImagePickerSelectImageNumberNormalBackgroundColor;
     [self setNeedsDisplay];
 }
 

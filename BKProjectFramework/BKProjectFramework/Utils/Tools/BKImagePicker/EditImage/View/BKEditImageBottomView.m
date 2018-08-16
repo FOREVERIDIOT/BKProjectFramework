@@ -110,10 +110,10 @@
 {
     self = [super initWithFrame:CGRectMake(0, 0, BK_SCREENW, BK_SYSTEM_TABBAR_UI_HEIGHT)];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         
         UIImage * masaike = [UIImage bk_editImageWithImageName:@"masaike"];
-        self.colorArr = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor greenColor],[UIColor blueColor],[UIColor purpleColor],[UIColor blackColor],[UIColor whiteColor],[UIColor lightGrayColor],masaike];
+        self.colorArr = @[BKRedColor, BKOrangeColor, BKYellowColor, BKGreenColor, BKBlueColor, BKPurpleColor, BKBlackColor, BKWhiteColor, BKLightGrayColor, masaike];
         
         [self addSubview:self.firstLevelView];
     }
@@ -127,10 +127,10 @@
     if (!_firstLevelView) {
         
         _firstLevelView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bk_width, BK_SYSTEM_TABBAR_UI_HEIGHT)];
-        _firstLevelView.backgroundColor = [UIColor clearColor];
+        _firstLevelView.backgroundColor = BKClearColor;
         
         _firstLevelScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, _firstLevelView.bk_width/5*4 - 6, _firstLevelView.bk_height)];
-        _firstLevelScrollView.backgroundColor = [UIColor clearColor];
+        _firstLevelScrollView.backgroundColor = BKClearColor;
         _firstLevelScrollView.showsVerticalScrollIndicator = NO;
         _firstLevelScrollView.showsHorizontalScrollIndicator = NO;
         [_firstLevelView addSubview:_firstLevelScrollView];
@@ -164,7 +164,7 @@
         _cancelWriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _cancelWriteBtn.frame = CGRectMake(6, (_firstLevelView.bk_height - 37)/2, _firstLevelView.bk_width/5-6, 37);
         [_cancelWriteBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelWriteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_cancelWriteBtn setTitleColor:BKEditImageBottomTitleColor forState:UIControlStateNormal];
         [_cancelWriteBtn setBackgroundColor:BKHighlightColor];
         _cancelWriteBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _cancelWriteBtn.layer.cornerRadius = 4;
@@ -176,7 +176,7 @@
         _affirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _affirmBtn.frame = CGRectMake(_firstLevelView.bk_width/5*4, (_firstLevelView.bk_height - 37)/2, _firstLevelView.bk_width/5-6, 37);
         [_affirmBtn setTitle:@"确认" forState:UIControlStateNormal];
-        [_affirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_affirmBtn setTitleColor:BKEditImageBottomTitleColor forState:UIControlStateNormal];
         [_affirmBtn setBackgroundColor:BKHighlightColor];
         _affirmBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _affirmBtn.layer.cornerRadius = 4;
@@ -315,10 +315,10 @@
 {
     if (!_drawTypeView) {
         _drawTypeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bk_width, 40)];
-        _drawTypeView.backgroundColor = [UIColor clearColor];
+        _drawTypeView.backgroundColor = BKClearColor;
         
         UIScrollView * scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, _drawTypeView.bk_width, _drawTypeView.bk_height)];
-        scrollView.backgroundColor = [UIColor clearColor];
+        scrollView.backgroundColor = BKClearColor;
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.showsHorizontalScrollIndicator = NO;
         [_drawTypeView addSubview:scrollView];
@@ -439,10 +439,10 @@
 {
     if (!_paintingView) {
         _paintingView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bk_width, 40)];
-        _paintingView.backgroundColor = [UIColor clearColor];
+        _paintingView.backgroundColor = BKClearColor;
         
         _paintingScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, _paintingView.bk_width/5*4 - 6, _paintingView.bk_height)];
-        _paintingScrollView.backgroundColor = [UIColor clearColor];
+        _paintingScrollView.backgroundColor = BKClearColor;
         _paintingScrollView.showsVerticalScrollIndicator = NO;
         _paintingScrollView.showsHorizontalScrollIndicator = NO;
         [_paintingView addSubview:_paintingScrollView];
@@ -518,7 +518,7 @@
     
     if (_selectPaintingBtn) {
         UIImageView * oldImageBgView = (UIImageView*)[self.selectPaintingBtn viewWithTag:self.selectPaintingBtn.tag+1];
-        oldImageBgView.backgroundColor = [UIColor clearColor];
+        oldImageBgView.backgroundColor = BKClearColor;
     }
     self.selectPaintingBtn = button;
     UIImageView * imageBgView = (UIImageView*)[self.selectPaintingBtn viewWithTag:self.selectPaintingBtn.tag+1];

@@ -22,7 +22,7 @@
     
     self.topNavView.backgroundColor = BKNavBackgroundColor;
     
-    self.titleLab.textColor = [UIColor blackColor];
+    self.titleLab.textColor = BKNavTitleColor;
     self.titleLab.font = [UIFont boldSystemFontOfSize:17];
     
     self.topLine.backgroundColor = BKLineColor;

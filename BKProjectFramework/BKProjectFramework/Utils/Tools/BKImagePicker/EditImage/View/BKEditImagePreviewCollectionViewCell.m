@@ -38,7 +38,7 @@
     maskLayer.frame = _selectColorView.bounds;
     maskLayer.lineWidth = 3;
     maskLayer.strokeColor = BKHighlightColor.CGColor;
-    maskLayer.fillColor = [UIColor clearColor].CGColor;
+    maskLayer.fillColor = BKClearColor.CGColor;
     [_selectColorView.layer addSublayer:maskLayer];
 }
 

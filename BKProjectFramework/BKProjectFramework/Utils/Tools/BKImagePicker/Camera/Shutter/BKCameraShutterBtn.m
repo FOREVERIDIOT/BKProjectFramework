@@ -68,7 +68,7 @@ float const kTimerInterval = 0.01;//定时器执行间距
     if (self) {
         
         self.clipsToBounds = NO;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         
         [self addSubview:self.blurView];
         [self addSubview:self.middleCircleView];
@@ -109,7 +109,7 @@ float const kTimerInterval = 0.01;//定时器执行间距
         _middleCircleView = [[UIView alloc]initWithFrame:CGRectMake(self.bk_width/8, self.bk_height/8, self.bk_width/4*3, self.bk_height/4*3)];
         _middleCircleView.clipsToBounds = YES;
         _middleCircleView.layer.cornerRadius = _middleCircleView.bk_height/2;
-        _middleCircleView.backgroundColor = [UIColor whiteColor];
+        _middleCircleView.backgroundColor = BKCameraBottomShutterColor;
         _middleCircleView.userInteractionEnabled = NO;
     }
     return _middleCircleView;
@@ -207,7 +207,7 @@ float const kTimerInterval = 0.01;//定时器执行间距
 
 -(void)reachMaxRecordTime
 {
-    [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordVideoMaxTimeRemind];
+    [[UIApplication sharedApplication].keyWindow bk_showRemind:BKRecordingTimeIsUpRemind];
     [self removeLongPress];
 }
 

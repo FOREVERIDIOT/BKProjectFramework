@@ -11,6 +11,7 @@
 #import "BKTimer.h"
 #import "GPUImage.h"
 #import "BKImagePickerMacro.h"
+#import "BKImagePickerConstant.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
 
@@ -778,7 +779,7 @@
         [assertArr addObject:asset];
     }
     if ([assertArr count] == 0) {
-        [self.currentVC.view bk_showRemind:@"没有查到录制视频"];
+        [self.currentVC.view bk_showRemind:BKRecordedVideoWasNotFoundRemind];
         [self.currentVC.view bk_hideLoadLayer];
         return;
     }
@@ -834,7 +835,7 @@
     }
     
     if (error) {
-        [self.currentVC.view bk_showRemind:@"视频合成失败,请重试"];
+        [self.currentVC.view bk_showRemind:BKVideoSynthesisFailedRemind];
         [self.currentVC.view bk_hideLoadLayer];
         return;
     }
@@ -855,7 +856,7 @@
                     complete(lastFilePath);
                 }
             }else{
-                [self.currentVC.view bk_showRemind:@"视频合成失败,请重试"];
+                [self.currentVC.view bk_showRemind:BKVideoSynthesisFailedRemind];
             }
             [self.currentVC.view bk_hideLoadLayer];
         });
@@ -983,7 +984,7 @@
         }
         [captureDevice unlockForConfiguration];
     }else{
-        [self.currentVC.view bk_showRemind:@"设置设备属性过程发生错误,请重试"];
+        [self.currentVC.view bk_showRemind:BKSettingDevicePropertiesFailedRemind];
     }
 }
 

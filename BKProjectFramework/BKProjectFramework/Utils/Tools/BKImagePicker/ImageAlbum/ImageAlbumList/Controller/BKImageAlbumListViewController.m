@@ -166,7 +166,7 @@
     
     self.leftNavBtns = @[];
     
-    BKNavButton * rightNavBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKHighlightColor];
+    BKNavButton * rightNavBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKNavBtnTitleColor];
     [rightNavBtn addTarget:self action:@selector(rightNavBtnClick)];
     self.rightNavBtns = @[rightNavBtn];
 }

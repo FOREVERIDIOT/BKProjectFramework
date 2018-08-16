@@ -136,7 +136,7 @@ const float kSunCircleR = 10;//太阳圆半径
         
         self.userInteractionEnabled = NO;
         self.clipsToBounds = NO;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
     }
     return self;
 }
@@ -163,7 +163,7 @@ const float kSunCircleR = 10;//太阳圆半径
         
         self.userInteractionEnabled = NO;
         self.clipsToBounds = NO;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
     }
     return self;
 }

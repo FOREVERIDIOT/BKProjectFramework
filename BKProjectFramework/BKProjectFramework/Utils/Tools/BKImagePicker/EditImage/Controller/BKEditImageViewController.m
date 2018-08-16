@@ -60,7 +60,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = BKEditImageBackgroundColor;
     
     _currentEditImage = [self.editImageArr firstObject];
     _currentEditIndex = 0;
@@ -97,7 +97,7 @@
 
 -(void)initTopNav
 {
-    BKNavButton * leftBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKHighlightColor];
+    BKNavButton * leftBtn = [[BKNavButton alloc] initWithTitle:@"取消" font:[UIFont systemFontOfSize:16] titleColor:BKNavBtnTitleColor];
     [leftBtn addTarget:self action:@selector(leftNavBtnAction)];
     self.leftNavBtns = @[leftBtn];
     
@@ -137,9 +137,9 @@
                 window.userInteractionEnabled = YES;
                 
                 if (!success) {
-                    [self.view bk_showRemind:@"图片保存失败"];
+                    [self.view bk_showRemind:BKImageSaveFailedRemind];
                 }else{
-                    [self.view bk_showRemind:@"图片保存成功"];
+                    [self.view bk_showRemind:BKImageSavedSuccessRemind];
                 }
             }];
         }
@@ -318,7 +318,7 @@
         _previewCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(80, BK_SYSTEM_STATUSBAR_HEIGHT, self.topNavView.bk_width - 160, BK_SYSTEM_NAV_UI_HEIGHT) collectionViewLayout:layout];
         _previewCollectionView.delegate = self;
         _previewCollectionView.dataSource = self;
-        _previewCollectionView.backgroundColor = [UIColor clearColor];
+        _previewCollectionView.backgroundColor = BKClearColor;
         _previewCollectionView.showsHorizontalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {
             _previewCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -428,7 +428,7 @@
                         if (!success) {
                             [window bk_hideLoadLayer];
                             if (!saveError) {
-                                [self.view bk_showRemind:@"图片发送失败"];
+                                [self.view bk_showRemind:BKImageSaveFailedRemind];
                                 saveError = YES;
                             }
                             pthread_mutex_destroy(&mutex);
@@ -465,7 +465,7 @@
                                 }else{
                                     [window bk_hideLoadLayer];
                                     if (!saveError) {
-                                        [self.view bk_showRemind:@"图片发送失败"];
+                                        [self.view bk_showRemind:BKImageSaveFailedRemind];
                                         saveError = YES;
                                     }
                                     pthread_mutex_destroy(&mutex);
@@ -493,7 +493,7 @@
     
     [[BKImagePicker sharedManager] saveImage:[self reCreateImage:sendImage] complete:^(PHAsset *asset, BOOL success) {
         if (!success) {
-            [self.view bk_showRemind:@"图片发送失败"];
+            [self.view bk_showRemind:BKImageSaveFailedRemind];
             [window bk_hideLoadLayer];
             
         }else{
@@ -524,7 +524,7 @@
                     }
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }else{
-                    [self.view bk_showRemind:@"图片发送失败"];
+                    [self.view bk_showRemind:BKImageSaveFailedRemind];
                     [window bk_hideLoadLayer];
                 }
             }];
@@ -904,7 +904,7 @@
         _mosaicImageShapeLayer.lineJoin = kCALineJoinRound;
         _mosaicImageShapeLayer.lineWidth = 20;
         _mosaicImageShapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-        _mosaicImageShapeLayer.fillColor = [UIColor clearColor].CGColor;
+        _mosaicImageShapeLayer.fillColor = BKClearColor.CGColor;
     }
     return _mosaicImageShapeLayer;
 }
@@ -988,7 +988,7 @@
 {
     if (!_writeTextView) {
         _writeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.bottomNavView.frame), self.view.bk_width, 0)];
-        _writeTextView.backgroundColor = BKNavBackgroundColor;
+        _writeTextView.backgroundColor = BKEditImageTextViewBackgroundColor;
         _writeTextView.textColor = self.bottomView.selectPaintingColor;
         _writeTextView.font = [UIFont systemFontOfSize:20];
         _writeTextView.textContainerInset = UIEdgeInsetsMake(12, 8, 12, 8);
@@ -1098,7 +1098,7 @@ static BOOL writeDeleteFlag = NO;
                 {
                     CGPoint point = [panGesture locationInView:strongSelf.view];
                     if (CGRectContainsPoint(strongSelf.bottomDeleteWriteView.frame, point) || !CGRectIntersectsRect(strongSelf.editImageView.frame, writeView.frame)) {
-                        strongSelf.bottomDeleteWriteView.backgroundColor = BK_HEX_RGB(0xff725c);
+                        strongSelf.bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteBackgroundColor;
                         strongSelf.bottomDeleteWriteView.alpha = 0.5;
                         writeDeleteFlag = YES;
                     }else{

@@ -8,6 +8,7 @@
 
 #import "BKImagePreviewCollectionViewCell.h"
 #import "BKImagePickerConstant.h"
+#import "BKImagePickerMacro.h"
 #import "UIView+BKImagePicker.h"
 
 @interface BKImagePreviewCollectionViewCell()<UIScrollViewDelegate>
@@ -21,14 +22,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = BKClearColor;
         
         _imageScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(BKExampleImagesSpacing, 0, frame.size.width-BKExampleImagesSpacing*2, frame.size.height)];
         _imageScrollView.showsHorizontalScrollIndicator = NO;
         _imageScrollView.showsVerticalScrollIndicator = NO;
         _imageScrollView.delegate = self;
         _imageScrollView.contentSize = CGSizeMake(frame.size.width-BKExampleImagesSpacing*2, frame.size.height);
-        _imageScrollView.backgroundColor = [UIColor clearColor];
+        _imageScrollView.backgroundColor = BKClearColor;
         _imageScrollView.minimumZoomScale = 1.0;
         if (@available(iOS 11.0, *)) {
             _imageScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

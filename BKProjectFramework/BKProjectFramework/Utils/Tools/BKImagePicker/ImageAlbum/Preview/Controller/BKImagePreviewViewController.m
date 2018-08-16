@@ -291,7 +291,7 @@
                     [self refreshBottomNavBtnStateWithSelectIndex:INT_MAX];
                 }else{
                     model.loadingProgress = 0;
-                    [self.view bk_showRemind:@"原图下载失败"];
+                    [self.view bk_showRemind:BKOriginalImageDownloadFailedRemind];
                     //删除选中的自己
                     [self rightBtnClick:button];
                 }
@@ -352,17 +352,17 @@
     }
     
     if (canEidtFlag) {
-        [_editBtn setTitleColor:BKHighlightColor forState:UIControlStateNormal];
+        [_editBtn setTitleColor:BKImagePickerSendHighlightedBackgroundColor forState:UIControlStateNormal];
     }else{
-        [_editBtn setTitleColor:BKNavGrayTitleColor forState:UIControlStateNormal];
+        [_editBtn setTitleColor:BKImagePickerSendTitleNormalColor forState:UIControlStateNormal];
     }
     
     if (isContainsLoading) {
-        [_sendBtn setTitleColor:BKNavGrayTitleColor forState:UIControlStateNormal];
-        [_sendBtn setBackgroundColor:BKNavSendGrayBackgroundColor];
+        [_sendBtn setTitleColor:BKImagePickerSendTitleNormalColor forState:UIControlStateNormal];
+        [_sendBtn setBackgroundColor:BKImagePickerSendNormalBackgroundColor];
     }else{
-        [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_sendBtn setBackgroundColor:BKHighlightColor];
+        [_sendBtn setTitleColor:BKImagePickerSendTitleHighlightedColor forState:UIControlStateNormal];
+        [_sendBtn setBackgroundColor:BKImagePickerSendHighlightedBackgroundColor];
     }
     if ([[BKImagePicker sharedManager].imageManageModel.selectImageArray count] == 0) {
         [_sendBtn setTitle:@"确认" forState:UIControlStateNormal];
@@ -377,7 +377,7 @@
         _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _editBtn.frame = CGRectMake(0, 0, self.view.bk_width / 6, BK_SYSTEM_TABBAR_UI_HEIGHT);
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitleColor:BKNavGrayTitleColor forState:UIControlStateNormal];
+        [_editBtn setTitleColor:BKImagePickerSendTitleNormalColor forState:UIControlStateNormal];
         _editBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_editBtn addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -406,8 +406,8 @@
         _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendBtn.frame = CGRectMake(self.view.bk_width/5*4, 6, self.view.bk_width/5-6, 37);
         [_sendBtn setTitle:@"确认" forState:UIControlStateNormal];
-        [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_sendBtn setBackgroundColor:BKHighlightColor];
+        [_sendBtn setTitleColor:BKImagePickerSendTitleHighlightedColor forState:UIControlStateNormal];
+        [_sendBtn setBackgroundColor:BKImagePickerSendHighlightedBackgroundColor];
         _sendBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _sendBtn.layer.cornerRadius = 4;
         _sendBtn.clipsToBounds = YES;
@@ -516,7 +516,7 @@
 {
     if ([BKImagePicker sharedManager].imageManageModel.isOriginal) {
         
-        [_originalBtn setTitleColor:BKHighlightColor];
+        [_originalBtn setTitleColor:BKImagePickerSendHighlightedBackgroundColor];
         _originalBtn.isSelect = YES;
         
         __block double allSize = 0.0;
@@ -553,7 +553,7 @@
         }
         
     }else{
-        [_originalBtn setTitleColor:BKNavGrayTitleColor];
+        [_originalBtn setTitleColor:BKImagePickerSendTitleNormalColor];
         _originalBtn.isSelect = NO;
         [_originalBtn setTitle:@"原图"];
     }
@@ -565,7 +565,7 @@
         
         BKImageModel * model = _imageListArray[_currentImageIndex];
         if (model.loadingProgress != 1) {
-            [self.view bk_showRemind:@"图片正在加载中,请稍后再试"];
+            [self.view bk_showRemind:BKSelectImageDownloadingRemind];
             return;
         }
         
@@ -583,7 +583,7 @@
         }];
         
         if (isContainsLoading == YES) {
-            [self.view bk_showRemind:@"选中的图片正在加载中,请稍后再试"];
+            [self.view bk_showRemind:BKSelectImageDownloadingRemind];
             return;
         }
     }
@@ -604,7 +604,7 @@
         _exampleImageCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _exampleImageCollectionView.delegate = self;
         _exampleImageCollectionView.dataSource = self;
-        _exampleImageCollectionView.backgroundColor = [UIColor clearColor];
+        _exampleImageCollectionView.backgroundColor = BKClearColor;
         _exampleImageCollectionView.showsVerticalScrollIndicator = NO;
         _exampleImageCollectionView.showsHorizontalScrollIndicator = NO;
         _exampleImageCollectionView.pagingEnabled = YES;
@@ -772,7 +772,7 @@
                 [visibleIndexPathArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSIndexPath * indexPath = obj;
                     if (indexPath.item == currentIndexPath.item && indexPath.section == currentIndexPath.section) {
-                        [self.view bk_showRemind:@"原图下载失败"];
+                        [self.view bk_showRemind:BKOriginalImageDownloadFailedRemind];
                         *stop = YES;
                     }
                 }];
