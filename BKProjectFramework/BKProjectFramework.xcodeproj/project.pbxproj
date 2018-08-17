@@ -78,6 +78,7 @@
 		1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */; };
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
 		1D6D067A211BD32800C23483 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D0676211BD32800C23483 /* GPUImageBeautifyFilter.m */; };
+		1D6ED1892126784E00C9E729 /* UITableView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */; };
 		1D75217B21227D6200862397 /* BKImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75216D21227D6200862397 /* BKImagePreviewViewController.m */; };
 		1D75217C21227D6200862397 /* BKVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217021227D6200862397 /* BKVideoPreviewViewController.m */; };
 		1D75217D21227D6200862397 /* BKImagePreviewTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217521227D6200862397 /* BKImagePreviewTransitionAnimater.m */; };
@@ -241,6 +242,8 @@
 		1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNetworkRequestFailureView.m; sourceTree = "<group>"; };
 		1D6D0676211BD32800C23483 /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 		1D6D0677211BD32800C23483 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
+		1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+BKExtension.h"; sourceTree = "<group>"; };
+		1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+BKExtension.m"; sourceTree = "<group>"; };
 		1D75216D21227D6200862397 /* BKImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImagePreviewViewController.m; sourceTree = "<group>"; };
 		1D75216E21227D6200862397 /* BKVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKVideoPreviewViewController.h; sourceTree = "<group>"; };
 		1D75216F21227D6200862397 /* BKImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImagePreviewViewController.h; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 				1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */,
 				1D0294A920F5ED2B00D75606 /* UIImage+BKExtension.h */,
 				1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */,
+				1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */,
+				1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1083,6 +1088,7 @@
 				1D45CAC120FC6892003C7BA4 /* BKImagePickerFooterCollectionReusableView.m in Sources */,
 				1DA0E13321002C1E005D6FB3 /* BKImagePickerConstant.m in Sources */,
 				1D45CACC20FC6892003C7BA4 /* BKImageAlbumListTableViewCell.m in Sources */,
+				1D6ED1892126784E00C9E729 /* UITableView+BKExtension.m in Sources */,
 				1D45CAB420FC6892003C7BA4 /* BKEditImageViewController.m in Sources */,
 				1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */,
 				1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */,

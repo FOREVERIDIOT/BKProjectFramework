@@ -119,3 +119,23 @@
       //    return image;
       }
      ```
+12. 使用GPUImage录制视频时，来回快速点击录制视频+结束录制视频 会导致中间某一次开始录制视频时创建AVAssetWriter失败 从而导致应用崩溃 需改GPUImageMovieWriter.m文件中- (void)startRecording;的方法修改如下
+      ```objc
+      - (void)startRecording;
+      {
+             alreadyFinishedRecording = NO;
+             startTime = kCMTimeInvalid;
+             runSynchronouslyOnContextQueue(_movieWriterContext, ^{
+                 if (audioInputReadyCallback == NULL)
+                 {
+                     BOOL flag = [assetWriter startWriting];
+                     if (!flag) {
+                         [self cancelRecording];
+                     }else{
+                         isRecording = YES;
+                     }
+                 }
+            });
+      //    [assetWriter startSessionAtSourceTime:kCMTimeZero];
+      }
+     ```

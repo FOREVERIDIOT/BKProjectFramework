@@ -271,10 +271,14 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
     runSynchronouslyOnContextQueue(_movieWriterContext, ^{
         if (audioInputReadyCallback == NULL)
         {
-            [assetWriter startWriting];
+            BOOL flag = [assetWriter startWriting];
+            if (!flag) {
+                [self cancelRecording];
+            }else{
+                isRecording = YES;
+            }
         }
     });
-    isRecording = YES;
 	//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
 }
 

@@ -77,7 +77,7 @@
 
 -(void)pauseRecord
 {
-    UIView * pauseView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.progressView.frame) - 2, 0, 2, self.bk_height)];
+    UIView * pauseView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.progressView.frame) - 1, 0, 1, self.bk_height)];
     pauseView.backgroundColor = BKCameraPauseRecordVideoProgressColor;
     [self addSubview:pauseView];
     

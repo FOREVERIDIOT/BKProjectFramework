@@ -14,6 +14,7 @@
 #import "BKImagePickerConstant.h"
 #import "UIView+BKImagePicker.h"
 #import "UIImage+BKImagePicker.h"
+#import "NSObject+BKImagePicker.h"
 
 @interface BKCameraManager()<GPUImageVideoCameraDelegate,GPUImageMovieWriterDelegate>
 
@@ -828,13 +829,14 @@
                               error:&error];
         
         if (error) {
-            break;
+//            break;
+            continue;
         }
         
         startTime += CMTimeGetSeconds(recordTime);
     }
     
-    if (error) {
+    if (startTime == 0.0) {
         [self.currentVC.view bk_showRemind:BKVideoSynthesisFailedRemind];
         [self.currentVC.view bk_hideLoadLayer];
         return;

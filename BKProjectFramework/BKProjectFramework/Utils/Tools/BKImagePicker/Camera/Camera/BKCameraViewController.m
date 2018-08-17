@@ -285,17 +285,21 @@
     window.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.3 animations:^{
         if (self.shutterBtn.alpha == 1) {
-            self.previewBtn.alpha = 0;
+            if (self.cameraType == BKCameraTypeRecordVideo) {
+                self.previewBtn.alpha = 0;
+                self.deleteBtn.alpha = 0;
+                self.finishBtn.alpha = 0;
+            }
             self.shutterBtn.alpha = 0;
-            self.deleteBtn.alpha = 0;
-            self.finishBtn.alpha = 0;
             self.filterView.alpha = 1;
             self.filterView.bk_y = self.view.bk_height - self.filterView.bk_height;
         }else{
-            self.previewBtn.alpha = 1;
+            if (self.cameraType == BKCameraTypeRecordVideo) {
+                self.previewBtn.alpha = 1;
+                self.deleteBtn.alpha = 1;
+                self.finishBtn.alpha = 1;
+            }
             self.shutterBtn.alpha = 1;
-            self.deleteBtn.alpha = 1;
-            self.finishBtn.alpha = 1;
             self.filterView.alpha = 0;
             self.filterView.bk_y = self.view.bk_height;
         }

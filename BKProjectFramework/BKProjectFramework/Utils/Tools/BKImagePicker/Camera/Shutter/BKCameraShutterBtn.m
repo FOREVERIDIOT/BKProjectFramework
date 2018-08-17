@@ -216,6 +216,12 @@ float const kTimerInterval = 0.01;//定时器执行间距
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan:
         {
+            UIWindow * window = [UIApplication sharedApplication].keyWindow;
+            if (!window.userInteractionEnabled) {
+                return;
+            }
+            window.userInteractionEnabled = NO;
+            
             if (self.recordState == BKRecordStatePrepare || self.recordState == BKRecordStatePause) {
                 
                 self.startPoint = [longPress locationInView:self];
@@ -252,13 +258,21 @@ float const kTimerInterval = 0.01;//定时器执行间距
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
         {
+            //拖延0.2s可以对屏幕操作 是为了保证再点击过快时未结束录制视频又开始执行录制视频
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
+            });
+            
             if (self.recordState == BKRecordStateRecording) {
                 if (self.recordTime == BKRecordVideoMaxTime) {
                     self.recordState = BKRecordStateEnd;
                 }else{
                     self.recordState = BKRecordStatePause;
                 }
-                [self changeRecordAction];
+                //拖延0.15s结束录制 是为了保证该段录制视频时间大于0.15s
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self changeRecordAction];
+                });
             }else if (self.recordState == BKRecordStateRecordingFailure) {
                 [self changeRecordAction];
                 self.recordState = BKRecordStatePause;
