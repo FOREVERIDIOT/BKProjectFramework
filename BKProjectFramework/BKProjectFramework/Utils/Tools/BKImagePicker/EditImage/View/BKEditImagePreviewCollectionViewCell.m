@@ -1,6 +1,6 @@
 //
 //  BKEditImagePreviewCollectionViewCell.m
-//  zhaolin
+//  BIKE
 //
 //  Created by BIKE on 2018/4/3.
 //  Copyright © 2018年 BIKE. All rights reserved.
@@ -37,7 +37,7 @@
     maskLayer.path = path.CGPath;
     maskLayer.frame = _selectColorView.bounds;
     maskLayer.lineWidth = 3;
-    maskLayer.strokeColor = BKHighlightColor.CGColor;
+    maskLayer.strokeColor = BKEditImageSelectImageFrameColor.CGColor;
     maskLayer.fillColor = BKClearColor.CGColor;
     [_selectColorView.layer addSublayer:maskLayer];
 }

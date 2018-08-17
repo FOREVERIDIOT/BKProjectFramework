@@ -2,7 +2,7 @@
 //  BKCameraRecordVideoPreviewViewController.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/8/13.
+//  Created by BIKE on 2018/8/13.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
@@ -14,5 +14,10 @@
  预览视频路径
  */
 @property (nonatomic,copy) NSString * videoPath;
+
+/**
+ 选中方法回调
+ */
+@property (nonatomic,copy) void (^sendAction)(void);
 
 @end

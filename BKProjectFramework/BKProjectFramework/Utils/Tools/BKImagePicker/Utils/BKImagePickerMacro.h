@@ -2,7 +2,7 @@
 //  BKImagePickerMacro.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/19.
+//  Created by BIKE on 2018/7/19.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
@@ -50,11 +50,6 @@
 //亮灰颜色
 #define BKLightGrayColor [UIColor lightGrayColor]
 
-
-//高亮颜色
-#define BKHighlightColor BK_HEX_RGB(0x2D96FA)
-
-
 /********************************** 相簿界面、修改图片界面 **********************************/
 
 //相册列表 相册名称颜色
@@ -79,6 +74,8 @@
 #define BKImagePickerVideoMarkColor [UIColor whiteColor]
 //相片列表 (未选中)选中图片按钮背景颜色
 #define BKImagePickerSelectImageNumberNormalBackgroundColor [UIColor colorWithWhite:0.2 alpha:0.5]
+//相片列表 (选中)选中图片按钮背景颜色
+#define BKImagePickerSelectImageNumberHighlightedBackgroundColor BK_HEX_RGB(0x2D96FA)
 //相片列表 选中图片按钮边框线颜色
 #define BKImagePickerSelectImageNumberBorderColor [UIColor whiteColor]
 //相片列表 选中图片数量颜色
@@ -93,12 +90,20 @@
 #define BKVideoPreviewBottomNavTitleColor [UIColor whiteColor]
 //编辑图片 背景颜色
 #define BKEditImageBackgroundColor [UIColor blackColor]
+//编辑图片 多张图编辑时选中框的颜色
+#define BKEditImageSelectImageFrameColor BK_HEX_RGB(0x2D96FA)
+//编辑图片 底部按钮的颜色(取消,确认)
+#define BKEditImageBottomBtnBackgroundColor BK_HEX_RGB(0x2D96FA)
 //编辑图片 编辑栏中字的颜色
 #define BKEditImageBottomTitleColor [UIColor whiteColor]
 //编辑图片 编辑文字输入框背景颜色
 #define BKEditImageTextViewBackgroundColor BKNavBackgroundColor
-//编辑图片 删除输入文字按钮背景颜色
-#define BKEditImageDeleteWriteBackgroundColor BK_HEX_RGB(0xff725c)
+//编辑图片 (文字未拖入)删除输入文字按钮背景颜色
+#define BKEditImageDeleteWriteNormalBackgroundColor BK_HEX_RGB(0x2D96FA)
+//编辑图片 (文字已拖入)删除输入文字按钮背景颜色
+#define BKEditImageDeleteWriteHighlightedBackgroundColor BK_HEX_RGB(0xff725c)
+//编辑图片 拖动输入文字四周的框
+#define BKEditImageTextFrameColor BK_HEX_RGB(0x2D96FA)
 //编辑图片 裁剪四周阴影的颜色
 #define BKEditImageClipShadowBackgroundColor [UIColor colorWithWhite:0 alpha:0.6]
 //编辑图片 裁剪框的颜色

@@ -149,7 +149,7 @@
         self.layer.borderColor = nil;
     }else{
         self.layer.borderWidth = 1/_scale;
-        self.layer.borderColor = BKHighlightColor.CGColor;
+        self.layer.borderColor = BKEditImageTextFrameColor.CGColor;
     }
     
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
@@ -165,7 +165,7 @@
         self.layer.borderColor = nil;
     }else{
         self.layer.borderWidth = 1/_scale;
-        self.layer.borderColor = BKHighlightColor.CGColor;
+        self.layer.borderColor = BKEditImageTextFrameColor.CGColor;
     }
     
     rotationGesture.rotation = 0;
@@ -186,7 +186,7 @@
         self.layer.borderColor = nil;
     }else{
         self.layer.borderWidth = 1/_scale;
-        self.layer.borderColor = BKHighlightColor.CGColor;
+        self.layer.borderColor = BKEditImageTextFrameColor.CGColor;
     }
     
     pinchGesture.scale = 1;

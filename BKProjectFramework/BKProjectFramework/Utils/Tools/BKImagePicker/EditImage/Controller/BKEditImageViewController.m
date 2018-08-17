@@ -112,11 +112,14 @@
 
 -(void)leftNavBtnAction
 {
+    [self.view endEditing:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)rightNavBtnAction
 {
+    [self.view endEditing:YES];
+    
     UIWindow * window = [[UIApplication sharedApplication].delegate window];
     
     if (!window.userInteractionEnabled) {
@@ -1098,11 +1101,11 @@ static BOOL writeDeleteFlag = NO;
                 {
                     CGPoint point = [panGesture locationInView:strongSelf.view];
                     if (CGRectContainsPoint(strongSelf.bottomDeleteWriteView.frame, point) || !CGRectIntersectsRect(strongSelf.editImageView.frame, writeView.frame)) {
-                        strongSelf.bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteBackgroundColor;
+                        strongSelf.bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteHighlightedBackgroundColor;
                         strongSelf.bottomDeleteWriteView.alpha = 0.5;
                         writeDeleteFlag = YES;
                     }else{
-                        strongSelf.bottomDeleteWriteView.backgroundColor = BKHighlightColor;
+                        strongSelf.bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteNormalBackgroundColor;
                         strongSelf.bottomDeleteWriteView.alpha = 1;
                         writeDeleteFlag = NO;
                     }
@@ -1160,7 +1163,7 @@ static BOOL writeDeleteFlag = NO;
 {
     if (!_bottomDeleteWriteView) {
         _bottomDeleteWriteView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bk_height - BK_SYSTEM_TABBAR_HEIGHT, self.view.bk_width, BK_SYSTEM_TABBAR_HEIGHT)];
-        _bottomDeleteWriteView.backgroundColor = BKHighlightColor;
+        _bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteNormalBackgroundColor;
         
         UIImageView * deleteImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_bottomDeleteWriteView.bk_width - 30)/2, (BK_SYSTEM_TABBAR_UI_HEIGHT - 30)/2, 30, 30)];
         deleteImageView.image = [UIImage bk_editImageWithImageName:@"delete_write"];

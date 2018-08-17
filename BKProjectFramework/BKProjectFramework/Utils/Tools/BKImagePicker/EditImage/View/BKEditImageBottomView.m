@@ -165,7 +165,7 @@
         _cancelWriteBtn.frame = CGRectMake(6, (_firstLevelView.bk_height - 37)/2, _firstLevelView.bk_width/5-6, 37);
         [_cancelWriteBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelWriteBtn setTitleColor:BKEditImageBottomTitleColor forState:UIControlStateNormal];
-        [_cancelWriteBtn setBackgroundColor:BKHighlightColor];
+        [_cancelWriteBtn setBackgroundColor:BKEditImageBottomBtnBackgroundColor];
         _cancelWriteBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _cancelWriteBtn.layer.cornerRadius = 4;
         _cancelWriteBtn.clipsToBounds = YES;
@@ -177,7 +177,7 @@
         _affirmBtn.frame = CGRectMake(_firstLevelView.bk_width/5*4, (_firstLevelView.bk_height - 37)/2, _firstLevelView.bk_width/5-6, 37);
         [_affirmBtn setTitle:@"确认" forState:UIControlStateNormal];
         [_affirmBtn setTitleColor:BKEditImageBottomTitleColor forState:UIControlStateNormal];
-        [_affirmBtn setBackgroundColor:BKHighlightColor];
+        [_affirmBtn setBackgroundColor:BKEditImageBottomBtnBackgroundColor];
         _affirmBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _affirmBtn.layer.cornerRadius = 4;
         _affirmBtn.clipsToBounds = YES;
@@ -477,13 +477,13 @@
                 if ([obj isKindOfClass:[UIColor class]]) {
                     if (CGColorEqualToColor(((UIColor*)obj).CGColor, self.selectPaintingColor.CGColor)) {
                         self.selectPaintingBtn = button;
-                        imageBgView.backgroundColor = BKHighlightColor;
+                        imageBgView.backgroundColor = BKEditImageBottomBtnBackgroundColor;
                     }
                 }
             }else{
                 if (idx == 0) {
                     self.selectPaintingBtn = button;
-                    imageBgView.backgroundColor = BKHighlightColor;
+                    imageBgView.backgroundColor = BKEditImageBottomBtnBackgroundColor;
                 }
             }
             
@@ -522,7 +522,7 @@
     }
     self.selectPaintingBtn = button;
     UIImageView * imageBgView = (UIImageView*)[self.selectPaintingBtn viewWithTag:self.selectPaintingBtn.tag+1];
-    imageBgView.backgroundColor = BKHighlightColor;
+    imageBgView.backgroundColor = BKEditImageBottomBtnBackgroundColor;
     
     NSObject * obj = self.colorArr[self.selectPaintingBtn.tag/100-1];
     if ([obj isKindOfClass:[UIColor class]]) {

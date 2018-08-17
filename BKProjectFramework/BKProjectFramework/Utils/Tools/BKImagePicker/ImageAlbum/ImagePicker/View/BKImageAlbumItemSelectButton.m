@@ -27,7 +27,7 @@
         self.fillColor = BKImagePickerSelectImageNumberNormalBackgroundColor;
     }else{
         self.showTitle = title;
-        self.fillColor = BKHighlightColor;
+        self.fillColor = BKImagePickerSelectImageNumberHighlightedBackgroundColor;
     }
     
     [self setNeedsDisplay];
@@ -130,7 +130,7 @@
 {
     if (num != 0) {
         self.showTitle = [NSString stringWithFormat:@"%ld",num];
-        self.fillColor = BKHighlightColor;
+        self.fillColor = BKImagePickerSelectImageNumberHighlightedBackgroundColor;
         [self setNeedsDisplay];
     }else{
         self.showTitle = @"";

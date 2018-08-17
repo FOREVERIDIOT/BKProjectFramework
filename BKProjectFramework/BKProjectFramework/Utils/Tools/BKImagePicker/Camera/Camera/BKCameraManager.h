@@ -2,7 +2,7 @@
 //  BKCameraManager.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/24.
+//  Created by BIKE on 2018/7/24.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  BKImageBaseViewController.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/16.
+//  Created by BIKE on 2018/7/16.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

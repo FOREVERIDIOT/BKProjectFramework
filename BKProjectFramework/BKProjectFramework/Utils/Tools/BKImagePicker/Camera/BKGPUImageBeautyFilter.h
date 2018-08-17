@@ -2,7 +2,7 @@
 //  BKGPUImageBeautyFilter.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/27.
+//  Created by BIKE on 2018/7/27.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

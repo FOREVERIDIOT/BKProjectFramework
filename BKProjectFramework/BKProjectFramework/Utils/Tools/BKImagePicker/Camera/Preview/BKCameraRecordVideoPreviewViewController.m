@@ -2,7 +2,7 @@
 //  BKCameraRecordVideoPreviewViewController.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/8/13.
+//  Created by BIKE on 2018/8/13.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
@@ -108,6 +108,15 @@
     [self.bottomNavView addSubview:back];
     
     [self.bottomNavView addSubview:[self start_pause]];
+    
+    UIButton * select = [UIButton buttonWithType:UIButtonTypeCustom];
+    select.frame = CGRectMake(self.bottomNavView.bk_width - 64 - 10, 0, 64, 64);
+    [select setBackgroundColor:BKClearColor];
+    [select setTitle:@"选取" forState:UIControlStateNormal];
+    [select setTitleColor:BKVideoPreviewBottomNavTitleColor forState:UIControlStateNormal];
+    select.titleLabel.font = [UIFont systemFontOfSize:16];
+    [select addTarget:self action:@selector(selectBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavView addSubview:select];
 }
 
 -(UIButton*)start_pause
@@ -129,6 +138,13 @@
 -(void)backBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)selectBtnClick
+{
+    if (self.sendAction) {
+        self.sendAction();
+    }
 }
 
 -(void)start_pauseBtnClick:(UIButton*)button

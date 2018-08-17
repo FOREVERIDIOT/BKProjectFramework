@@ -2,7 +2,7 @@
 //  BKCameraFilterView.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/8/8.
+//  Created by BIKE on 2018/8/8.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

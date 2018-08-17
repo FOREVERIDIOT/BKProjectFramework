@@ -2,7 +2,7 @@
 //  NSString+BKImagePicker.h
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/19.
+//  Created by BIKE on 2018/7/19.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

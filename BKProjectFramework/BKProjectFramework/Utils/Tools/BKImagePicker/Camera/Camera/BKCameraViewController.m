@@ -2,7 +2,7 @@
 //  BKCameraViewController.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/7/19.
+//  Created by BIKE on 2018/7/19.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
@@ -118,12 +118,13 @@
 
 -(void)finishRecordedVideo:(NSString*)videoPath firstFrameImage:(UIImage*)image
 {
-    [self.view bk_showLoadLayer];
+    UIWindow * window = [UIApplication sharedApplication].keyWindow;
+    [window bk_showLoadLayer];
     
     [[BKImagePicker sharedManager] saveVideo:videoPath complete:^(PHAsset *asset, BOOL success) {
         if (!success) {
-            [self.view bk_hideLoadLayer];
-            [self.view bk_showRemind:BKConfirmSelectVideoFailedRemind];
+            [window bk_hideLoadLayer];
+            [window bk_showRemind:BKConfirmSelectVideoFailedRemind];
             return;
         }
         
@@ -131,7 +132,7 @@
             
         } complete:^(AVPlayerItem *playerItem, PHImageRequestID imageRequestID) {
             
-            [self.view bk_hideLoadLayer];
+            [window bk_hideLoadLayer];
             
             BKImageModel * imageModel = [[BKImageModel alloc] init];
             imageModel.asset = asset;
@@ -151,6 +152,10 @@
 {
     BKCameraRecordVideoPreviewViewController * vc = [[BKCameraRecordVideoPreviewViewController alloc] init];
     vc.videoPath = videoPath;
+    WEAK_SELF(self);
+    [vc setSendAction:^{
+        [weakSelf.cameraManager finishRecordVideo];
+    }];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -280,11 +285,17 @@
     window.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.3 animations:^{
         if (self.shutterBtn.alpha == 1) {
+            self.previewBtn.alpha = 0;
             self.shutterBtn.alpha = 0;
+            self.deleteBtn.alpha = 0;
+            self.finishBtn.alpha = 0;
             self.filterView.alpha = 1;
             self.filterView.bk_y = self.view.bk_height - self.filterView.bk_height;
         }else{
+            self.previewBtn.alpha = 1;
             self.shutterBtn.alpha = 1;
+            self.deleteBtn.alpha = 1;
+            self.finishBtn.alpha = 1;
             self.filterView.alpha = 0;
             self.filterView.bk_y = self.view.bk_height;
         }
