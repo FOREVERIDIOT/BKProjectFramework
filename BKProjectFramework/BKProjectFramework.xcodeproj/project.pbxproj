@@ -26,7 +26,6 @@
 		1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77820F740FA0010FBB5 /* BKTransitionAnimater.m */; };
 		1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */; };
 		1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA78020F7412F0010FBB5 /* BKNavButton.m */; };
-		1D3CDA93210AC697006739A8 /* BKGPUImageBeautyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CDA91210AC696006739A8 /* BKGPUImageBeautyFilter.m */; };
 		1D45CAA620FC6892003C7BA4 /* NSObject+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4620FC6892003C7BA4 /* NSObject+BKImagePicker.m */; };
 		1D45CAA720FC6892003C7BA4 /* UIView+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4820FC6892003C7BA4 /* UIView+BKImagePicker.m */; };
 		1D45CAA820FC6892003C7BA4 /* UIImage+BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D45CA4920FC6892003C7BA4 /* UIImage+BKImagePicker.m */; };
@@ -79,6 +78,8 @@
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
 		1D6D067A211BD32800C23483 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D0676211BD32800C23483 /* GPUImageBeautifyFilter.m */; };
 		1D6ED1892126784E00C9E729 /* UITableView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */; };
+		1D6ED18D2126C5CF00C9E729 /* BKGPUImageBeautyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED18B2126C5CE00C9E729 /* BKGPUImageBeautyFilter.m */; };
+		1D6ED1902126C90100C9E729 /* BKBeautifulSkinFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED18F2126C90100C9E729 /* BKBeautifulSkinFilter.m */; };
 		1D75217B21227D6200862397 /* BKImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75216D21227D6200862397 /* BKImagePreviewViewController.m */; };
 		1D75217C21227D6200862397 /* BKVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217021227D6200862397 /* BKVideoPreviewViewController.m */; };
 		1D75217D21227D6200862397 /* BKImagePreviewTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217521227D6200862397 /* BKImagePreviewTransitionAnimater.m */; };
@@ -151,8 +152,6 @@
 		1D3AA77A20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		1D3AA77F20F7412F0010FBB5 /* BKNavButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKNavButton.h; sourceTree = "<group>"; };
 		1D3AA78020F7412F0010FBB5 /* BKNavButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNavButton.m; sourceTree = "<group>"; };
-		1D3CDA91210AC696006739A8 /* BKGPUImageBeautyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKGPUImageBeautyFilter.m; sourceTree = "<group>"; };
-		1D3CDA92210AC696006739A8 /* BKGPUImageBeautyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGPUImageBeautyFilter.h; sourceTree = "<group>"; };
 		1D45CA4620FC6892003C7BA4 /* NSObject+BKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKImagePicker.m"; sourceTree = "<group>"; };
 		1D45CA4720FC6892003C7BA4 /* UIBezierPath+BKImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+BKImagePicker.h"; sourceTree = "<group>"; };
 		1D45CA4820FC6892003C7BA4 /* UIView+BKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BKImagePicker.m"; sourceTree = "<group>"; };
@@ -244,6 +243,10 @@
 		1D6D0677211BD32800C23483 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
 		1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+BKExtension.h"; sourceTree = "<group>"; };
 		1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+BKExtension.m"; sourceTree = "<group>"; };
+		1D6ED18B2126C5CE00C9E729 /* BKGPUImageBeautyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKGPUImageBeautyFilter.m; sourceTree = "<group>"; };
+		1D6ED18C2126C5CE00C9E729 /* BKGPUImageBeautyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGPUImageBeautyFilter.h; sourceTree = "<group>"; };
+		1D6ED18E2126C90100C9E729 /* BKBeautifulSkinFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBeautifulSkinFilter.h; sourceTree = "<group>"; };
+		1D6ED18F2126C90100C9E729 /* BKBeautifulSkinFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBeautifulSkinFilter.m; sourceTree = "<group>"; };
 		1D75216D21227D6200862397 /* BKImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImagePreviewViewController.m; sourceTree = "<group>"; };
 		1D75216E21227D6200862397 /* BKVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKVideoPreviewViewController.h; sourceTree = "<group>"; };
 		1D75216F21227D6200862397 /* BKImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKImagePreviewViewController.h; sourceTree = "<group>"; };
@@ -417,6 +420,7 @@
 				1DA0E12F21002AF9005D6FB3 /* ImageModel */,
 				1D45CA7B20FC6892003C7BA4 /* ImageAlbum */,
 				1DA0E12B210027E2005D6FB3 /* Camera */,
+				1D6ED18A2126C5B400C9E729 /* Filter */,
 				1D45CA6320FC6892003C7BA4 /* EditImage */,
 				1DA0E13421002C48005D6FB3 /* BKImagePicker.h */,
 				1DA0E13521002C48005D6FB3 /* BKImagePicker.m */,
@@ -664,6 +668,17 @@
 			path = GPUImageBeautifyFilter;
 			sourceTree = "<group>";
 		};
+		1D6ED18A2126C5B400C9E729 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				1D6ED18C2126C5CE00C9E729 /* BKGPUImageBeautyFilter.h */,
+				1D6ED18B2126C5CE00C9E729 /* BKGPUImageBeautyFilter.m */,
+				1D6ED18E2126C90100C9E729 /* BKBeautifulSkinFilter.h */,
+				1D6ED18F2126C90100C9E729 /* BKBeautifulSkinFilter.m */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		1D75216B21227D6200862397 /* Preview */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,8 +781,6 @@
 				1D8AB8A921216EC600032629 /* Shutter */,
 				1D8AB8A421216EC600032629 /* Progress */,
 				1D8AB8BA2121743700032629 /* Preview */,
-				1D3CDA92210AC696006739A8 /* BKGPUImageBeautyFilter.h */,
-				1D3CDA91210AC696006739A8 /* BKGPUImageBeautyFilter.m */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -1074,6 +1087,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D6ED1902126C90100C9E729 /* BKBeautifulSkinFilter.m in Sources */,
 				1D3AA77C20F740FA0010FBB5 /* BKNavViewController.m in Sources */,
 				1D45CAB720FC6892003C7BA4 /* BKEditImageClipFrameView.m in Sources */,
 				1D6B8FEE20EF09EE00BBEAD1 /* BKCycleScrollImageView.m in Sources */,
@@ -1125,7 +1139,6 @@
 				1D45CABD20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewCell.m in Sources */,
 				1D75217C21227D6200862397 /* BKVideoPreviewViewController.m in Sources */,
 				1D6D067A211BD32800C23483 /* GPUImageBeautifyFilter.m in Sources */,
-				1D3CDA93210AC697006739A8 /* BKGPUImageBeautyFilter.m in Sources */,
 				1D0294BF20F6004B00D75606 /* BKTabBar.m in Sources */,
 				1D45CAB820FC6892003C7BA4 /* BKEditImageClipView.m in Sources */,
 				1D02949B20F5DE9200D75606 /* NSString+BKExtension.m in Sources */,
@@ -1138,6 +1151,7 @@
 				1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */,
 				1DB1789020EDB81A00BA7652 /* NSObject+BKExtension.m in Sources */,
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
+				1D6ED18D2126C5CF00C9E729 /* BKGPUImageBeautyFilter.m in Sources */,
 				1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */,
 				1DA0E14021006EC6005D6FB3 /* NSString+BKImagePicker.m in Sources */,
 				1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */,

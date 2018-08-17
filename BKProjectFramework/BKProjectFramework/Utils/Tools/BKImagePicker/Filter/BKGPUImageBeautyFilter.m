@@ -7,6 +7,7 @@
 //
 
 #import "BKGPUImageBeautyFilter.h"
+#import "BKBeautifulSkinFilter.h"
 
 @interface BKGPUImageBeautyFilter()
 
@@ -19,6 +20,11 @@
  亮度滤镜
  */
 @property (nonatomic,strong) GPUImageBrightnessFilter * brightnessFilter;
+
+/**
+ 美肤滤镜
+ */
+@property (nonatomic,strong) BKBeautifulSkinFilter * beautifulSkinFilter;
 
 /**
  添加的滤镜数据 (自带数组self.targets一直是空数组...)
@@ -108,6 +114,7 @@
     if (self) {
         [self bk_addFilter:(GPUImageFilter*)self.beautyFilter];
         [self bk_addFilter:self.brightnessFilter];
+//        [self bk_addFilter:(GPUImageFilter*)self.beautifulSkinFilter];
     }
     return self;
 }
@@ -130,6 +137,14 @@
         _brightnessFilter.brightness = 0;
     }
     return _brightnessFilter;
+}
+
+-(BKBeautifulSkinFilter*)beautifulSkinFilter
+{
+    if (!_beautifulSkinFilter) {
+        _beautifulSkinFilter = [[BKBeautifulSkinFilter alloc] init];
+    }
+    return _beautifulSkinFilter;
 }
 
 #pragma mark - 添加滤镜

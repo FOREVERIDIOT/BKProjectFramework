@@ -53,5 +53,13 @@
  */
 +(UIImage*)bk_takePhotoImageWithImageName:(NSString*)imageName;
 
+/**
+ 滤镜模块图片
+ 
+ @param imageName 图片名称
+ @return 图片
+ */
++(UIImage*)bk_filterImageWithImageName:(NSString*)imageName;
+
 
 @end

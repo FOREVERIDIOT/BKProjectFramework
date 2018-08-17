@@ -252,4 +252,16 @@
     return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/TakePhoto/%@",imagePath,imageName]];
 }
 
+/**
+ 滤镜模块图片
+ 
+ @param imageName 图片名称
+ @return 图片
+ */
++(UIImage*)bk_filterImageWithImageName:(NSString*)imageName
+{
+    NSString * imagePath = [self bk_getImageResourcePath];
+    return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/Filter/%@",imagePath,imageName]];
+}
+
 @end
