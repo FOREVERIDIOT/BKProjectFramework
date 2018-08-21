@@ -81,7 +81,7 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
 -(void)captureSessionStopRunning;
 
 /**
- 获取当前捕捉的图像
+ 获取当前捕捉的图像(包含滤镜)
  
  @return 当前捕捉图像
  */
@@ -146,6 +146,14 @@ typedef NS_ENUM(NSUInteger, BKCameraType) {
  @param level 等级 0~5
  */
 -(void)switchBeautyFilterLevel:(BKBeautyLevel)level;
+
+/**
+ 修改皮肤色彩
+
+ @param type 色彩滤镜格式
+ @param level 级别 0~1
+ */
+-(void)switchLookupFilterType:(BKBeautifulSkinType)type level:(CGFloat)level;
 
 /**
  删除文件目录

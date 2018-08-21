@@ -7,7 +7,6 @@
 //
 
 #import "BKGPUImageBeautyFilter.h"
-#import "BKBeautifulSkinFilter.h"
 
 @interface BKGPUImageBeautyFilter()
 
@@ -96,6 +95,14 @@
     self.brightnessFilter.brightness = _brightnessLevel;
 }
 
+#pragma mark - 修改皮肤色彩
+
+-(void)switchLookupFilterType:(BKBeautifulSkinType)type level:(CGFloat)level
+{
+    self.beautifulSkinFilter.type = type;
+    self.beautifulSkinFilter.level = level;
+}
+
 #pragma mark - get
 
 -(NSMutableArray<GPUImageFilter *> *)groupTargets
@@ -114,7 +121,7 @@
     if (self) {
         [self bk_addFilter:(GPUImageFilter*)self.beautyFilter];
         [self bk_addFilter:self.brightnessFilter];
-//        [self bk_addFilter:(GPUImageFilter*)self.beautifulSkinFilter];
+        [self bk_addFilter:(GPUImageFilter*)self.beautifulSkinFilter];
     }
     return self;
 }

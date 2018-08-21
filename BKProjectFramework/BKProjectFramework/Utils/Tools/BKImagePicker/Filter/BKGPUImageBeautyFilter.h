@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GPUImageBeautifyFilter.h"
+#import "BKBeautifulSkinFilter.h"
 
 typedef NS_ENUM(NSUInteger, BKBeautyLevel) {
     BKBeautyLevelZero = 0,      //美颜关
@@ -29,5 +30,13 @@ typedef NS_ENUM(NSUInteger, BKBeautyLevel) {
  亮度等级 -1~1 默认0
  */
 @property (nonatomic,assign) CGFloat brightnessLevel;
+
+/**
+ 修改皮肤色彩
+ 
+ @param type 色彩滤镜格式
+ @param level 级别 0~1
+ */
+-(void)switchLookupFilterType:(BKBeautifulSkinType)type level:(CGFloat)level;
 
 @end

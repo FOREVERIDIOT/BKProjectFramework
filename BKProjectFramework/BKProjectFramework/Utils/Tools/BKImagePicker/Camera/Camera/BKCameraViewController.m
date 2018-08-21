@@ -7,6 +7,7 @@
 //
 
 #import "BKCameraViewController.h"
+#import "BKCameraGradientShadow.h"
 #import "BKCameraShutterBtn.h"
 #import "BKCameraRecordProgress.h"
 #import "BKCameraFilterView.h"
@@ -49,6 +50,8 @@
     [self.bottomNavView removeFromSuperview];
     
     self.view.backgroundColor = BKCameraBackgroundColor;
+    
+    [self addShadow];
     
     [self.view addSubview:self.recordProgress];
     
@@ -93,6 +96,26 @@
         //删除保存的视频
         [self.cameraManager removeSaveFileDirectory];
     }
+}
+
+#pragma mark - 添加阴影(上边、右边、下边)
+
+-(void)addShadow
+{
+    BKCameraGradientShadow * topShadow = [[BKCameraGradientShadow alloc] initWithFrame:CGRectMake(0, 0, self.view.bk_width, BK_SYSTEM_STATUSBAR_HEIGHT + BK_SYSTEM_NAV_UI_HEIGHT * 2)];
+    topShadow.direction = BKCameraGradientDirectionBottom;
+    topShadow.userInteractionEnabled = NO;
+    [self.view addSubview:topShadow];
+    
+    BKCameraGradientShadow * rightShadow = [[BKCameraGradientShadow alloc] initWithFrame:CGRectMake(self.view.bk_width - 64, 0, 64 * 2, self.view.bk_height)];
+    rightShadow.direction = BKCameraGradientDirectionLeft;
+    rightShadow.userInteractionEnabled = NO;
+    [self.view addSubview:rightShadow];
+    
+    BKCameraGradientShadow * bottomShadow = [[BKCameraGradientShadow alloc] initWithFrame:CGRectMake(0, self.view.bk_height - 150, self.view.bk_width, 150)];
+    bottomShadow.direction = BKCameraGradientDirectionTop;
+    bottomShadow.userInteractionEnabled = NO;
+    [self.view addSubview:bottomShadow];
 }
 
 #pragma mark - BKCameraManager
@@ -295,9 +318,11 @@
             self.filterView.bk_y = self.view.bk_height - self.filterView.bk_height;
         }else{
             if (self.cameraType == BKCameraTypeRecordVideo) {
-                self.previewBtn.alpha = 1;
-                self.deleteBtn.alpha = 1;
-                self.finishBtn.alpha = 1;
+                if (self.recordProgress.currentTime > 0) {
+                    self.previewBtn.alpha = 1;
+                    self.deleteBtn.alpha = 1;
+                    self.finishBtn.alpha = 1;
+                }
             }
             self.shutterBtn.alpha = 1;
             self.filterView.alpha = 0;
@@ -313,10 +338,13 @@
 -(BKCameraFilterView*)filterView
 {
     if (!_filterView) {
-        _filterView = [[BKCameraFilterView alloc] initWithFrame:CGRectMake(0, self.view.bk_height, self.view.bk_width, 80+75)];
+        _filterView = [[BKCameraFilterView alloc] initWithFrame:CGRectMake(0, self.view.bk_height, self.view.bk_width, 80+75+40)];//80+75是跟快门按钮对齐 40是滑杆的高度
         BK_WEAK_SELF(self);
         [_filterView setSwitchBeautyFilterLevelAction:^(NSInteger level) {
             [weakSelf.cameraManager switchBeautyFilterLevel:(BKBeautyLevel)level];
+        }];
+        [_filterView setSwitchLookupFilterTypeAction:^(BKBeautifulSkinType type, CGFloat level) {
+            [weakSelf.cameraManager switchLookupFilterType:type level:level];
         }];
     }
     return _filterView;
@@ -453,8 +481,8 @@
 {
     BOOL flag = [self.cameraManager removeLastRecordVideo];
     if (!flag) {
-        [self.view bk_showRemind:BKRemoveVideolipFailedRemind];
-        return;
+//        [self.view bk_showRemind:BKRemoveVideolipFailedRemind];
+//        return;
     }
     [self.recordProgress removeLastRecord];
     [self.shutterBtn modifyRecordTime:self.recordProgress.currentTime];

@@ -113,6 +113,10 @@
 
 //相机界面 背景颜色
 #define BKCameraBackgroundColor [UIColor blackColor]
+//相机界面 渐变开始颜色 必须使用rgba形式
+#define BKCameraGradientShadowStartColor BK_RGBA(0, 0, 0, 0.3)
+//相机界面 渐变结束颜色 必须使用rgba形式
+#define BKCameraGradientShadowEndColor BK_RGBA(0, 0, 0, 0)
 //相机界面 底部文字颜色(预览、删除、完成)
 #define BKCameraBottomTitleColor [UIColor whiteColor]
 //相机界面 底部快门颜色
@@ -122,13 +126,13 @@
 #define BKCameraRecordVideoProgressColor BK_HEX_RGB(0x2D96FA)
 //暂停录制视频进度条颜色
 #define BKCameraPauseRecordVideoProgressColor [UIColor whiteColor]
-//相机界面滤镜选择界面的底色
+//相机界面 滤镜选择界面的底色
 #define BKCameraFilterBackgroundColor [UIColor colorWithWhite:0 alpha:0.4]
-//相机界面滤镜选择界面文字的颜色
-#define BKCameraFilterTitleColor [UIColor whiteColor]
-//相机界面滤镜选择界面文字的选中颜色
+//相机界面 (未选中)滤镜选择界面文字的颜色
+#define BKCameraFilterTitleNormalColor [UIColor whiteColor]
+//相机界面 (选中)滤镜选择界面文字的颜色
 #define BKCameraFilterTitleSelectColor BK_HEX_RGB(0x2D96FA)
-//相机界面滤镜选择界面等级按钮的颜色
+//相机界面 滤镜选择界面等级按钮的颜色
 #define BKCameraFilterLevelBtnBackgroundColor [UIColor blackColor]
 //聚焦框颜色
 #define BKCameraFocusBackgroundColor BK_HEX_RGB(0xF3D33D)

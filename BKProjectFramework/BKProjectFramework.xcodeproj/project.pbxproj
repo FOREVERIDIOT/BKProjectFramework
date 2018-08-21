@@ -95,6 +95,7 @@
 		1D8AB8B421216EC600032629 /* BKCameraShutterBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB8AA21216EC600032629 /* BKCameraShutterBtn.m */; };
 		1D8AB8B521216EC600032629 /* BKCameraFocusRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB8AE21216EC600032629 /* BKCameraFocusRectangle.m */; };
 		1D8AB8BD2121744F00032629 /* BKCameraRecordVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB8BC2121744F00032629 /* BKCameraRecordVideoPreviewViewController.m */; };
+		1D8EEA6E212A690D004CF59E /* BKCameraGradientShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8EEA6D212A690D004CF59E /* BKCameraGradientShadow.m */; };
 		1DA0E13321002C1E005D6FB3 /* BKImagePickerConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13221002C1E005D6FB3 /* BKImagePickerConstant.m */; };
 		1DA0E13621002C48005D6FB3 /* BKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13521002C48005D6FB3 /* BKImagePicker.m */; };
 		1DA0E13A21003506005D6FB3 /* BKImageManageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0E13921003506005D6FB3 /* BKImageManageModel.m */; };
@@ -277,6 +278,8 @@
 		1D8AB8AE21216EC600032629 /* BKCameraFocusRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCameraFocusRectangle.m; sourceTree = "<group>"; };
 		1D8AB8BB2121744F00032629 /* BKCameraRecordVideoPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraRecordVideoPreviewViewController.h; sourceTree = "<group>"; };
 		1D8AB8BC2121744F00032629 /* BKCameraRecordVideoPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraRecordVideoPreviewViewController.m; sourceTree = "<group>"; };
+		1D8EEA6C212A690D004CF59E /* BKCameraGradientShadow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCameraGradientShadow.h; sourceTree = "<group>"; };
+		1D8EEA6D212A690D004CF59E /* BKCameraGradientShadow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCameraGradientShadow.m; sourceTree = "<group>"; };
 		1DA0E13021002B3D005D6FB3 /* BKImagePickerMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImagePickerMacro.h; sourceTree = "<group>"; };
 		1DA0E13121002C07005D6FB3 /* BKImagePickerConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImagePickerConstant.h; sourceTree = "<group>"; };
 		1DA0E13221002C1E005D6FB3 /* BKImagePickerConstant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImagePickerConstant.m; sourceTree = "<group>"; };
@@ -731,6 +734,8 @@
 				1D8AB8A321216EC600032629 /* BKCameraManager.m */,
 				1D8AB89E21216EC600032629 /* BKCameraFilterView.h */,
 				1D8AB8A121216EC600032629 /* BKCameraFilterView.m */,
+				1D8EEA6C212A690D004CF59E /* BKCameraGradientShadow.h */,
+				1D8EEA6D212A690D004CF59E /* BKCameraGradientShadow.m */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -1170,6 +1175,7 @@
 				1D45CABF20FC6892003C7BA4 /* BKImageAlbumItemView.m in Sources */,
 				1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
+				1D8EEA6E212A690D004CF59E /* BKCameraGradientShadow.m in Sources */,
 				1D0294B820F5FFB200D75606 /* BKImageView.m in Sources */,
 				1D75217D21227D6200862397 /* BKImagePreviewTransitionAnimater.m in Sources */,
 			);

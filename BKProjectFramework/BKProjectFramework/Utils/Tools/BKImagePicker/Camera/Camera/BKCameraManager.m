@@ -326,6 +326,17 @@
 }
 
 /**
+ 修改皮肤色彩
+ 
+ @param type 色彩滤镜格式
+ @param level 级别 0~1
+ */
+-(void)switchLookupFilterType:(BKBeautifulSkinType)type level:(CGFloat)level
+{
+    [self.beautyFilter switchLookupFilterType:type level:level];
+}
+
+/**
  删除文件目录
 
  @return 是否删除成功
@@ -467,7 +478,7 @@
 #pragma mark - 把CIImage转UIImage
 
 /**
- 获取当前显示图片
+ 把设备获取的CIImage转成UIImage
  */
 -(UIImage*)imageFromCIImage:(CIImage*)ciImage
 {
