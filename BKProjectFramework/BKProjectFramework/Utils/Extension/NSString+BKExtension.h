@@ -71,4 +71,11 @@
  */
 - (NSString *)sha1EncodeString;
 
+#pragma mark - 获取设备型号
+
+/**
+ 获取设备型号然后手动转化为对应名称
+ */
++(NSString *)getDeviceName;
+
 @end

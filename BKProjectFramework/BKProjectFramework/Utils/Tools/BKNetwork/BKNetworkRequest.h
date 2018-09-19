@@ -53,6 +53,16 @@
  */
 -(void)getWithURL:(NSString *)url params:(NSDictionary *)params requestView:(UIView*)requestView success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
 
+/**
+ 文件下载
+ 
+ @param fileUrl 文件链接
+ @param dlProgress 下载百分比
+ @param success 下载成功
+ @param failure 下载失败
+ */
+-(void)downloadFileUrl:(NSString*)fileUrl downloadProgress:(void (^)(CGFloat progress))dlProgress success:(void (^)(NSURL * filePath))success failure:(void (^)(NSError * error))failure;
+
 #pragma mark - 取消网络请求
 
 /**
