@@ -35,6 +35,26 @@
  */
 -(NSString*)takeFirstLetterOfPinyin;
 
+#pragma mark - 计算文本大小
+
+/**
+ 计算文本大小(固定宽)
+
+ @param width 固定宽度
+ @param font 字体大小
+ @return 文本大小
+ */
+-(CGSize)calculateSizeWithUIWidth:(CGFloat)width font:(UIFont*)font;
+
+/**
+ 计算文本大小(固定高)
+ 
+ @param height 固定宽度
+ @param font 字体大小
+ @return 文本大小
+ */
+-(CGSize)calculateSizeWithUIHeight:(CGFloat)height font:(UIFont*)font;
+
 #pragma mark - 编码
 
 /**

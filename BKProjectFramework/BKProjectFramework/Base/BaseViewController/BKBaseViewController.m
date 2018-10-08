@@ -58,11 +58,11 @@
 {
     if (!_topNavView) {
         
-        _topNavViewHeight = SYSTEM_NAV_HEIGHT;
+        _topNavViewHeight = get_system_nav_height();
         
         _topNavView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENW, _topNavViewHeight)];
         
-        _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, _topNavView.width, SYSTEM_NAV_UI_HEIGHT)];
+        _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, get_system_statusBar_height(), _topNavView.width, get_system_nav_ui_height())];
         _titleLab.textColor = kColor_333333;
         _titleLab.font = [UIFont systemFontOfSize:18];
         _titleLab.textAlignment = NSTextAlignmentCenter;

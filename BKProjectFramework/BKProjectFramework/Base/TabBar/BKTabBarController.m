@@ -74,7 +74,7 @@
     [super viewDidLayoutSubviews];
     
     CGRect frame = self.tabBar.frame;
-    frame.size.height = SYSTEM_TABBAR_HEIGHT;
+    frame.size.height = get_system_tabbar_height();
     frame.origin.y = self.view.height - frame.size.height;
     self.tabBar.frame = frame;
     

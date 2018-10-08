@@ -558,11 +558,11 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
 -(UIView*)bottomNav
 {
     if (!_bottomNav) {
-        _bottomNav = [[UIView alloc]initWithFrame:CGRectMake(0, self.bk_height - BK_SYSTEM_TABBAR_HEIGHT, self.bk_width, BK_SYSTEM_TABBAR_HEIGHT)];
+        _bottomNav = [[UIView alloc]initWithFrame:CGRectMake(0, self.bk_height - bk_get_system_tabbar_height(), self.bk_width, bk_get_system_tabbar_height())];
         _bottomNav.backgroundColor = BKNavBackgroundColor;
         
         UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        backBtn.frame = CGRectMake(0, 0, 64, BK_SYSTEM_TABBAR_UI_HEIGHT);
+        backBtn.frame = CGRectMake(0, 0, 64, bk_get_system_tabbar_ui_height());
         [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_bottomNav addSubview:backBtn];
         
@@ -573,7 +573,7 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
         [backBtn addSubview:backImageView];
         
         UIButton * finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        finishBtn.frame = CGRectMake(_bottomNav.bk_width - 64, 0, 64, BK_SYSTEM_TABBAR_UI_HEIGHT);
+        finishBtn.frame = CGRectMake(_bottomNav.bk_width - 64, 0, 64, bk_get_system_tabbar_ui_height());
         [finishBtn addTarget:self action:@selector(finishBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_bottomNav addSubview:finishBtn];
         
@@ -586,7 +586,7 @@ typedef NS_OPTIONS(NSUInteger, BKEditImagePanContains) {
         //不是预定裁剪模式有旋转
         if ([BKImagePicker sharedManager].imageManageModel.clipSize_width_height_ratio == 0) {
             UIButton * rotationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            rotationBtn.frame = CGRectMake((_bottomNav.bk_width - 64)/2, 0, 64, BK_SYSTEM_TABBAR_UI_HEIGHT);
+            rotationBtn.frame = CGRectMake((_bottomNav.bk_width - 64)/2, 0, 64, bk_get_system_tabbar_ui_height());
             [rotationBtn addTarget:self action:@selector(rotationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_bottomNav addSubview:rotationBtn];
             

@@ -73,6 +73,50 @@
     return [[self transformToPinyin] substringWithRange:NSMakeRange(0, 1)];
 }
 
+#pragma mark - 计算文本大小
+
+/**
+ 计算文本大小(固定宽)
+ 
+ @param width 固定宽度
+ @param font 字体大小
+ @return 文本大小
+ */
+-(CGSize)calculateSizeWithUIWidth:(CGFloat)width font:(UIFont*)font
+{
+    if (!self || width <= 0 || !font) {
+        return CGSizeZero;
+    }
+    
+    CGRect rect = [self boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                       options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: font}
+                                       context:nil];
+    
+    return rect.size;
+}
+
+/**
+ 计算文本大小(固定高)
+ 
+ @param height 固定高度
+ @param font 字体大小
+ @return 文本大小
+ */
+-(CGSize)calculateSizeWithUIHeight:(CGFloat)height font:(UIFont*)font
+{
+    if (!self || height <= 0 || !font) {
+        return CGSizeZero;
+    }
+    
+    CGRect rect = [self boundingRectWithSize:CGSizeMake(MAXFLOAT, height)
+                                       options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName:font}
+                                       context:nil];
+    
+    return rect.size;
+}
+
 #pragma mark - 编码
 
 /**

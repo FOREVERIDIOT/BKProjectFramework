@@ -9,6 +9,8 @@
 #ifndef BKImagePickerMacro_h
 #define BKImagePickerMacro_h
 
+#import "BKImagePickerInline.h"
+
 /********************************** 通用颜色 **********************************/
 //提示框背景颜色
 #define BKRemindBackgroundColor [UIColor colorWithWhite:0 alpha:0.8]
@@ -150,12 +152,5 @@
 
 #define BK_WEAK_SELF(obj) __weak typeof(obj) weakSelf = obj;
 #define BK_STRONG_SELF(obj) __strong typeof(obj) strongSelf = weakSelf;
-
-#define BK_IPONEX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
-#define BK_SYSTEM_STATUSBAR_HEIGHT (BK_IPONEX ? 44.f : 20.f)
-#define BK_SYSTEM_NAV_HEIGHT (BK_SYSTEM_STATUSBAR_HEIGHT + 44.f)
-#define BK_SYSTEM_NAV_UI_HEIGHT 44.f
-#define BK_SYSTEM_TABBAR_HEIGHT (BK_IPONEX ? 83.f : 49.f)
-#define BK_SYSTEM_TABBAR_UI_HEIGHT 49.f
 
 #endif /* BKImagePickerMacro_h */

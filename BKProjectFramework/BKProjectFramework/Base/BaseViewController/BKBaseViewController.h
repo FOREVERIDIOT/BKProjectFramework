@@ -13,12 +13,12 @@
 
 #pragma mark - 顶部导航
 
-@property (nonatomic,strong) UIView * topNavView;//高度为 SYSTEM_NAV_HEIGHT
+@property (nonatomic,strong) UIView * topNavView;//高度为 get_system_nav_height()
 @property (nonatomic,strong) UILabel * titleLab;
 @property (nonatomic,strong) NSArray<BKNavButton*> * leftNavBtns;
 @property (nonatomic,strong) NSArray<BKNavButton*> * rightNavBtns;
 @property (nonatomic,strong) BKImageView * topLine;
-@property (nonatomic,assign) CGFloat topNavViewHeight;//topNavView的高度 默认高度为 SYSTEM_NAV_HEIGHT
+@property (nonatomic,assign) CGFloat topNavViewHeight;//topNavView的高度 默认高度为 get_system_nav_height()
 
 #pragma mark - 底部导航
 

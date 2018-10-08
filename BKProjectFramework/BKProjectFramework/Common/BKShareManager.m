@@ -28,72 +28,6 @@ static BKShareManager * shareManager;
     return shareManager;
 }
 
-#pragma mark - 计算文本大小
-
--(CGSize)sizeWithString:(NSString *)string UIWidth:(CGFloat)width font:(UIFont*)font
-{
-    if (!string || !font) {
-        return CGSizeZero;
-    }
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
-                                       options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: font}
-                                       context:nil];
-    
-    return rect.size;
-}
-
--(CGSize)sizeWithString:(NSString *)string UIHeight:(CGFloat)height font:(UIFont*)font
-{
-    if (!string || !font) {
-        return CGSizeZero;
-    }
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, height)
-                                       options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName:font}
-                                       context:nil];
-    
-    return rect.size;
-}
-
--(CGFloat)changeWidthLabel:(UILabel *)label
-{
-    CGSize viewSize = [self sizeWithString:label.text UIHeight:label.height font:label.font];
-    CGFloat width = viewSize.width;
-    return width;
-}
-
--(CGFloat)changeHeightLabel:(UILabel *)label
-{
-    CGSize viewSize = [self sizeWithString:label.text UIWidth:label.width font:label.font];
-    CGFloat height = viewSize.height;
-    return height;
-}
-
--(CGFloat)heightSizeFromAttrString:(NSAttributedString*)string width:(CGFloat)width
-{
-    if (!string || width == 0) {
-        return 0;
-    }
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    
-    return rect.size.height;
-}
-
--(CGFloat)widthSizeFromAttrString:(NSAttributedString*)string height:(CGFloat)height
-{
-    if (!string || height == 0) {
-        return 0;
-    }
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    
-    return rect.size.width;
-}
-
 #pragma mark - 弹框提示
 
 +(void)showMessage:(NSString*)message
@@ -117,11 +51,11 @@ static BKShareManager * shareManager;
     remindLab.text = message;
     [bgView addSubview:remindLab];
     
-    CGFloat width = [[BKShareManager sharedManager] sizeWithString:message UIHeight:window.bounds.size.height font:font].width;
+    CGFloat width = [message calculateSizeWithUIHeight:window.bounds.size.height font:font].width;
     if (width>window.bounds.size.width/4.0*3.0f) {
         width = window.bounds.size.width/4.0*3.0f;
     }
-    CGFloat height = [[BKShareManager sharedManager] sizeWithString:message UIWidth:width font:font].height;
+    CGFloat height = [message calculateSizeWithUIWidth:width font:font].height;
     
     bgView.bounds = CGRectMake(0, 0, width+20, height+20);
     bgView.layer.position = CGPointMake(window.bounds.size.width/2.0f, window.bounds.size.height/2.0f);

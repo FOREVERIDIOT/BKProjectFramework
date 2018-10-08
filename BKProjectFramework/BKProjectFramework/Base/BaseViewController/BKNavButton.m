@@ -62,7 +62,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)init
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         [self setupData];
     }
@@ -73,7 +73,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         
@@ -84,7 +84,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _imageSize = imageSize;
@@ -98,7 +98,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithTitle:(NSString*)title
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _title = title;
         
@@ -109,7 +109,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithTitle:(NSString*)title font:(UIFont*)font
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _title = title;
         _font = font;
@@ -121,7 +121,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithTitle:(NSString*)title titleColor:(UIColor*)titleColor
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _title = title;
         _titleColor = titleColor;
@@ -133,7 +133,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithTitle:(NSString*)title font:(UIFont*)font titleColor:(UIColor*)titleColor
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _title = title;
         _font = font;
@@ -148,7 +148,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image title:(NSString*)title
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _title = title;
@@ -160,7 +160,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image title:(NSString*)title imagePosition:(BKImagePosition)imagePosition
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _title = title;
@@ -173,7 +173,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _imageSize = imageSize;
@@ -186,7 +186,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title imagePosition:(BKImagePosition)imagePosition
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _imageSize = imageSize;
@@ -200,7 +200,7 @@ float const kTitleInsets = 8;//文本内边距
 
 -(instancetype)initWithImage:(UIImage *)image imageSize:(CGSize)imageSize title:(NSString*)title font:(UIFont*)font titleColor:(UIColor*)titleColor imagePosition:(BKImagePosition)imagePosition
 {
-    self = [super initWithFrame:CGRectMake(0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())];
     if (self) {
         _image = image;
         _imageSize = imageSize;
@@ -299,10 +299,10 @@ float const kTitleInsets = 8;//文本内边距
         
         _titleStr = [self setupTitleStr];
         
-        _titleRect.size.height = [[BKShareManager sharedManager] heightSizeFromAttrString:_titleStr width:FLT_MAX];
+        _titleRect.size.height = [_titleStr calculateHeightWithUIWidth:FLT_MAX];
         _titleRect.origin.y = (self.frame.size.height - _titleRect.size.height)/2;
         _titleRect.origin.x = kTitleInsets;
-        _titleRect.size.width = [[BKShareManager sharedManager] widthSizeFromAttrString:_titleStr height:_titleRect.size.height];
+        _titleRect.size.width = [_titleStr calculateWidthWithUIHeight:_titleRect.size.height];
         if (_titleRect.size.width + kTitleInsets * 2 < self.width) {
             _titleRect.origin.x = (self.width - _titleRect.size.width)/2;
         }else{
@@ -321,7 +321,7 @@ float const kTitleInsets = 8;//文本内边距
                     _font = [UIFont systemFontOfSize:14];
                 }
                 _titleStr = [self setupTitleStr];
-                CGFloat titleHeight = [[BKShareManager sharedManager] heightSizeFromAttrString:_titleStr width:FLT_MAX];
+                CGFloat titleHeight = [_titleStr calculateHeightWithUIWidth:FLT_MAX];
                 
                 _imageRect = CGRectMake(kImageInsets,
                                         (self.height - _imageSize.height)/2,
@@ -330,7 +330,7 @@ float const kTitleInsets = 8;//文本内边距
                 
                 _titleRect.size.height = titleHeight;
                 _titleRect.origin.y = (self.frame.size.height - _titleRect.size.height)/2;
-                _titleRect.size.width = [[BKShareManager sharedManager] widthSizeFromAttrString:_titleStr height:_titleRect.size.height];
+                _titleRect.size.width = [_titleStr calculateWidthWithUIHeight:_titleRect.size.height];
                 _titleRect.origin.x = CGRectGetMaxX(_imageRect);
                 
                 self.width = CGRectGetMaxX(_titleRect) + kTitleInsets;
@@ -345,7 +345,7 @@ float const kTitleInsets = 8;//文本内边距
                     _font = [UIFont systemFontOfSize:13];
                 }
                 _titleStr = [self setupTitleStr];
-                CGFloat titleHeight = [[BKShareManager sharedManager] heightSizeFromAttrString:_titleStr width:FLT_MAX];
+                CGFloat titleHeight = [_titleStr calculateHeightWithUIWidth:FLT_MAX];
                 
                 _imageRect = CGRectMake((self.width - _imageSize.width)/2,
                                         0,
@@ -371,11 +371,11 @@ float const kTitleInsets = 8;//文本内边距
                     _font = [UIFont systemFontOfSize:14];
                 }
                 _titleStr = [self setupTitleStr];
-                CGFloat titleHeight = [[BKShareManager sharedManager] heightSizeFromAttrString:_titleStr width:FLT_MAX];
+                CGFloat titleHeight = [_titleStr calculateHeightWithUIWidth:FLT_MAX];
                 
                 _titleRect.size.height = titleHeight;
                 _titleRect.origin.y = (self.frame.size.height - _titleRect.size.height)/2;
-                _titleRect.size.width = [[BKShareManager sharedManager] widthSizeFromAttrString:_titleStr height:_titleRect.size.height];
+                _titleRect.size.width = [_titleStr calculateWidthWithUIHeight:_titleRect.size.height];
                 _titleRect.origin.x = kTitleInsets;
                 
                 _imageRect = CGRectMake(CGRectGetMaxX(_titleRect),
@@ -395,7 +395,7 @@ float const kTitleInsets = 8;//文本内边距
                     _font = [UIFont systemFontOfSize:13];
                 }
                 _titleStr = [self setupTitleStr];
-                CGFloat titleHeight = [[BKShareManager sharedManager] heightSizeFromAttrString:_titleStr width:FLT_MAX];
+                CGFloat titleHeight = [_titleStr calculateHeightWithUIWidth:FLT_MAX];
                 
                 _titleRect.size.height = self.height - _imageSize.height;
                 if (_titleRect.size.height > titleHeight) {

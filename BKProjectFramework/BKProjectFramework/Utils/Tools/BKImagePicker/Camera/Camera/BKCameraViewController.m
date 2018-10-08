@@ -102,7 +102,7 @@
 
 -(void)addShadow
 {
-    BKCameraGradientShadow * topShadow = [[BKCameraGradientShadow alloc] initWithFrame:CGRectMake(0, 0, self.view.bk_width, BK_SYSTEM_STATUSBAR_HEIGHT + BK_SYSTEM_NAV_UI_HEIGHT * 2)];
+    BKCameraGradientShadow * topShadow = [[BKCameraGradientShadow alloc] initWithFrame:CGRectMake(0, 0, self.view.bk_width, bk_get_system_statusBar_height() + bk_get_system_nav_ui_height() * 2)];
     topShadow.direction = BKCameraGradientDirectionBottom;
     topShadow.userInteractionEnabled = NO;
     [self.view addSubview:topShadow];
@@ -194,7 +194,7 @@
 -(BKCameraRecordProgress*)recordProgress
 {
     if (!_recordProgress) {
-        _recordProgress = [[BKCameraRecordProgress alloc] initWithFrame:CGRectMake(0, BK_SYSTEM_STATUSBAR_HEIGHT - 3, self.view.bk_width, 3)];
+        _recordProgress = [[BKCameraRecordProgress alloc] initWithFrame:CGRectMake(0, bk_get_system_statusBar_height() - 3, self.view.bk_width, 3)];
     }
     return _recordProgress;
 }
@@ -218,7 +218,7 @@
 {
     if (!_closeBtn) {
         _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _closeBtn.frame = CGRectMake(0, BK_SYSTEM_STATUSBAR_HEIGHT, 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        _closeBtn.frame = CGRectMake(0, bk_get_system_statusBar_height(), 64, bk_get_system_nav_ui_height());
         [_closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImageView * closeImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_closeBtn.bk_width - 25)/2, (_closeBtn.bk_height - 25)/2, 25, 25)];
@@ -248,7 +248,7 @@
 {
     if (!_switchShotBtn) {
         _switchShotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _switchShotBtn.frame = CGRectMake(BK_SCREENW - 64, BK_SYSTEM_STATUSBAR_HEIGHT, 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        _switchShotBtn.frame = CGRectMake(BK_SCREENW - 64, bk_get_system_statusBar_height(), 64, bk_get_system_nav_ui_height());
         [_switchShotBtn addTarget:self action:@selector(switchShotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImageView * switchShotImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_switchShotBtn.bk_width - 25)/2, (_switchShotBtn.bk_height - 25)/2, 25, 25)];
@@ -289,7 +289,7 @@
 {
     if (!_filterBtn) {
         _filterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _filterBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.switchShotBtn.frame), 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        _filterBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.switchShotBtn.frame), 64, bk_get_system_nav_ui_height());
         [_filterBtn addTarget:self action:@selector(filterBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImageView * switchShotImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_filterBtn.bk_width - 25)/2, (_filterBtn.bk_height - 25)/2, 25, 25)];
@@ -356,7 +356,7 @@
 {
     if (!_flashBtn) {
         _flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _flashBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.filterBtn.frame), 64, BK_SYSTEM_NAV_UI_HEIGHT);
+        _flashBtn.frame = CGRectMake(BK_SCREENW - 64, CGRectGetMaxY(self.filterBtn.frame), 64, bk_get_system_nav_ui_height());
         [_flashBtn addTarget:self action:@selector(flashBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         if ([self.cameraManager getCurrentCaptureDevicePosition] == AVCaptureDevicePositionFront) {
             _flashBtn.hidden = YES;

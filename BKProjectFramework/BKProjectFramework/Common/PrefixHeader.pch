@@ -11,7 +11,9 @@
 
 #ifdef __OBJC__
 
+#import "BKInline.h"
 #import "BKMacro.h"
+#import "BKColorMacro.h"
 #import "BKConstant.h"
 #import "BKShareManager.h"
 
@@ -35,6 +37,8 @@
 #import "NSString+BKExtension.h"
 #import "UIImageView+BKExtension.h"
 #import "UIImage+BKExtension.h"
+#import "UILabel+BKExtension.h"
+#import "NSAttributedString+BKExtension.h"
 
 #endif
 

@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, BKImagePosition) {
 @interface BKNavButton : UIView
 
 /***************************************************************************************************
- 默认frame = CGRectMake(自动排列间距0, SYSTEM_STATUSBAR_HEIGHT, SYSTEM_NAV_UI_HEIGHT, SYSTEM_NAV_UI_HEIGHT)
+ 默认frame = CGRectMake(自动排列间距0, get_system_statusBar_height(), get_system_nav_ui_height(), get_system_nav_ui_height())
  ***************************************************************************************************/
 
 #pragma mark - 图片init

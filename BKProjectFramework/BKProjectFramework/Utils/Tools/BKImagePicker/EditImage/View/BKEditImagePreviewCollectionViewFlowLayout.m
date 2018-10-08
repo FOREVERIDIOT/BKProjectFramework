@@ -16,7 +16,7 @@
 {
     [super prepareLayout];
     
-    self.itemSize = CGSizeMake(floor(BK_SYSTEM_NAV_UI_HEIGHT/16*9), BK_SYSTEM_NAV_UI_HEIGHT);
+    self.itemSize = CGSizeMake(floor(bk_get_system_nav_ui_height()/16*9), bk_get_system_nav_ui_height());
     self.minimumLineSpacing = 2;
     self.minimumInteritemSpacing = 0;
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;

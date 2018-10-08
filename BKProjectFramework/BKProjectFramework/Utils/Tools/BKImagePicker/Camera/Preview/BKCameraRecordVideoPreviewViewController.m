@@ -94,7 +94,7 @@
 -(void)initBottomNav
 {
     self.bottomLine.hidden = YES;
-    self.bottomNavViewHeight = BK_IPONEX ? BK_SYSTEM_TABBAR_HEIGHT : 64;
+    self.bottomNavViewHeight = bk_is_iPhoneX_series() ? bk_get_system_tabbar_height() : 64;
     
     self.bottomNavView.backgroundColor = BKVideoPreviewBottomNavBackgroundColor;
     

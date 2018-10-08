@@ -318,7 +318,7 @@
         
         BKEditImagePreviewCollectionViewFlowLayout * layout = [[BKEditImagePreviewCollectionViewFlowLayout alloc]init];
         
-        _previewCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(80, BK_SYSTEM_STATUSBAR_HEIGHT, self.topNavView.bk_width - 160, BK_SYSTEM_NAV_UI_HEIGHT) collectionViewLayout:layout];
+        _previewCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(80, bk_get_system_statusBar_height(), self.topNavView.bk_width - 160, bk_get_system_nav_ui_height()) collectionViewLayout:layout];
         _previewCollectionView.delegate = self;
         _previewCollectionView.dataSource = self;
         _previewCollectionView.backgroundColor = BKClearColor;
@@ -388,7 +388,7 @@
 
 -(void)initBottomNav
 {
-    self.bottomNavViewHeight = BK_SYSTEM_TABBAR_HEIGHT;
+    self.bottomNavViewHeight = bk_get_system_tabbar_height();
     [self.bottomNavView addSubview:self.bottomView];
 }
 
@@ -548,7 +548,7 @@
             switch (strongSelf.bottomView.selectEditType) {
                 case BKEditImageSelectEditTypeDrawLine:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                     
                     strongSelf.drawView.drawType = BKEditImageSelectEditTypeDrawLine;
                     strongSelf.drawView.selectColor = strongSelf.bottomView.selectPaintingColor;
@@ -557,7 +557,7 @@
                     break;
                 case BKEditImageSelectEditTypeDrawCircle:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                     
                     strongSelf.drawView.drawType = BKEditImageSelectEditTypeDrawCircle;
                     strongSelf.drawView.selectColor = strongSelf.bottomView.selectPaintingColor;
@@ -566,7 +566,7 @@
                     break;
                 case BKEditImageSelectEditTypeDrawRoundedRectangle:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                     
                     strongSelf.drawView.drawType = BKEditImageSelectEditTypeDrawRoundedRectangle;
                     strongSelf.drawView.selectColor = strongSelf.bottomView.selectPaintingColor;
@@ -575,7 +575,7 @@
                     break;
                 case BKEditImageSelectEditTypeDrawArrow:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                     
                     strongSelf.drawView.drawType = BKEditImageSelectEditTypeDrawArrow;
                     strongSelf.drawView.selectColor = strongSelf.bottomView.selectPaintingColor;
@@ -593,7 +593,7 @@
                     break;
                 case BKEditImageSelectEditTypeClip:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                     
                     strongSelf.topNavView.alpha = 0;
                     strongSelf.bottomNavView.alpha = 0;
@@ -604,7 +604,7 @@
                     break;
                 default:
                 {
-                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+                    strongSelf.bottomNavViewHeight = strongSelf.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
                 }
                     break;
             }
@@ -967,7 +967,7 @@
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat height = keyboardFrame.size.height;
     
-    self.bottomNavViewHeight = height + self.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+    self.bottomNavViewHeight = height + self.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
     self.writeTextView.bk_height = self.view.bk_height - self.bottomNavView.bk_height - CGRectGetMaxY(self.topNavView.frame);
     self.writeTextView.bk_y = CGRectGetMaxY(self.topNavView.frame);
     self.writeTextView.hidden = NO;
@@ -977,7 +977,7 @@
 
 -(void)keyboardWillHide:(NSNotification*)notification
 {
-    self.bottomNavViewHeight = self.bottomView.bk_height + BK_SYSTEM_TABBAR_HEIGHT - BK_SYSTEM_TABBAR_UI_HEIGHT;
+    self.bottomNavViewHeight = self.bottomView.bk_height + bk_get_system_tabbar_height() - bk_get_system_tabbar_ui_height();
     self.writeTextView.bk_height = 0;
     self.writeTextView.bk_y = CGRectGetMinY(self.bottomNavView.frame);
     self.writeTextView.hidden = YES;
@@ -1162,10 +1162,10 @@ static BOOL writeDeleteFlag = NO;
 -(UIView*)bottomDeleteWriteView
 {
     if (!_bottomDeleteWriteView) {
-        _bottomDeleteWriteView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bk_height - BK_SYSTEM_TABBAR_HEIGHT, self.view.bk_width, BK_SYSTEM_TABBAR_HEIGHT)];
+        _bottomDeleteWriteView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bk_height - bk_get_system_tabbar_height(), self.view.bk_width, bk_get_system_tabbar_height())];
         _bottomDeleteWriteView.backgroundColor = BKEditImageDeleteWriteNormalBackgroundColor;
         
-        UIImageView * deleteImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_bottomDeleteWriteView.bk_width - 30)/2, (BK_SYSTEM_TABBAR_UI_HEIGHT - 30)/2, 30, 30)];
+        UIImageView * deleteImageView = [[UIImageView alloc]initWithFrame:CGRectMake((_bottomDeleteWriteView.bk_width - 30)/2, (bk_get_system_tabbar_ui_height() - 30)/2, 30, 30)];
         deleteImageView.image = [UIImage bk_editImageWithImageName:@"delete_write"];
         deleteImageView.clipsToBounds = YES;
         deleteImageView.contentMode = UIViewContentModeScaleAspectFit;

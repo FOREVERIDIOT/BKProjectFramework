@@ -110,6 +110,8 @@
 		1DB1789320EDCA7100BA7652 /* NSDate+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789220EDCA7100BA7652 /* NSDate+BKExtension.m */; };
 		1DB1789720EDEB8400BA7652 /* BKTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789620EDEB8400BA7652 /* BKTimer.m */; };
 		1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789920EDFC8000BA7652 /* BKTimerModel.m */; };
+		1DC9DC69216B0B9B00EA1FD9 /* UILabel+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */; };
+		1DC9DC6C216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */; };
 		CE8A81A8C5447FF50546F4CB /* libPods-BKProjectFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E353447F6B4F8FD104F46519 /* libPods-BKProjectFramework.a */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +143,7 @@
 		1D0294BE20F6004B00D75606 /* BKTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBar.m; sourceTree = "<group>"; };
 		1D0294C020F6058700D75606 /* BKTabBarBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBarBtn.h; sourceTree = "<group>"; };
 		1D0294C120F6058700D75606 /* BKTabBarBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBarBtn.m; sourceTree = "<group>"; };
+		1D0DF821216AFA2D00BCA8DF /* BKColorMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKColorMacro.h; sourceTree = "<group>"; };
 		1D3AA76320F6F5650010FBB5 /* BKBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBaseViewController.h; sourceTree = "<group>"; };
 		1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBaseViewController.m; sourceTree = "<group>"; };
 		1D3AA77320F740FA0010FBB5 /* BKTransitionAnimater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKTransitionAnimater.h; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 		1D45CAE820FC7E09003C7BA4 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		1D45CB0220FC8328003C7BA4 /* BKImageBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImageBaseViewController.h; sourceTree = "<group>"; };
 		1D45CB0320FC8328003C7BA4 /* BKImageBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKImageBaseViewController.m; sourceTree = "<group>"; };
+		1D4F8C2E216B2D4E0094C9B1 /* BKImagePickerInline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKImagePickerInline.h; sourceTree = "<group>"; };
 		1D50C9D320FF2BFC00626230 /* BKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDemoViewController.h; sourceTree = "<group>"; };
 		1D50C9D420FF2BFC00626230 /* BKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKDemoViewController.m; sourceTree = "<group>"; };
 		1D6B8FE120EF09EE00BBEAD1 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
@@ -308,6 +312,11 @@
 		1DB1789820EDFC8000BA7652 /* BKTimerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTimerModel.h; sourceTree = "<group>"; };
 		1DB1789920EDFC8000BA7652 /* BKTimerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTimerModel.m; sourceTree = "<group>"; };
 		1DB1789C20EE229200BA7652 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		1DC9DC67216B0B9B00EA1FD9 /* UILabel+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+BKExtension.h"; sourceTree = "<group>"; };
+		1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BKExtension.m"; sourceTree = "<group>"; };
+		1DC9DC6A216B1CE000EA1FD9 /* NSAttributedString+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+BKExtension.h"; sourceTree = "<group>"; };
+		1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+BKExtension.m"; sourceTree = "<group>"; };
+		1DD42B2D216B01D800008152 /* BKInline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKInline.h; sourceTree = "<group>"; };
 		381FD458A68E5E9566264142 /* Pods-BKProjectFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKProjectFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKProjectFramework/Pods-BKProjectFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		E353447F6B4F8FD104F46519 /* libPods-BKProjectFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BKProjectFramework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9B924C62630D8B17445ED8 /* Pods-BKProjectFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKProjectFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-BKProjectFramework/Pods-BKProjectFramework.release.xcconfig"; sourceTree = "<group>"; };
@@ -437,6 +446,7 @@
 				1DA0E13021002B3D005D6FB3 /* BKImagePickerMacro.h */,
 				1DA0E13121002C07005D6FB3 /* BKImagePickerConstant.h */,
 				1DA0E13221002C1E005D6FB3 /* BKImagePickerConstant.m */,
+				1D4F8C2E216B2D4E0094C9B1 /* BKImagePickerInline.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -634,7 +644,9 @@
 				1DB1788A20EDB52F00BA7652 /* BKShareManager.m */,
 				1D6B8FF220EF0BE700BBEAD1 /* BKConstant.h */,
 				1D6B8FF620EF0C1200BBEAD1 /* BKConstant.m */,
+				1DD42B2D216B01D800008152 /* BKInline.h */,
 				1D6B8FF320EF0BF500BBEAD1 /* BKMacro.h */,
+				1D0DF821216AFA2D00BCA8DF /* BKColorMacro.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -910,6 +922,10 @@
 				1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */,
 				1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */,
 				1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */,
+				1DC9DC67216B0B9B00EA1FD9 /* UILabel+BKExtension.h */,
+				1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */,
+				1DC9DC6A216B1CE000EA1FD9 /* NSAttributedString+BKExtension.h */,
+				1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1148,6 +1164,7 @@
 				1D45CAB820FC6892003C7BA4 /* BKEditImageClipView.m in Sources */,
 				1D02949B20F5DE9200D75606 /* NSString+BKExtension.m in Sources */,
 				1D45CAC020FC6892003C7BA4 /* BKImageOriginalButton.m in Sources */,
+				1DC9DC6C216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m in Sources */,
 				1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */,
 				1D8AB8BD2121744F00032629 /* BKCameraRecordVideoPreviewViewController.m in Sources */,
 				1D02949820F5DA8100D75606 /* BKRoundedRectView.m in Sources */,
@@ -1162,6 +1179,7 @@
 				1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */,
 				1D45CACA20FC6892003C7BA4 /* BKImageAlbumListViewController.m in Sources */,
 				1D45CABE20FC6892003C7BA4 /* BKImagePickerViewController.m in Sources */,
+				1DC9DC69216B0B9B00EA1FD9 /* UILabel+BKExtension.m in Sources */,
 				1DB1789720EDEB8400BA7652 /* BKTimer.m in Sources */,
 				1DB1789320EDCA7100BA7652 /* NSDate+BKExtension.m in Sources */,
 				1D45CABB20FC6892003C7BA4 /* BKEditImageBottomView.m in Sources */,

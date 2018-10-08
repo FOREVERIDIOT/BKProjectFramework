@@ -307,7 +307,7 @@
 
 -(void)initBottomNav
 {
-    self.bottomNavViewHeight = BK_SYSTEM_TABBAR_HEIGHT;
+    self.bottomNavViewHeight = bk_get_system_tabbar_height();
     
     [self.bottomNavView addSubview:self.editBtn];
     if ([BKImagePicker sharedManager].imageManageModel.isHaveOriginal) {
@@ -375,7 +375,7 @@
 {
     if (!_editBtn) {
         _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _editBtn.frame = CGRectMake(0, 0, self.view.bk_width / 6, BK_SYSTEM_TABBAR_UI_HEIGHT);
+        _editBtn.frame = CGRectMake(0, 0, self.view.bk_width / 6, bk_get_system_tabbar_ui_height());
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setTitleColor:BKImagePickerSendTitleNormalColor forState:UIControlStateNormal];
         _editBtn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -387,7 +387,7 @@
 -(BKImageOriginalButton*)originalBtn
 {
     if (!_originalBtn) {
-        _originalBtn = [[BKImageOriginalButton alloc] initWithFrame:CGRectMake(BK_SCREENW/6, 0, BK_SCREENW/7*3, BK_SYSTEM_TABBAR_UI_HEIGHT)];
+        _originalBtn = [[BKImageOriginalButton alloc] initWithFrame:CGRectMake(BK_SCREENW/6, 0, BK_SCREENW/7*3, bk_get_system_tabbar_ui_height())];
         [self calculataImageSizeWithSelectIndex:INT_MAX];
         
         BK_WEAK_SELF(self);

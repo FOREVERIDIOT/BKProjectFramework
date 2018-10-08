@@ -42,7 +42,7 @@
 -(void)creatMyTabBarItemsWithNormalImageArr:(NSArray*)normal selectImageArr:(NSArray*)select tittleArr:(NSArray*)tittle
 {
     CGFloat buttonW = SCREENW/[tittle count];
-    CGFloat buttonH = SYSTEM_TABBAR_UI_HEIGHT;
+    CGFloat buttonH = get_system_tabbar_ui_height();
     for (int i = 0; i<[tittle count]; i++) {
         BKTabBarBtn * button = [BKTabBarBtn buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(i*buttonW, 0, buttonW, buttonH);

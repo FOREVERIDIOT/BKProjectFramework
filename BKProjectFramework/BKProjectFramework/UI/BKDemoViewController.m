@@ -42,7 +42,7 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 {
     [super viewWillLayoutSubviews];
     
-    _tableView.frame = CGRectMake(0, self.topNavViewHeight, self.view.width, self.view.height - self.topNavViewHeight - SYSTEM_TABBAR_HEIGHT);
+    _tableView.frame = CGRectMake(0, self.topNavViewHeight, self.view.width, self.view.height - self.topNavViewHeight - get_system_tabbar_height());
 }
 
 #pragma mark - BKTableView
@@ -50,7 +50,7 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 -(BKTableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[BKTableView alloc] initWithFrame:CGRectMake(0, self.topNavViewHeight, self.view.width, self.view.height - self.topNavViewHeight - SYSTEM_TABBAR_HEIGHT) style:UITableViewStylePlain];
+        _tableView = [[BKTableView alloc] initWithFrame:CGRectMake(0, self.topNavViewHeight, self.view.width, self.view.height - self.topNavViewHeight - get_system_tabbar_height()) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 50;

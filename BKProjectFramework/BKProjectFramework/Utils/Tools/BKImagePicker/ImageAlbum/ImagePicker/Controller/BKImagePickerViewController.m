@@ -262,8 +262,8 @@
         [flowLayout setFooterReferenceSize:CGSizeMake(BK_SCREENW, 40)];
         
         _albumCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _albumCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(BK_SYSTEM_NAV_HEIGHT, 0, 0, 0);
-        _albumCollectionView.contentInset = UIEdgeInsetsMake(BK_SYSTEM_NAV_HEIGHT, 0, 0, 0);
+        _albumCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(bk_get_system_nav_height(), 0, 0, 0);
+        _albumCollectionView.contentInset = UIEdgeInsetsMake(bk_get_system_nav_height(), 0, 0, 0);
         _albumCollectionView.delegate = self;
         _albumCollectionView.dataSource = self;
         _albumCollectionView.backgroundColor = BKClearColor;
@@ -584,7 +584,7 @@
 
 -(void)initBottomNav
 {
-    self.bottomNavViewHeight = BK_SYSTEM_TABBAR_HEIGHT;
+    self.bottomNavViewHeight = bk_get_system_tabbar_height();
     
     [self.bottomNavView addSubview:[self previewBtn]];
   
@@ -633,7 +633,7 @@
 {
     if (!_previewBtn) {
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _previewBtn.frame = CGRectMake(0, 0, self.view.bk_width/6, BK_SYSTEM_TABBAR_UI_HEIGHT);
+        _previewBtn.frame = CGRectMake(0, 0, self.view.bk_width/6, bk_get_system_tabbar_ui_height());
         [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
         [_previewBtn setTitleColor:BKImagePickerSendTitleNormalColor forState:UIControlStateNormal];
         _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -645,7 +645,7 @@
 -(BKImageOriginalButton*)originalBtn
 {
     if (!_originalBtn) {
-        _originalBtn = [[BKImageOriginalButton alloc]initWithFrame:CGRectMake(self.view.bk_width/6, 0, self.view.bk_width/7*3, BK_SYSTEM_TABBAR_UI_HEIGHT)];
+        _originalBtn = [[BKImageOriginalButton alloc]initWithFrame:CGRectMake(self.view.bk_width/6, 0, self.view.bk_width/7*3, bk_get_system_tabbar_ui_height())];
         [self calculataImageSize];
         
         BK_WEAK_SELF(self);

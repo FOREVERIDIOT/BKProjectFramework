@@ -108,7 +108,7 @@
 
 -(instancetype)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, BK_SCREENW, BK_SYSTEM_TABBAR_UI_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, 0, BK_SCREENW, bk_get_system_tabbar_ui_height())];
     if (self) {
         self.backgroundColor = BKClearColor;
         
@@ -126,7 +126,7 @@
 {
     if (!_firstLevelView) {
         
-        _firstLevelView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bk_width, BK_SYSTEM_TABBAR_UI_HEIGHT)];
+        _firstLevelView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bk_width, bk_get_system_tabbar_ui_height())];
         _firstLevelView.backgroundColor = BKClearColor;
         
         _firstLevelScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, _firstLevelView.bk_width/5*4 - 6, _firstLevelView.bk_height)];
