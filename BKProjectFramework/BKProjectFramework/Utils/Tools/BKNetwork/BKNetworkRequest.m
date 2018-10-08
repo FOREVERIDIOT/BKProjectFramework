@@ -34,6 +34,15 @@ static BKNetworkRequest * client = nil;
     return client;
 }
 
++(instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        client = [super allocWithZone:zone];
+    });
+    return client;
+}
+
 #pragma mark - 请求头
 
 -(void)setRequestHeader
@@ -269,7 +278,7 @@ static BKNetworkRequest * client = nil;
 -(void)downloadFileUrl:(NSString*)fileUrl downloadProgress:(void (^)(CGFloat progress))dlProgress success:(void (^)(NSURL * filePath))success failure:(void (^)(NSError * error))failure
 {
     if ([fileUrl length] == 0) {//下载路径为空
-        [BKShareManager showMessage:@"下载失败"];
+        showMessage(@"下载失败");
         return;
     }
     

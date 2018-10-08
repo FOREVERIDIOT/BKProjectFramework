@@ -24,12 +24,22 @@ CGFloat const kMinTimeInterval = 0.000001;
 
 #pragma mark - 单例方法
 
+static BKTimer * timer = nil;
+
 +(instancetype)sharedManager
 {
-    static BKTimer * timer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         timer = [[self alloc] init];
+    });
+    return timer;
+}
+
++(instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        timer = [super allocWithZone:zone];
     });
     return timer;
 }

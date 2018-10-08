@@ -69,6 +69,10 @@
  */
 - (UIViewController *)findViewController;
 
+#pragma mark - 提示框
+
+-(void)showMessage:(NSString *)message;
+
 #pragma mark - 加载框
 
 /**

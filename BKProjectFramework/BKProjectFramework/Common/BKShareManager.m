@@ -8,9 +8,13 @@
 
 #import "BKShareManager.h"
 
-@interface BKShareManager()
+@interface BKShareManager()<UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic,strong) dispatch_source_t networkTimer;
+/**
+ 文件共享(必须全局)
+ */
+@property (nonatomic,strong) UIDocumentInteractionController * diController;
 
 @end
 
@@ -18,7 +22,8 @@
 
 #pragma mark - 单例方法
 
-static BKShareManager * shareManager;
+static BKShareManager * shareManager = nil;
+
 +(instancetype)sharedManager
 {
     static dispatch_once_t onceToken;
@@ -28,51 +33,18 @@ static BKShareManager * shareManager;
     return shareManager;
 }
 
-#pragma mark - 弹框提示
-
-+(void)showMessage:(NSString*)message
++(instancetype)allocWithZone:(struct _NSZone *)zone
 {
-    UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
-    
-    UIView * bgView = [[UIView alloc]init];
-    bgView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.7];
-    bgView.layer.cornerRadius = 8.0f;
-    bgView.clipsToBounds = YES;
-    [window addSubview:bgView];
-    
-    UILabel * remindLab = [[UILabel alloc]init];
-    remindLab.textColor = [UIColor whiteColor];
-    CGFloat fontSize = 13.0*window.bounds.size.width/320.0f;
-    UIFont *font = [UIFont systemFontOfSize:fontSize];
-    remindLab.font = font;
-    remindLab.textAlignment = NSTextAlignmentCenter;
-    remindLab.numberOfLines = 0;
-    remindLab.backgroundColor = [UIColor clearColor];
-    remindLab.text = message;
-    [bgView addSubview:remindLab];
-    
-    CGFloat width = [message calculateSizeWithUIHeight:window.bounds.size.height font:font].width;
-    if (width>window.bounds.size.width/4.0*3.0f) {
-        width = window.bounds.size.width/4.0*3.0f;
-    }
-    CGFloat height = [message calculateSizeWithUIWidth:width font:font].height;
-    
-    bgView.bounds = CGRectMake(0, 0, width+20, height+20);
-    bgView.layer.position = CGPointMake(window.bounds.size.width/2.0f, window.bounds.size.height/2.0f);
-    
-    remindLab.bounds = CGRectMake(0, 0, width, height);
-    remindLab.layer.position = CGPointMake(bgView.bounds.size.width/2.0f, bgView.bounds.size.height/2.0f);
-    
-    [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        bgView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [bgView removeFromSuperview];
-    }];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shareManager = [super allocWithZone:zone];
+    });
+    return shareManager;
 }
 
 #pragma mark - 获取当前显示Controller
 
-+(UIViewController *)getCurrentVC
+-(UIViewController *)getCurrentVC
 {
     UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
     
@@ -91,7 +63,7 @@ static BKShareManager * shareManager;
 
 #pragma mark - 提示
 
-+(void)presentAlert:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod
+-(void)presentAlert:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod
 {
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     for (NSString * title in actionTitleArr) {
@@ -113,7 +85,7 @@ static BKShareManager * shareManager;
     [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
 }
 
-+(void)presentActionSheet:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod
+-(void)presentActionSheet:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod
 {
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
     for (NSString * title in actionTitleArr) {
@@ -144,12 +116,52 @@ static BKShareManager * shareManager;
     if (@available(iOS 10.0, *)) {
         [[UIApplication sharedApplication] openURL:phoneUrl options:@{} completionHandler:nil];
     } else {
-        [BKShareManager presentAlert:phoneStr message:nil actionTitleArr:@[@"取消",@"呼叫"] actionMethod:^(NSInteger index) {
+        [[BKShareManager sharedManager] presentAlert:phoneStr message:nil actionTitleArr:@[@"取消",@"呼叫"] actionMethod:^(NSInteger index) {
             if (index == 1) {
                 [[UIApplication sharedApplication] openURL:phoneUrl];
             }
         }];
     }
+}
+
+#pragma mark - 文件共享
+
+-(void)shareFilePath:(NSURL *)filePath
+{
+    self.diController = [UIDocumentInteractionController interactionControllerWithURL:filePath];
+    self.diController.delegate = self;
+    self.diController.UTI = [self getUTI:filePath.absoluteString];
+    [self.diController presentOptionsMenuFromRect:CGRectZero inView:[[BKShareManager sharedManager] getCurrentVC].view animated:YES];
+}
+
+-(NSString *)getUTI:(NSString*)filePath
+{
+    NSString * typeStr = [self getFileTypeStr:filePath.pathExtension];
+    
+    if ([typeStr isEqualToString:@"PDF"]) {
+        return @"com.adobe.pdf";
+    }else if ([typeStr isEqualToString:@"Word"]){
+        return @"com.microsoft.word.doc";
+    }else if ([typeStr isEqualToString:@"PowerPoint"]){
+        return @"com.microsoft.powerpoint.ppt";
+    }else if ([typeStr isEqualToString:@"Excel"]){
+        return @"com.microsoft.excel.xls";
+    }
+    return @"public.data";
+}
+
+-(NSString *)getFileTypeStr:(NSString *)pathExtension
+{
+    if ([pathExtension isEqualToString:@"pdf"] || [pathExtension isEqualToString:@"PDF"]) {
+        return @"PDF";
+    }else if ([pathExtension isEqualToString:@"doc"] || [pathExtension isEqualToString:@"docx"] || [pathExtension isEqualToString:@"DOC"] || [pathExtension isEqualToString:@"DOCX"]) {
+        return @"Word";
+    }else if ([pathExtension isEqualToString:@"ppt"] || [pathExtension isEqualToString:@"PPT"]) {
+        return @"PowerPoint";
+    }else if ([pathExtension isEqualToString:@"xls"] || [pathExtension isEqualToString:@"XLS"] || [pathExtension isEqualToString:@"xlsx"] || [pathExtension isEqualToString:@"XLSX"]) {
+        return @"Excel";
+    }
+    return @"其它";
 }
 
 #pragma mark - 网络时间

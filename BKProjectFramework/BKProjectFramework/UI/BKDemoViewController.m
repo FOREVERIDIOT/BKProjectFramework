@@ -94,9 +94,12 @@ NSString * const kRegisterTableViewCellID = @"UITableViewCell";
             break;
         case 2:
         {
-            [[BKImagePicker sharedManager] recordVideoComplete:^(UIImage *image, NSData *data, NSURL *url) {
-                NSLog(@"image:%@, dataLength:%ld, url:%@",image, [data length], url);
-            }];
+//            [[BKImagePicker sharedManager] recordVideoComplete:^(UIImage *image, NSData *data, NSURL *url) {
+//                NSLog(@"image:%@, dataLength:%ld, url:%@",image, [data length], url);
+//            }];
+            
+//            showMessage(@"哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈");
+//            [self.view showMessage:@"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"];
         }
             break;
         default:

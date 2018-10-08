@@ -155,6 +155,58 @@
     return nil;
 }
 
+#pragma mark - 提示框
+
+-(void)showMessage:(NSString *)message
+{
+    if ([message length] <= 0) {
+        return;
+    }
+    
+    UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
+    
+    UIView * bgView = [[UIView alloc]init];
+    bgView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.7];
+    bgView.layer.cornerRadius = 8.0f;
+    bgView.clipsToBounds = YES;
+    [window addSubview:bgView];
+    
+    UILabel * remindLab = [[UILabel alloc]init];
+    remindLab.textColor = [UIColor whiteColor];
+    CGFloat fontSize = 15.0 * window.bounds.size.width / 375.0f;
+    UIFont * font = [UIFont systemFontOfSize:fontSize];
+    remindLab.font = font;
+    remindLab.textAlignment = NSTextAlignmentCenter;
+    remindLab.numberOfLines = 0;
+    remindLab.backgroundColor = [UIColor clearColor];
+    remindLab.text = message;
+    [bgView addSubview:remindLab];
+    
+    CGFloat width = [message boundingRectWithSize:CGSizeMake(MAXFLOAT, window.bounds.size.height)
+                                          options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:@{NSFontAttributeName:font}
+                                          context:nil].size.width;
+    if (width > window.bounds.size.width/4.0*3.0f) {
+        width = window.bounds.size.width/4.0*3.0f;
+    }
+    CGFloat height = [message boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                           options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                        attributes:@{NSFontAttributeName: font}
+                                           context:nil].size.height;
+    
+    bgView.bounds = CGRectMake(0, 0, width + 20, height + 20);
+    bgView.layer.position = CGPointMake(window.bounds.size.width / 2.0f, window.bounds.size.height / 2.0f);
+    
+    remindLab.bounds = CGRectMake(0, 0, width, height);
+    remindLab.layer.position = CGPointMake(bgView.bounds.size.width / 2.0f, bgView.bounds.size.height / 2.0f);
+    
+    [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        bgView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [bgView removeFromSuperview];
+    }];
+}
+
 #pragma mark - 加载框
 
 /**

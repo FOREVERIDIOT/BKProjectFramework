@@ -9,7 +9,20 @@
 #ifndef BKColorMacro_h
 #define BKColorMacro_h
 
+#define COLOR_BLACK [UIColor blackColor]
+#define COLOR_DARKGRAY [UIColor darkGrayColor]
+#define COLOR_LIGHTGRAY [UIColor lightGrayColor]
 #define COLOR_WHITE [UIColor whiteColor]
+#define COLOR_GRAY [UIColor grayColor]
+#define COLOR_RED [UIColor redColor]
+#define COLOR_GREEN [UIColor greenColor]
+#define COLOR_BLUE [UIColor blueColor]
+#define COLOR_CYAN [UIColor cyanColor]
+#define COLOR_YELLOW [UIColor yellowColor]
+#define COLOR_MEGENTA [UIColor magentaColor]
+#define COLOR_ORANGE [UIColor orangeColor]
+#define COLOR_PURPLE [UIColor purpleColor]
+#define COLOR_BROWN [UIColor brownColor]
 #define COLOR_CLEAR [UIColor clearColor]
 
 #define kColor_333333 HEX_RGB(0x333333)

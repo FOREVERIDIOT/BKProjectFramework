@@ -20,23 +20,23 @@
 
 +(instancetype)sharedManager;
 
-#pragma mark - 弹框提示
-
-+(void)showMessage:(NSString*)message;
-
 #pragma mark - 获取当前显示Controller
 
-+(UIViewController *)getCurrentVC;
+-(UIViewController *)getCurrentVC;
 
 #pragma mark - 提示
 
-+(void)presentAlert:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod;
+-(void)presentAlert:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod;
 
-+(void)presentActionSheet:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod;
+-(void)presentActionSheet:(NSString*)title message:(NSString*)message actionTitleArr:(NSArray*)actionTitleArr actionMethod:(void (^)(NSInteger index))actionMethod;
 
 #pragma mark - 打电话
 
 -(void)callPhone:(NSString*)phoneStr;
+
+#pragma mark - 文件共享
+
+-(void)shareFilePath:(NSURL *)filePath;
 
 #pragma mark - 网络时间
 
