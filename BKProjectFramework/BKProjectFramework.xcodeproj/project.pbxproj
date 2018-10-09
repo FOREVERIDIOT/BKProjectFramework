@@ -77,7 +77,6 @@
 		1D6B900220EF152100BBEAD1 /* BKNetworkUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8FFF20EF152100BBEAD1 /* BKNetworkUploadModel.m */; };
 		1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */; };
 		1D6D067A211BD32800C23483 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D0676211BD32800C23483 /* GPUImageBeautifyFilter.m */; };
-		1D6ED1892126784E00C9E729 /* UITableView+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */; };
 		1D6ED18D2126C5CF00C9E729 /* BKGPUImageBeautyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED18B2126C5CE00C9E729 /* BKGPUImageBeautyFilter.m */; };
 		1D6ED1902126C90100C9E729 /* BKBeautifulSkinFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6ED18F2126C90100C9E729 /* BKBeautifulSkinFilter.m */; };
 		1D75217B21227D6200862397 /* BKImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75216D21227D6200862397 /* BKImagePreviewViewController.m */; };
@@ -87,6 +86,9 @@
 		1D75217F21227D6200862397 /* BKImagePreviewCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217721227D6200862397 /* BKImagePreviewCollectionViewFlowLayout.m */; };
 		1D75218021227D6200862397 /* BKImagePreviewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D75217A21227D6200862397 /* BKImagePreviewCollectionViewCell.m */; };
 		1D7E145B20F360EB00E6546D /* NSObject+BKNetworkExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */; };
+		1D8A601B216C5515009BAB65 /* UITextField+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A601A216C5515009BAB65 /* UITextField+BKExtension.m */; };
+		1D8A6021216C5883009BAB65 /* BKRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A601D216C5883009BAB65 /* BKRefreshFooter.m */; };
+		1D8A6022216C5883009BAB65 /* BKRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A601E216C5883009BAB65 /* BKRefreshHeader.m */; };
 		1D8AB8AF21216EC600032629 /* BKCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB89F21216EC600032629 /* BKCameraViewController.m */; };
 		1D8AB8B021216EC600032629 /* BKCameraFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB8A121216EC600032629 /* BKCameraFilterView.m */; };
 		1D8AB8B121216EC600032629 /* BKCameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AB8A321216EC600032629 /* BKCameraManager.m */; };
@@ -246,8 +248,6 @@
 		1D6B900420EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKNetworkRequestFailureView.m; sourceTree = "<group>"; };
 		1D6D0676211BD32800C23483 /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 		1D6D0677211BD32800C23483 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
-		1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+BKExtension.h"; sourceTree = "<group>"; };
-		1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+BKExtension.m"; sourceTree = "<group>"; };
 		1D6ED18B2126C5CE00C9E729 /* BKGPUImageBeautyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKGPUImageBeautyFilter.m; sourceTree = "<group>"; };
 		1D6ED18C2126C5CE00C9E729 /* BKGPUImageBeautyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGPUImageBeautyFilter.h; sourceTree = "<group>"; };
 		1D6ED18E2126C90100C9E729 /* BKBeautifulSkinFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBeautifulSkinFilter.h; sourceTree = "<group>"; };
@@ -266,6 +266,12 @@
 		1D75217A21227D6200862397 /* BKImagePreviewCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKImagePreviewCollectionViewCell.m; sourceTree = "<group>"; };
 		1D7E145920F360EB00E6546D /* NSObject+BKNetworkExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BKNetworkExtension.h"; sourceTree = "<group>"; };
 		1D7E145A20F360EB00E6546D /* NSObject+BKNetworkExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKNetworkExtension.m"; sourceTree = "<group>"; };
+		1D8A6019216C5515009BAB65 /* UITextField+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+BKExtension.h"; sourceTree = "<group>"; };
+		1D8A601A216C5515009BAB65 /* UITextField+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BKExtension.m"; sourceTree = "<group>"; };
+		1D8A601D216C5883009BAB65 /* BKRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRefreshFooter.m; sourceTree = "<group>"; };
+		1D8A601E216C5883009BAB65 /* BKRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRefreshHeader.m; sourceTree = "<group>"; };
+		1D8A601F216C5883009BAB65 /* BKRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRefreshHeader.h; sourceTree = "<group>"; };
+		1D8A6020216C5883009BAB65 /* BKRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRefreshFooter.h; sourceTree = "<group>"; };
 		1D8AB89E21216EC600032629 /* BKCameraFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCameraFilterView.h; sourceTree = "<group>"; };
 		1D8AB89F21216EC600032629 /* BKCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCameraViewController.m; sourceTree = "<group>"; };
 		1D8AB8A021216EC600032629 /* BKCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCameraManager.h; sourceTree = "<group>"; };
@@ -737,6 +743,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1D8A601C216C5883009BAB65 /* BKRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				1D8A601F216C5883009BAB65 /* BKRefreshHeader.h */,
+				1D8A601E216C5883009BAB65 /* BKRefreshHeader.m */,
+				1D8A6020216C5883009BAB65 /* BKRefreshFooter.h */,
+				1D8A601D216C5883009BAB65 /* BKRefreshFooter.m */,
+			);
+			path = BKRefresh;
+			sourceTree = "<group>";
+		};
 		1D8AB89D21216EC600032629 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,6 +901,7 @@
 		1DB1788520EDB4AA00BA7652 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1D8A601C216C5883009BAB65 /* BKRefresh */,
 				1D45CA4020FC6892003C7BA4 /* BKImagePicker */,
 				1D02949520F5DA2900D75606 /* BKRoundedRectView */,
 				1D6B8FFC20EF150800BBEAD1 /* BKNetwork */,
@@ -920,12 +938,12 @@
 				1D0294A720F5E74900D75606 /* UIImageView+BKExtension.m */,
 				1D0294A920F5ED2B00D75606 /* UIImage+BKExtension.h */,
 				1D0294AA20F5ED2B00D75606 /* UIImage+BKExtension.m */,
-				1D6ED1872126784E00C9E729 /* UITableView+BKExtension.h */,
-				1D6ED1882126784E00C9E729 /* UITableView+BKExtension.m */,
 				1DC9DC67216B0B9B00EA1FD9 /* UILabel+BKExtension.h */,
 				1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */,
 				1DC9DC6A216B1CE000EA1FD9 /* NSAttributedString+BKExtension.h */,
 				1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */,
+				1D8A6019216C5515009BAB65 /* UITextField+BKExtension.h */,
+				1D8A601A216C5515009BAB65 /* UITextField+BKExtension.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1120,10 +1138,10 @@
 				1D75217F21227D6200862397 /* BKImagePreviewCollectionViewFlowLayout.m in Sources */,
 				1D0294B220F5FD9500D75606 /* BKTableView.m in Sources */,
 				1D0294B520F5FDC700D75606 /* BKCollectionView.m in Sources */,
+				1D8A6021216C5883009BAB65 /* BKRefreshFooter.m in Sources */,
 				1D45CAC120FC6892003C7BA4 /* BKImagePickerFooterCollectionReusableView.m in Sources */,
 				1DA0E13321002C1E005D6FB3 /* BKImagePickerConstant.m in Sources */,
 				1D45CACC20FC6892003C7BA4 /* BKImageAlbumListTableViewCell.m in Sources */,
-				1D6ED1892126784E00C9E729 /* UITableView+BKExtension.m in Sources */,
 				1D45CAB420FC6892003C7BA4 /* BKEditImageViewController.m in Sources */,
 				1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */,
 				1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */,
@@ -1139,6 +1157,7 @@
 				1D6B8FFB20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m in Sources */,
 				1D75217E21227D6200862397 /* BKImagePreviewInteractiveTransition.m in Sources */,
 				1DA0E13621002C48005D6FB3 /* BKImagePicker.m in Sources */,
+				1D8A601B216C5515009BAB65 /* UITextField+BKExtension.m in Sources */,
 				1D75218021227D6200862397 /* BKImagePreviewCollectionViewCell.m in Sources */,
 				1D45CAA620FC6892003C7BA4 /* NSObject+BKImagePicker.m in Sources */,
 				1DA0E13A21003506005D6FB3 /* BKImageManageModel.m in Sources */,
@@ -1194,6 +1213,7 @@
 				1D0294A820F5E74900D75606 /* UIImageView+BKExtension.m in Sources */,
 				1D6B900520EF3BCF00BBEAD1 /* BKNetworkRequestFailureView.m in Sources */,
 				1D8EEA6E212A690D004CF59E /* BKCameraGradientShadow.m in Sources */,
+				1D8A6022216C5883009BAB65 /* BKRefreshHeader.m in Sources */,
 				1D0294B820F5FFB200D75606 /* BKImageView.m in Sources */,
 				1D75217D21227D6200862397 /* BKImagePreviewTransitionAnimater.m in Sources */,
 			);

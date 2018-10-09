@@ -29,6 +29,8 @@
 #import "BKNetworkRequest.h"
 #import "BKRoundedRectView.h"
 #import "BKImagePicker.h"
+#import "BKRefreshHeader.h"
+#import "BKRefreshFooter.h"
 
 #import "NSObject+BKExtension.h"
 #import "NSDate+BKExtension.h"
@@ -39,6 +41,7 @@
 #import "UIImage+BKExtension.h"
 #import "UILabel+BKExtension.h"
 #import "NSAttributedString+BKExtension.h"
+#import "UITextField+BKExtension.h"
 
 #endif
 

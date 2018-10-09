@@ -7,7 +7,6 @@
 //
 
 #import "UIView+BKExtension.h"
-#import "MBProgressHUD.h"
 
 @implementation UIView (BKExtension)
 
@@ -212,18 +211,31 @@
 /**
  显示加载框 （不可点击）
  */
--(void)showLoading
+-(MBProgressHUD*)showLoading
 {
-    __block BOOL isExist = NO;
+    __block MBProgressHUD * hud = nil;
     [[self subviews] enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[MBProgressHUD class]]) {
-            isExist = YES;
+            hud = obj;
             *stop = YES;
         }
     }];
-    if (!isExist) {
-        [MBProgressHUD showHUDAddedTo:self animated:YES];
+    if (!hud) {
+        hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
     }
+    return hud;
+}
+
+/**
+ 显示带提示加载框 （不可点击）
+
+ @param remind 提示
+ */
+-(void)showLoading:(NSString*)remind
+{
+    MBProgressHUD * hud = [self showLoading];
+    hud.label.text = remind;
 }
 
 /**
@@ -237,19 +249,31 @@
 /**
  显示加载框 （可点击）
  */
--(void)showHUD
+-(MBProgressHUD*)showHUD
 {
-    __block BOOL isExist = NO;
+    __block MBProgressHUD * hud = nil;
     [[self subviews] enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[MBProgressHUD class]]) {
-            isExist = YES;
+            hud = obj;
             *stop = YES;
         }
     }];
-    if (!isExist) {
-        MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    if (!hud) {
+        hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
         hud.userInteractionEnabled = NO;
     }
+    return hud;
+}
+
+/**
+ 显示带提示加载框 （可点击）
+ 
+ @param remind 提示
+ */
+-(void)showHUD:(NSString*)remind
+{
+    MBProgressHUD * hud = [self showHUD];
+    hud.label.text = remind;
 }
 
 /**

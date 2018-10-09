@@ -2,7 +2,7 @@
 //  BKBeautifulSkinFilter.m
 //  BKProjectFramework
 //
-//  Created by zhaolin on 2018/8/17.
+//  Created by BIKE on 2018/8/17.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

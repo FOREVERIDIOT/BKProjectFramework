@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
 @interface UIView (BKExtension)
 
@@ -78,7 +79,14 @@
 /**
  显示加载框 （不可点击）
  */
--(void)showLoading;
+-(MBProgressHUD*)showLoading;
+
+/**
+ 显示带提示加载框 （不可点击）
+ 
+ @param remind 提示
+ */
+-(void)showLoading:(NSString*)remind;
 
 /**
  隐藏加载框 （不可点击）
@@ -88,7 +96,14 @@
 /**
  显示加载框 （可点击）
  */
--(void)showHUD;
+-(MBProgressHUD*)showHUD;
+
+/**
+ 显示带提示加载框 （可点击）
+ 
+ @param remind 提示
+ */
+-(void)showHUD:(NSString*)remind;
 
 /**
  隐藏加载框 （可点击）
