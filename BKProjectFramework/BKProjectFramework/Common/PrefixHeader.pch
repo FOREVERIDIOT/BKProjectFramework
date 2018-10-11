@@ -31,6 +31,7 @@
 #import "BKImagePicker.h"
 #import "BKRefreshHeader.h"
 #import "BKRefreshFooter.h"
+#import "BKPickerView.h"
 
 #import "NSObject+BKExtension.h"
 #import "NSDate+BKExtension.h"

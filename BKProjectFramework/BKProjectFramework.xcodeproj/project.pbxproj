@@ -20,6 +20,7 @@
 		1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BB20F6003300D75606 /* BKTabBarController.m */; };
 		1D0294BF20F6004B00D75606 /* BKTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294BE20F6004B00D75606 /* BKTabBar.m */; };
 		1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0294C120F6058700D75606 /* BKTabBarBtn.m */; };
+		1D08D6F6216DDBDF00C5C76B /* BKPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08D6F5216DDBDF00C5C76B /* BKPickerView.m */; };
 		1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */; };
 		1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77420F740FA0010FBB5 /* UINavigationController+BKNavExtension.m */; };
 		1D3AA77C20F740FA0010FBB5 /* BKNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AA77620F740FA0010FBB5 /* BKNavViewController.m */; };
@@ -145,6 +146,8 @@
 		1D0294BE20F6004B00D75606 /* BKTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBar.m; sourceTree = "<group>"; };
 		1D0294C020F6058700D75606 /* BKTabBarBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTabBarBtn.h; sourceTree = "<group>"; };
 		1D0294C120F6058700D75606 /* BKTabBarBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTabBarBtn.m; sourceTree = "<group>"; };
+		1D08D6F4216DDBDF00C5C76B /* BKPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPickerView.h; sourceTree = "<group>"; };
+		1D08D6F5216DDBDF00C5C76B /* BKPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPickerView.m; sourceTree = "<group>"; };
 		1D0DF821216AFA2D00BCA8DF /* BKColorMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKColorMacro.h; sourceTree = "<group>"; };
 		1D3AA76320F6F5650010FBB5 /* BKBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBaseViewController.h; sourceTree = "<group>"; };
 		1D3AA76420F6F5650010FBB5 /* BKBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBaseViewController.m; sourceTree = "<group>"; };
@@ -400,6 +403,15 @@
 				1D0294C120F6058700D75606 /* BKTabBarBtn.m */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		1D08D6F3216DDBDF00C5C76B /* BKPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1D08D6F4216DDBDF00C5C76B /* BKPickerView.h */,
+				1D08D6F5216DDBDF00C5C76B /* BKPickerView.m */,
+			);
+			path = BKPickerView;
 			sourceTree = "<group>";
 		};
 		1D3AA76220F6F53A0010FBB5 /* BaseViewController */ = {
@@ -901,6 +913,7 @@
 		1DB1788520EDB4AA00BA7652 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1D08D6F3216DDBDF00C5C76B /* BKPickerView */,
 				1D8A601C216C5883009BAB65 /* BKRefresh */,
 				1D45CA4020FC6892003C7BA4 /* BKImagePicker */,
 				1D02949520F5DA2900D75606 /* BKRoundedRectView */,
@@ -1175,6 +1188,7 @@
 				1D45CABA20FC6892003C7BA4 /* BKEditImageWriteView.m in Sources */,
 				1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */,
 				1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */,
+				1D08D6F6216DDBDF00C5C76B /* BKPickerView.m in Sources */,
 				1D6B8FEC20EF09EE00BBEAD1 /* BKCycleScrollCollectionViewCell.m in Sources */,
 				1D45CABD20FC6892003C7BA4 /* BKEditImagePreviewCollectionViewCell.m in Sources */,
 				1D75217C21227D6200862397 /* BKVideoPreviewViewController.m in Sources */,
