@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, BKPickerStyle) {
 @property (nonatomic,copy) NSArray<NSNumber*> * selectIndexArr;
 /**
  切换选择返回索引数组回调 用于修改数据源 返回一维数组 例子@[@(),@(),@()]
- 提示只修改了当前滑动component的index 大于当前component后的index未修改 如果数组越界请传入对应component数组最后的index
+ 提示 修改了当前滑动component的index 大于当前component后的index置为0
  当BKPickerStyle == BKPickerStyleMultilevelLinkage时有效
  */
 @property (nonatomic,copy) NSArray * (^changeSelectIndexsCallback)(NSArray<NSNumber*> * selectIndexArr);

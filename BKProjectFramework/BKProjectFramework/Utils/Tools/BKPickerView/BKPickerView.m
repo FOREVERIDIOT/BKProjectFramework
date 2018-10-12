@@ -38,6 +38,10 @@ float const kToolBarHeight = 50;
 float const kPickerHeight = 230;
 float const kRowHeight = 40;
 
+float const kToolBarButtonTitleFontSize = 16;
+float const kToolBarRemindTitleFontSize = 15;
+float const kPickerTitleFontSize = 16;
+
 #import "BKPickerView.h"
 
 @interface BKPickerView()<UIPickerViewDelegate,UIPickerViewDataSource>
@@ -163,7 +167,7 @@ float const kRowHeight = 40;
         cancelBtn.frame = CGRectMake(0, 0, 64, _toolbar.frame.size.height);
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn setTitleColor:BK_PICKER_TOOLBAR_BUTTON_TITLE_COLOR forState:UIControlStateNormal];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kToolBarButtonTitleFontSize];
         [cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolbar addSubview:cancelBtn];
         
@@ -171,14 +175,14 @@ float const kRowHeight = 40;
         button.frame = CGRectMake(_toolbar.frame.size.width-64, 0, 64, _toolbar.frame.size.height);
         [button setTitle:@"完成" forState:UIControlStateNormal];
         [button setTitleColor:BK_PICKER_TOOLBAR_BUTTON_TITLE_COLOR forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:16];
+        button.titleLabel.font = [UIFont systemFontOfSize:kToolBarButtonTitleFontSize];
         [button addTarget:self action:@selector(pickerBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolbar addSubview:button];
         
         UILabel * remindLab = [[UILabel alloc]initWithFrame:CGRectMake(64, 0, _toolbar.frame.size.width - 64*2, _toolbar.frame.size.height)];
         remindLab.text = _remind;
         remindLab.textColor = BK_PICKER_TOOLBAR_REMIND_TITLE_COLOR;
-        remindLab.font = [UIFont systemFontOfSize:15];
+        remindLab.font = [UIFont systemFontOfSize:kToolBarRemindTitleFontSize];
         remindLab.textAlignment = NSTextAlignmentCenter;
         [_toolbar addSubview:remindLab];
     }
@@ -402,7 +406,7 @@ float const kRowHeight = 40;
     }
     
     UILabel * tittleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, kRowHeight)];
-    tittleLab.font = [UIFont systemFontOfSize:16];
+    tittleLab.font = [UIFont systemFontOfSize:kPickerTitleFontSize];
     tittleLab.textColor = [UIColor blackColor];
     tittleLab.textAlignment = NSTextAlignmentCenter;
     
@@ -421,19 +425,21 @@ float const kRowHeight = 40;
         self.selectIndex = row;
     }else if (self.pickerStyle == BKPickerStyleMultilevelLinkage) {
         NSMutableArray * selectIndexArr = [self.selectIndexArr mutableCopy];
-        [selectIndexArr replaceObjectAtIndex:component withObject:@(row)];
+        [selectIndexArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (component == idx) {
+                [selectIndexArr replaceObjectAtIndex:idx withObject:@(row)];
+            }else if (component < idx){
+                [selectIndexArr replaceObjectAtIndex:idx withObject:@(0)];
+            }
+        }];
         
         if (self.changeSelectIndexsCallback) {
             _dataArr = [self.changeSelectIndexsCallback(selectIndexArr) copy];
-            [selectIndexArr enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSInteger index = [obj integerValue];
-                NSInteger max_index = [self->_dataArr[idx] count] - 1;
-                if (index > max_index) {
-                    [selectIndexArr replaceObjectAtIndex:idx withObject:@(max_index)];
-                }
-            }];
         }
         self.selectIndexArr = [selectIndexArr copy];
+        [self.selectIndexArr enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [pickerView selectRow:[obj integerValue] inComponent:idx animated:NO];
+        }];
         [self.defaultPicker reloadAllComponents];
     }
 }

@@ -22,8 +22,9 @@ NSString * const kCellID = @"contentCell";
 @property (nonatomic,strong) UIScrollView * menuScrollView;
 @property (nonatomic,strong) UICollectionView * contentView;
 
+@property (nonatomic,strong) GPUImagePicture * exampleImage;
 @property (nonatomic,strong) NSArray<NSString*> * filterTitleArr;
-@property (nonatomic,strong) NSArray<UIImage*> * filterImageArr;
+@property (nonatomic,strong) NSMutableArray * filterImageArr;
 @property (nonatomic,strong) NSArray<NSNumber*> * filterTypeArr;
 
 @property (nonatomic,weak) UIButton * selectMenuBtn;
@@ -44,6 +45,14 @@ NSString * const kCellID = @"contentCell";
     return _menuArr;
 }
 
+-(GPUImagePicture*)exampleImage
+{
+    if (!_exampleImage) {
+        _exampleImage = [[GPUImagePicture alloc] initWithImage:[UIImage bk_filterImageWithImageName:@"filter_image_example.jpg"]];
+    }
+    return _exampleImage;
+}
+
 -(NSArray<NSString *> *)filterTitleArr
 {
     if (!_filterTitleArr) {
@@ -52,18 +61,10 @@ NSString * const kCellID = @"contentCell";
     return _filterTitleArr;
 }
 
--(NSArray<UIImage *> *)filterImageArr
+-(NSMutableArray *)filterImageArr
 {
     if (!_filterImageArr) {
-        NSArray * imageArr = @[@"filter_original",@"filter_clean",@"filter_nature",@"filter_fresh",@"filter_glossy",@"filter_tianmei",@"filter_meiwei",@"filter_yangqi",@"filter_yuanqi",@"filter_lolita",@"filter_chulian",@"filter_jiari",@"filter_sunset",@"filter_vintage",@"filter_vivid",@"filter_xinxian",@"filter_makalong",@"filter_musi",@"filter_bingqiling",@"filter_sweety",@"filter_coral",@"filter_grass",@"filter_xiaosenlin",@"filter_urban"];
-        //原始图片
-        GPUImagePicture * image = [[GPUImagePicture alloc] initWithImage:[UIImage bk_filterImageWithImageName:@"filter_image_example.jpg"]];
-        NSMutableArray * mImageArr = [NSMutableArray array];
-        for (NSString * imageStr in imageArr) {
-            UIImage * resultImage = [self getFilterImageWithOriginalImage:image lookupImageStr:imageStr];
-            [mImageArr addObject:resultImage];
-        }
-        _filterImageArr = [mImageArr copy];
+        _filterImageArr = @[@"filter_original",@"filter_clean",@"filter_nature",@"filter_fresh",@"filter_glossy",@"filter_tianmei",@"filter_meiwei",@"filter_yangqi",@"filter_yuanqi",@"filter_lolita",@"filter_chulian",@"filter_jiari",@"filter_sunset",@"filter_vintage",@"filter_vivid",@"filter_xinxian",@"filter_makalong",@"filter_musi",@"filter_bingqiling",@"filter_sweety",@"filter_coral",@"filter_grass",@"filter_xiaosenlin",@"filter_urban"].mutableCopy;
     }
     return _filterImageArr;
 }
@@ -270,9 +271,20 @@ NSString * const kCellID = @"contentCell";
         topImageView.clipsToBounds = YES;
         topImageView.contentMode = UIViewContentModeScaleAspectFill;
         topImageView.layer.cornerRadius = topImageView.bk_height/2;
-        topImageView.image = self.filterImageArr[indexPath.item];
         topImageView.tag = 1;
         [cell addSubview:topImageView];
+        
+        UIImage * exampleImage = self.filterImageArr[indexPath.item];
+        if ([exampleImage isKindOfClass:[NSString class]]) {
+            UIImage * resultImage = [self getFilterImageWithOriginalImage:self.exampleImage lookupImageStr:(NSString*)exampleImage];
+            topImageView.image = resultImage;
+            
+            if (resultImage) {
+                [self.filterImageArr replaceObjectAtIndex:indexPath.item withObject:resultImage];
+            }
+        }else if ([exampleImage isKindOfClass:[UIImage class]]) {
+            topImageView.image = exampleImage;
+        }
         
         UILabel * bottomTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame) + 8, cell.bk_width, 20)];
         bottomTitleLab.textAlignment = NSTextAlignmentCenter;

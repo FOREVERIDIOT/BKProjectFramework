@@ -20,6 +20,18 @@
 
 +(instancetype)shareClient;
 
+#pragma mark - POST
+
+/**
+ POST请求
+ 
+ @param url          链接
+ @param params       参数
+ @param success      成功
+ @param failure      失败
+ */
+-(void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError * error))failure;
+
 /**
  POST请求
 
@@ -42,6 +54,8 @@
  @param failure         失败
  */
 - (void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray requestProgress:(void (^)(NSProgress*progress))requestProgress success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+#pragma mark - GET
 
 /**
  GET请求
