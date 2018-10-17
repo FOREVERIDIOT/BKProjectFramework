@@ -113,6 +113,14 @@
 		1DB1789320EDCA7100BA7652 /* NSDate+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789220EDCA7100BA7652 /* NSDate+BKExtension.m */; };
 		1DB1789720EDEB8400BA7652 /* BKTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789620EDEB8400BA7652 /* BKTimer.m */; };
 		1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1789920EDFC8000BA7652 /* BKTimerModel.m */; };
+		1DB852A72177167D00F0BF03 /* BKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852982177167D00F0BF03 /* BKCalendarViewController.m */; };
+		1DB852A82177167D00F0BF03 /* BKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852992177167D00F0BF03 /* BKCalendarView.m */; };
+		1DB852A92177167D00F0BF03 /* BKDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8529B2177167D00F0BF03 /* BKDayModel.m */; };
+		1DB852AA2177167D00F0BF03 /* BKCalendar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8529C2177167D00F0BF03 /* BKCalendar.bundle */; };
+		1DB852AB2177167D00F0BF03 /* BKMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8529D2177167D00F0BF03 /* BKMonthModel.m */; };
+		1DB852AC2177167D00F0BF03 /* BKCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8529E2177167D00F0BF03 /* BKCalendarViewCell.m */; };
+		1DB852AD2177167D00F0BF03 /* NSDate+BKCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852A02177167D00F0BF03 /* NSDate+BKCalendar.m */; };
+		1DB852AE2177167D00F0BF03 /* NSDate+BKChineseCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852A42177167D00F0BF03 /* NSDate+BKChineseCalendar.m */; };
 		1DC9DC69216B0B9B00EA1FD9 /* UILabel+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */; };
 		1DC9DC6C216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */; };
 		CE8A81A8C5447FF50546F4CB /* libPods-BKProjectFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E353447F6B4F8FD104F46519 /* libPods-BKProjectFramework.a */; };
@@ -321,6 +329,22 @@
 		1DB1789820EDFC8000BA7652 /* BKTimerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTimerModel.h; sourceTree = "<group>"; };
 		1DB1789920EDFC8000BA7652 /* BKTimerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTimerModel.m; sourceTree = "<group>"; };
 		1DB1789C20EE229200BA7652 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		1DB852972177167D00F0BF03 /* NSDate+BKCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BKCalendar.h"; sourceTree = "<group>"; };
+		1DB852982177167D00F0BF03 /* BKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCalendarViewController.m; sourceTree = "<group>"; };
+		1DB852992177167D00F0BF03 /* BKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCalendarView.m; sourceTree = "<group>"; };
+		1DB8529A2177167D00F0BF03 /* NSDate+BKChineseCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BKChineseCalendar.h"; sourceTree = "<group>"; };
+		1DB8529B2177167D00F0BF03 /* BKDayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKDayModel.m; sourceTree = "<group>"; };
+		1DB8529C2177167D00F0BF03 /* BKCalendar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKCalendar.bundle; sourceTree = "<group>"; };
+		1DB8529D2177167D00F0BF03 /* BKMonthModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKMonthModel.m; sourceTree = "<group>"; };
+		1DB8529E2177167D00F0BF03 /* BKCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCalendarViewCell.m; sourceTree = "<group>"; };
+		1DB852A02177167D00F0BF03 /* NSDate+BKCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BKCalendar.m"; sourceTree = "<group>"; };
+		1DB852A12177167D00F0BF03 /* BKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCalendarViewController.h; sourceTree = "<group>"; };
+		1DB852A22177167D00F0BF03 /* BKMonthModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMonthModel.h; sourceTree = "<group>"; };
+		1DB852A32177167D00F0BF03 /* BKDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDayModel.h; sourceTree = "<group>"; };
+		1DB852A42177167D00F0BF03 /* NSDate+BKChineseCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BKChineseCalendar.m"; sourceTree = "<group>"; };
+		1DB852A52177167D00F0BF03 /* BKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCalendarView.h; sourceTree = "<group>"; };
+		1DB852A62177167D00F0BF03 /* BKCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCalendarViewCell.h; sourceTree = "<group>"; };
+		1DB852AF2177169000F0BF03 /* BKCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCalendar.h; sourceTree = "<group>"; };
 		1DC9DC67216B0B9B00EA1FD9 /* UILabel+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+BKExtension.h"; sourceTree = "<group>"; };
 		1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BKExtension.m"; sourceTree = "<group>"; };
 		1DC9DC6A216B1CE000EA1FD9 /* NSAttributedString+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+BKExtension.h"; sourceTree = "<group>"; };
@@ -913,6 +937,7 @@
 		1DB1788520EDB4AA00BA7652 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1DB852962177167D00F0BF03 /* BKCalendar */,
 				1D08D6F3216DDBDF00C5C76B /* BKPickerView */,
 				1D8A601C216C5883009BAB65 /* BKRefresh */,
 				1D45CA4020FC6892003C7BA4 /* BKImagePicker */,
@@ -981,6 +1006,29 @@
 				1DB1789920EDFC8000BA7652 /* BKTimerModel.m */,
 			);
 			path = BKTimer;
+			sourceTree = "<group>";
+		};
+		1DB852962177167D00F0BF03 /* BKCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				1DB8529C2177167D00F0BF03 /* BKCalendar.bundle */,
+				1DB852AF2177169000F0BF03 /* BKCalendar.h */,
+				1DB852972177167D00F0BF03 /* NSDate+BKCalendar.h */,
+				1DB852A02177167D00F0BF03 /* NSDate+BKCalendar.m */,
+				1DB8529A2177167D00F0BF03 /* NSDate+BKChineseCalendar.h */,
+				1DB852A42177167D00F0BF03 /* NSDate+BKChineseCalendar.m */,
+				1DB852A12177167D00F0BF03 /* BKCalendarViewController.h */,
+				1DB852982177167D00F0BF03 /* BKCalendarViewController.m */,
+				1DB852A52177167D00F0BF03 /* BKCalendarView.h */,
+				1DB852992177167D00F0BF03 /* BKCalendarView.m */,
+				1DB852A62177167D00F0BF03 /* BKCalendarViewCell.h */,
+				1DB8529E2177167D00F0BF03 /* BKCalendarViewCell.m */,
+				1DB852A32177167D00F0BF03 /* BKDayModel.h */,
+				1DB8529B2177167D00F0BF03 /* BKDayModel.m */,
+				1DB852A22177167D00F0BF03 /* BKMonthModel.h */,
+				1DB8529D2177167D00F0BF03 /* BKMonthModel.m */,
+			);
+			path = BKCalendar;
 			sourceTree = "<group>";
 		};
 		7BDF06C12D23B0BA74C86081 /* Pods */ = {
@@ -1074,6 +1122,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DB852AA2177167D00F0BF03 /* BKCalendar.bundle in Resources */,
 				1D45CAAB20FC6892003C7BA4 /* BKImage.bundle in Resources */,
 				1DB1787720EDAD9100BA7652 /* Assets.xcassets in Resources */,
 			);
@@ -1144,16 +1193,19 @@
 				1D45CAB720FC6892003C7BA4 /* BKEditImageClipFrameView.m in Sources */,
 				1D6B8FEE20EF09EE00BBEAD1 /* BKCycleScrollImageView.m in Sources */,
 				1D8AB8B521216EC600032629 /* BKCameraFocusRectangle.m in Sources */,
+				1DB852A92177167D00F0BF03 /* BKDayModel.m in Sources */,
 				1D8AB8B121216EC600032629 /* BKCameraManager.m in Sources */,
 				1D3AA77D20F740FA0010FBB5 /* BKTransitionAnimater.m in Sources */,
 				1DB1788B20EDB52F00BA7652 /* BKShareManager.m in Sources */,
 				1D45CAA920FC6892003C7BA4 /* UIBezierPath+BKImagePicker.m in Sources */,
 				1D75217F21227D6200862397 /* BKImagePreviewCollectionViewFlowLayout.m in Sources */,
+				1DB852A82177167D00F0BF03 /* BKCalendarView.m in Sources */,
 				1D0294B220F5FD9500D75606 /* BKTableView.m in Sources */,
 				1D0294B520F5FDC700D75606 /* BKCollectionView.m in Sources */,
 				1D8A6021216C5883009BAB65 /* BKRefreshFooter.m in Sources */,
 				1D45CAC120FC6892003C7BA4 /* BKImagePickerFooterCollectionReusableView.m in Sources */,
 				1DA0E13321002C1E005D6FB3 /* BKImagePickerConstant.m in Sources */,
+				1DB852AC2177167D00F0BF03 /* BKCalendarViewCell.m in Sources */,
 				1D45CACC20FC6892003C7BA4 /* BKImageAlbumListTableViewCell.m in Sources */,
 				1D45CAB420FC6892003C7BA4 /* BKEditImageViewController.m in Sources */,
 				1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */,
@@ -1161,6 +1213,7 @@
 				1D8AB8B321216EC600032629 /* BKCameraRecordProgress.m in Sources */,
 				1D45CAC220FC6892003C7BA4 /* BKImageAlbumItemSelectButton.m in Sources */,
 				1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */,
+				1DB852AD2177167D00F0BF03 /* NSDate+BKCalendar.m in Sources */,
 				1D45CB0420FC8328003C7BA4 /* BKImageBaseViewController.m in Sources */,
 				1D45CAA820FC6892003C7BA4 /* UIImage+BKImagePicker.m in Sources */,
 				1D0294AF20F5FCEA00D75606 /* BKScrollView.m in Sources */,
@@ -1170,6 +1223,7 @@
 				1D6B8FFB20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m in Sources */,
 				1D75217E21227D6200862397 /* BKImagePreviewInteractiveTransition.m in Sources */,
 				1DA0E13621002C48005D6FB3 /* BKImagePicker.m in Sources */,
+				1DB852A72177167D00F0BF03 /* BKCalendarViewController.m in Sources */,
 				1D8A601B216C5515009BAB65 /* UITextField+BKExtension.m in Sources */,
 				1D75218021227D6200862397 /* BKImagePreviewCollectionViewCell.m in Sources */,
 				1D45CAA620FC6892003C7BA4 /* NSObject+BKImagePicker.m in Sources */,
@@ -1182,6 +1236,7 @@
 				1D45CAB920FC6892003C7BA4 /* BKEditImageDrawView.m in Sources */,
 				1D8AB8B221216EC600032629 /* BKCameraRecordProgressModel.m in Sources */,
 				1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */,
+				1DB852AB2177167D00F0BF03 /* BKMonthModel.m in Sources */,
 				1D45CAC320FC6892003C7BA4 /* BKImagePickerCollectionViewCell.m in Sources */,
 				1D45CAB520FC6892003C7BA4 /* BKEditImageDrawModel.m in Sources */,
 				1D6B8FF720EF0C1200BBEAD1 /* BKConstant.m in Sources */,
@@ -1208,6 +1263,7 @@
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
 				1D6ED18D2126C5CF00C9E729 /* BKGPUImageBeautyFilter.m in Sources */,
 				1DB1786F20EDAD9000BA7652 /* AppDelegate.m in Sources */,
+				1DB852AE2177167D00F0BF03 /* NSDate+BKChineseCalendar.m in Sources */,
 				1DA0E14021006EC6005D6FB3 /* NSString+BKImagePicker.m in Sources */,
 				1D6B8FEB20EF09EE00BBEAD1 /* BKCycleScrollView.m in Sources */,
 				1D45CACA20FC6892003C7BA4 /* BKImageAlbumListViewController.m in Sources */,

@@ -25,7 +25,8 @@ NSString * const kRegisterTableViewHeaderID = @"UITableViewHeaderView";
 {
     if (!_dataArr) {
         _dataArr = @[@{@"title":@"相机/图库", @"data":@[@"拍照",@"照片选择",@"拍小视频"]},
-                     @{@"title":@"选取器", @"data":@[@"单项选择",@"三级联动",@"选取时间格式YYYY MM dd",@"选取时间格式"]}];
+                     @{@"title":@"选取器", @"data":@[@"单项选择",@"三级联动",@"选取时间格式YYYY MM dd",@"选取时间格式"]},
+                     @{@"title":@"日历", @"data":@[@"日历"]}];
     }
     return _dataArr;
 }
@@ -234,6 +235,20 @@ NSString * const kRegisterTableViewHeaderID = @"UITableViewHeaderView";
                         NSLog(@"选取日期为%@",[date transformStringWithFormat:BKDateFormatYYYY_MM_dd_HH_mm]);
                     }];
                     [pickerView showInView:self.tabBarController.view];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    BKCalendarViewController * vc = [[BKCalendarViewController alloc] init];
+                    [self presentViewController:vc animated:YES completion:nil];
                 }
                     break;
                 default:
