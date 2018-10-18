@@ -122,4 +122,64 @@
     return nil;
 }
 
+#pragma mark - 方法操作
+
+/**
+ 打印对象所有实例方法
+ */
+-(void)printTotalInstanceMethods
+{
+#ifdef DEBUG
+    u_int count = 0;
+    Method * methods = class_copyMethodList([self class], &count);
+    for (int i = 0; i < count; i++) {
+        SEL methodName = method_getName(methods[i]);
+        NSString * methodString = NSStringFromSelector(methodName);
+        NSLog(@"%@",methodString);
+    }
+    free(methods);
+#endif
+}
+
+/**
+ 判断对象中是否有该实例方法
+ 
+ @param method 实例方法名称
+ @return 判断结果
+ */
+-(BOOL)haveInstanceMethod:(NSString *)method
+{
+    u_int count = 0;
+    Method * methods = class_copyMethodList([self class], &count);
+    for (int i = 0; i < count; i++) {
+        SEL methodName  = method_getName(methods[i]);
+        NSString * methodString = NSStringFromSelector(methodName);
+        if ([method isEqualToString:methodString]){
+            free(methods);
+            return YES;
+        }
+    }
+    free(methods);
+    return NO;
+}
+
+/**
+ 发送消息调用方法 调用前必须保证对象中包含即将调用方法 如果没有会崩溃 也可以调用该方法前先调用haveInstanceMethod检测方法
+ 
+ @param methodName 方法名称
+ @param object 方法参数
+ @return 方法返回
+ */
+-(id)messageSend:(NSString*)methodName methodParams:(id)object,...NS_REQUIRES_NIL_TERMINATION
+{
+//    在这个方法里检测是否包含该方法 会导致objc_msgSend方法崩溃 未知
+//    BOOL flag = [self haveInstanceMethod:methodName];
+//    if (!flag) {
+//        return nil;
+//    }
+    SEL selector = NSSelectorFromString(methodName);
+    id result = objc_msgSend(self, selector, object);
+    return result;
+}
+
 @end

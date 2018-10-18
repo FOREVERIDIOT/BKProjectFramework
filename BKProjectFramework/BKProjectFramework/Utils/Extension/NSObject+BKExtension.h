@@ -53,4 +53,28 @@
  */
 -(id)getValueForProperty:(NSString*)property;
 
+#pragma mark - 方法操作
+
+/**
+ 打印对象所有实例方法
+ */
+-(void)printTotalInstanceMethods;
+
+/**
+ 判断对象中是否有该实例方法
+ 
+ @param method 实例方法名称
+ @return 判断结果
+ */
+-(BOOL)haveInstanceMethod:(NSString *)method;
+
+/**
+ 发送消息调用方法 调用前必须保证对象中包含即将调用方法 如果没有会崩溃 也可以调用该方法前先调用haveInstanceMethod检测方法
+ 
+ @param methodName 方法名称
+ @param object 方法参数
+ @return 方法返回
+ */
+-(id)messageSend:(NSString*)methodName methodParams:(id)object,...NS_REQUIRES_NIL_TERMINATION;
+
 @end

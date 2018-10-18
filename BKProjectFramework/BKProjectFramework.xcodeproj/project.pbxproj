@@ -121,8 +121,18 @@
 		1DB852AC2177167D00F0BF03 /* BKCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8529E2177167D00F0BF03 /* BKCalendarViewCell.m */; };
 		1DB852AD2177167D00F0BF03 /* NSDate+BKCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852A02177167D00F0BF03 /* NSDate+BKCalendar.m */; };
 		1DB852AE2177167D00F0BF03 /* NSDate+BKChineseCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852A42177167D00F0BF03 /* NSDate+BKChineseCalendar.m */; };
+		1DB852C1217735AF00F0BF03 /* BKPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852B2217735AF00F0BF03 /* BKPhotoBrowser.m */; };
+		1DB852C2217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852B3217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.m */; };
+		1DB852C3217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852B5217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.m */; };
+		1DB852C4217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852B7217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.m */; };
+		1DB852C5217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852BB217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.m */; };
+		1DB852C6217735AF00F0BF03 /* BKPhotoBrowserIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852BD217735AF00F0BF03 /* BKPhotoBrowserIndicator.m */; };
+		1DB852C7217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB852BE217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.m */; };
+		1DB852C8217735AF00F0BF03 /* BKPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1DB852C0217735AF00F0BF03 /* BKPhotoBrowser.bundle */; };
+		1DB87D97217868E500BE1441 /* BKPhotoBrowserDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB87D96217868E500BE1441 /* BKPhotoBrowserDemoViewController.m */; };
 		1DC9DC69216B0B9B00EA1FD9 /* UILabel+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */; };
 		1DC9DC6C216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */; };
+		1DFA10312178697D009EECF3 /* 3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1DFA10302178697D009EECF3 /* 3.gif */; };
 		CE8A81A8C5447FF50546F4CB /* libPods-BKProjectFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E353447F6B4F8FD104F46519 /* libPods-BKProjectFramework.a */; };
 /* End PBXBuildFile section */
 
@@ -345,11 +355,30 @@
 		1DB852A52177167D00F0BF03 /* BKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCalendarView.h; sourceTree = "<group>"; };
 		1DB852A62177167D00F0BF03 /* BKCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCalendarViewCell.h; sourceTree = "<group>"; };
 		1DB852AF2177169000F0BF03 /* BKCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCalendar.h; sourceTree = "<group>"; };
+		1DB852B1217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserInteractiveTransition.h; sourceTree = "<group>"; };
+		1DB852B2217735AF00F0BF03 /* BKPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowser.m; sourceTree = "<group>"; };
+		1DB852B3217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserCollectionViewCell.m; sourceTree = "<group>"; };
+		1DB852B4217735AF00F0BF03 /* BKPhotoBrowserIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserIndicator.h; sourceTree = "<group>"; };
+		1DB852B5217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		1DB852B6217735AF00F0BF03 /* BKPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		1DB852B7217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserTransitionAnimater.m; sourceTree = "<group>"; };
+		1DB852B8217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserActionSheetView.h; sourceTree = "<group>"; };
+		1DB852B9217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserCollectionViewCell.h; sourceTree = "<group>"; };
+		1DB852BA217735AF00F0BF03 /* BKPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowser.h; sourceTree = "<group>"; };
+		1DB852BB217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserInteractiveTransition.m; sourceTree = "<group>"; };
+		1DB852BC217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		1DB852BD217735AF00F0BF03 /* BKPhotoBrowserIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserIndicator.m; sourceTree = "<group>"; };
+		1DB852BE217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserActionSheetView.m; sourceTree = "<group>"; };
+		1DB852BF217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserTransitionAnimater.h; sourceTree = "<group>"; };
+		1DB852C0217735AF00F0BF03 /* BKPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKPhotoBrowser.bundle; sourceTree = "<group>"; };
+		1DB87D95217868E500BE1441 /* BKPhotoBrowserDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKPhotoBrowserDemoViewController.h; sourceTree = "<group>"; };
+		1DB87D96217868E500BE1441 /* BKPhotoBrowserDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKPhotoBrowserDemoViewController.m; sourceTree = "<group>"; };
 		1DC9DC67216B0B9B00EA1FD9 /* UILabel+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+BKExtension.h"; sourceTree = "<group>"; };
 		1DC9DC68216B0B9B00EA1FD9 /* UILabel+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BKExtension.m"; sourceTree = "<group>"; };
 		1DC9DC6A216B1CE000EA1FD9 /* NSAttributedString+BKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+BKExtension.h"; sourceTree = "<group>"; };
 		1DC9DC6B216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+BKExtension.m"; sourceTree = "<group>"; };
 		1DD42B2D216B01D800008152 /* BKInline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKInline.h; sourceTree = "<group>"; };
+		1DFA10302178697D009EECF3 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
 		381FD458A68E5E9566264142 /* Pods-BKProjectFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKProjectFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKProjectFramework/Pods-BKProjectFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		E353447F6B4F8FD104F46519 /* libPods-BKProjectFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BKProjectFramework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9B924C62630D8B17445ED8 /* Pods-BKProjectFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKProjectFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-BKProjectFramework/Pods-BKProjectFramework.release.xcconfig"; sourceTree = "<group>"; };
@@ -655,6 +684,7 @@
 		1D50C9D220FF2BDC00626230 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1DB87D94217868B600BE1441 /* PhotoBrowser */,
 				1D50C9D320FF2BFC00626230 /* BKDemoViewController.h */,
 				1D50C9D420FF2BFC00626230 /* BKDemoViewController.m */,
 			);
@@ -937,6 +967,7 @@
 		1DB1788520EDB4AA00BA7652 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1DB852B0217735AF00F0BF03 /* BKPhotoBrowser */,
 				1DB852962177167D00F0BF03 /* BKCalendar */,
 				1D08D6F3216DDBDF00C5C76B /* BKPickerView */,
 				1D8A601C216C5883009BAB65 /* BKRefresh */,
@@ -1031,6 +1062,39 @@
 			path = BKCalendar;
 			sourceTree = "<group>";
 		};
+		1DB852B0217735AF00F0BF03 /* BKPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1DB852BA217735AF00F0BF03 /* BKPhotoBrowser.h */,
+				1DB852B2217735AF00F0BF03 /* BKPhotoBrowser.m */,
+				1DB852BC217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.h */,
+				1DB852B5217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.m */,
+				1DB852B9217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.h */,
+				1DB852B3217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.m */,
+				1DB852B1217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.h */,
+				1DB852BB217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.m */,
+				1DB852BF217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.h */,
+				1DB852B7217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.m */,
+				1DB852B4217735AF00F0BF03 /* BKPhotoBrowserIndicator.h */,
+				1DB852BD217735AF00F0BF03 /* BKPhotoBrowserIndicator.m */,
+				1DB852B8217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.h */,
+				1DB852BE217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.m */,
+				1DB852B6217735AF00F0BF03 /* BKPhotoBrowserConfig.h */,
+				1DB852C0217735AF00F0BF03 /* BKPhotoBrowser.bundle */,
+			);
+			path = BKPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		1DB87D94217868B600BE1441 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1DFA10302178697D009EECF3 /* 3.gif */,
+				1DB87D95217868E500BE1441 /* BKPhotoBrowserDemoViewController.h */,
+				1DB87D96217868E500BE1441 /* BKPhotoBrowserDemoViewController.m */,
+			);
+			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
 		7BDF06C12D23B0BA74C86081 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1122,9 +1186,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DB852C8217735AF00F0BF03 /* BKPhotoBrowser.bundle in Resources */,
 				1DB852AA2177167D00F0BF03 /* BKCalendar.bundle in Resources */,
 				1D45CAAB20FC6892003C7BA4 /* BKImage.bundle in Resources */,
 				1DB1787720EDAD9100BA7652 /* Assets.xcassets in Resources */,
+				1DFA10312178697D009EECF3 /* 3.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,6 +1274,7 @@
 				1DB852AC2177167D00F0BF03 /* BKCalendarViewCell.m in Sources */,
 				1D45CACC20FC6892003C7BA4 /* BKImageAlbumListTableViewCell.m in Sources */,
 				1D45CAB420FC6892003C7BA4 /* BKEditImageViewController.m in Sources */,
+				1DB852C6217735AF00F0BF03 /* BKPhotoBrowserIndicator.m in Sources */,
 				1D0294C220F6058700D75606 /* BKTabBarBtn.m in Sources */,
 				1D3AA77E20F740FA0010FBB5 /* BKPercentDrivenInteractiveTransition.m in Sources */,
 				1D8AB8B321216EC600032629 /* BKCameraRecordProgress.m in Sources */,
@@ -1215,9 +1282,12 @@
 				1D3AA77B20F740FA0010FBB5 /* UINavigationController+BKNavExtension.m in Sources */,
 				1DB852AD2177167D00F0BF03 /* NSDate+BKCalendar.m in Sources */,
 				1D45CB0420FC8328003C7BA4 /* BKImageBaseViewController.m in Sources */,
+				1DB852C2217735AF00F0BF03 /* BKPhotoBrowserCollectionViewCell.m in Sources */,
+				1DB852C4217735AF00F0BF03 /* BKPhotoBrowserTransitionAnimater.m in Sources */,
 				1D45CAA820FC6892003C7BA4 /* UIImage+BKImagePicker.m in Sources */,
 				1D0294AF20F5FCEA00D75606 /* BKScrollView.m in Sources */,
 				1D45CAB620FC6892003C7BA4 /* BKEditImagePreviewCollectionViewFlowLayout.m in Sources */,
+				1DB852C7217735AF00F0BF03 /* BKPhotoBrowserActionSheetView.m in Sources */,
 				1D45CAA720FC6892003C7BA4 /* UIView+BKImagePicker.m in Sources */,
 				1D45CACB20FC6892003C7BA4 /* BKImageAlbumListModel.m in Sources */,
 				1D6B8FFB20EF10E900BBEAD1 /* NSUserDefaults+BKExtension.m in Sources */,
@@ -1236,10 +1306,12 @@
 				1D45CAB920FC6892003C7BA4 /* BKEditImageDrawView.m in Sources */,
 				1D8AB8B221216EC600032629 /* BKCameraRecordProgressModel.m in Sources */,
 				1D6B900120EF152100BBEAD1 /* BKNetworkRequest.m in Sources */,
+				1DB852C5217735AF00F0BF03 /* BKPhotoBrowserInteractiveTransition.m in Sources */,
 				1DB852AB2177167D00F0BF03 /* BKMonthModel.m in Sources */,
 				1D45CAC320FC6892003C7BA4 /* BKImagePickerCollectionViewCell.m in Sources */,
 				1D45CAB520FC6892003C7BA4 /* BKEditImageDrawModel.m in Sources */,
 				1D6B8FF720EF0C1200BBEAD1 /* BKConstant.m in Sources */,
+				1DB852C1217735AF00F0BF03 /* BKPhotoBrowser.m in Sources */,
 				1D45CABA20FC6892003C7BA4 /* BKEditImageWriteView.m in Sources */,
 				1D3AA78120F7412F0010FBB5 /* BKNavButton.m in Sources */,
 				1D0294A520F5E3F200D75606 /* GTMBase64.m in Sources */,
@@ -1254,11 +1326,13 @@
 				1D45CAC020FC6892003C7BA4 /* BKImageOriginalButton.m in Sources */,
 				1DC9DC6C216B1CE000EA1FD9 /* NSAttributedString+BKExtension.m in Sources */,
 				1D0294BC20F6003300D75606 /* BKTabBarController.m in Sources */,
+				1DB852C3217735AF00F0BF03 /* BKPhotoBrowserCollectionViewFlowLayout.m in Sources */,
 				1D8AB8BD2121744F00032629 /* BKCameraRecordVideoPreviewViewController.m in Sources */,
 				1D02949820F5DA8100D75606 /* BKRoundedRectView.m in Sources */,
 				1D75217B21227D6200862397 /* BKImagePreviewViewController.m in Sources */,
 				1D0294AB20F5ED2B00D75606 /* UIImage+BKExtension.m in Sources */,
 				1D3AA76520F6F5650010FBB5 /* BKBaseViewController.m in Sources */,
+				1DB87D97217868E500BE1441 /* BKPhotoBrowserDemoViewController.m in Sources */,
 				1DB1789020EDB81A00BA7652 /* NSObject+BKExtension.m in Sources */,
 				1DB1789A20EDFC8000BA7652 /* BKTimerModel.m in Sources */,
 				1D6ED18D2126C5CF00C9E729 /* BKGPUImageBeautyFilter.m in Sources */,
@@ -1327,7 +1401,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1386,7 +1460,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1410,7 +1484,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BKProjectFramework/Utils/Third/IJKMediaFramework",
@@ -1438,7 +1512,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BKProjectFramework/Utils/Third/IJKMediaFramework",

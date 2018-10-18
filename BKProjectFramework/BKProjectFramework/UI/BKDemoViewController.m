@@ -8,6 +8,7 @@
 
 #import "BKDemoViewController.h"
 #import "BKImagePickerViewController.h"
+#import "BKPhotoBrowserDemoViewController.h"
 
 NSString * const kRegisterTableViewCellID = @"UITableViewCell";
 NSString * const kRegisterTableViewHeaderID = @"UITableViewHeaderView";
@@ -26,7 +27,8 @@ NSString * const kRegisterTableViewHeaderID = @"UITableViewHeaderView";
     if (!_dataArr) {
         _dataArr = @[@{@"title":@"相机/图库", @"data":@[@"拍照",@"照片选择",@"拍小视频"]},
                      @{@"title":@"选取器", @"data":@[@"单项选择",@"三级联动",@"选取时间格式YYYY MM dd",@"选取时间格式"]},
-                     @{@"title":@"日历", @"data":@[@"日历"]}];
+                     @{@"title":@"日历", @"data":@[@"日历"]},
+                     @{@"title":@"图片选取器", @"data":@[@"图片选取器"]}];
     }
     return _dataArr;
 }
@@ -249,6 +251,20 @@ NSString * const kRegisterTableViewHeaderID = @"UITableViewHeaderView";
                 {
                     BKCalendarViewController * vc = [[BKCalendarViewController alloc] init];
                     [self presentViewController:vc animated:YES completion:nil];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 3:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    BKPhotoBrowserDemoViewController * vc = [[BKPhotoBrowserDemoViewController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 default:

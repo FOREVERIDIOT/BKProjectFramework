@@ -7,7 +7,6 @@
 //
 
 #import "UIImageView+BKExtension.h"
-#import "UIImageView+WebCache.h"
 
 @implementation UIImageView (BKExtension)
 
