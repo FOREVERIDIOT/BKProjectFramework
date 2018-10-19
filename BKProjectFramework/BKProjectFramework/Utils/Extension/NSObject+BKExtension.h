@@ -69,7 +69,7 @@
 -(BOOL)haveInstanceMethod:(NSString *)method;
 
 /**
- 发送消息调用方法 调用前必须保证对象中包含即将调用方法 如果没有会崩溃 也可以调用该方法前先调用haveInstanceMethod检测方法
+ 发送消息调用方法
  
  @param methodName 方法名称
  @param object 方法参数

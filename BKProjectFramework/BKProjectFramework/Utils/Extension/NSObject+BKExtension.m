@@ -164,7 +164,7 @@
 }
 
 /**
- 发送消息调用方法 调用前必须保证对象中包含即将调用方法 如果没有会崩溃 也可以调用该方法前先调用haveInstanceMethod检测方法
+ 发送消息调用方法
  
  @param methodName 方法名称
  @param object 方法参数
@@ -172,14 +172,23 @@
  */
 -(id)messageSend:(NSString*)methodName methodParams:(id)object,...NS_REQUIRES_NIL_TERMINATION
 {
-//    在这个方法里检测是否包含该方法 会导致objc_msgSend方法崩溃 未知
-//    BOOL flag = [self haveInstanceMethod:methodName];
-//    if (!flag) {
-//        return nil;
-//    }
-    SEL selector = NSSelectorFromString(methodName);
-    id result = objc_msgSend(self, selector, object);
-    return result;
+    SEL selector = nil;
+    u_int count = 0;
+    Method * methods = class_copyMethodList([self class], &count);
+    for (int i = 0; i < count; i++) {
+        SEL aMethodName  = method_getName(methods[i]);
+        NSString * methodString = NSStringFromSelector(aMethodName);
+        if ([methodName isEqualToString:methodString]){
+            selector = aMethodName;
+            break;
+        }
+    }
+    free(methods);
+    if (selector) {
+        NSData * data = ((id (*)(id, SEL, id))objc_msgSend)(self, selector, object);
+        return data;
+    }
+    return nil;
 }
 
 @end

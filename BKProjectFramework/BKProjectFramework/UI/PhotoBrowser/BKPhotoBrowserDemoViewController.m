@@ -63,8 +63,6 @@
 
 -(void)buttonClick:(UIButton*)button
 {
-    self.statusBarHidden = YES;
-    
     BKPhotoBrowser * photoBrowser = [[BKPhotoBrowser alloc]init];
     photoBrowser.delegate = self;
     photoBrowser.allImageCount = [imageArr count];
